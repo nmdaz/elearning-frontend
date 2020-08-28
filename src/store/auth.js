@@ -6,6 +6,7 @@ export default {
         user: null,
         apiUrl: 'http://elearning.test/api',
         home: 'http://localhost:8080/home',
+        passwordResetCallbackUrl: 'http://localhost:8080/dist'
     },
 
     getters: {

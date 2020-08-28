@@ -5,6 +5,8 @@ import Register from '@/views/Register.vue'
 import Login from '@/views/Login.vue'
 import Home from '@/views/Home.vue'
 import UserCourse from '@/views/UserCourse.vue'
+import ForgotPassword from '@/views/ForgotPassword'
+import PasswordReset from '@/views/PasswordReset'
 import store from '../store';
 
 
@@ -28,9 +30,7 @@ const routes = [
         path: '/login',
         name: 'Login',
         component: Login,
-        meta: {
-            redirectIfAuth: true
-        }
+        meta: { redirectIfAuth: true }
     },
     {
         path: '/home',
@@ -43,7 +43,18 @@ const routes = [
         name: 'UserCourse',
         component: UserCourse,
         meta: { requiresAuth: true }
-    }
+    },
+    {
+        path: '/forgot-password',
+        name: 'ForgotPassword',
+        component: ForgotPassword
+    },
+    {
+        path: '/password/reset/:token',
+        name: 'PasswordReset',
+        component: PasswordReset,
+        props: true
+    },
 ]
 
 const router = new VueRouter({

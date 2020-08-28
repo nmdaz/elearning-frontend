@@ -1,90 +1,112 @@
 <template>
 <div class="navbar">
-	<div class="navbar__brand">
-		Elearning
-	</div>
-	<div @click="toggleLinks" class="navbar__toggler navbar__toggler--hidden">
-		=
-	</div>
-	<ul v-bind:class="{ navbar__links: true, 'navbar__links--show': showLinks   }">
-		<li class="navbar__item">
-			About
-		</li>
-		<li class="navbar__item">
-			Contact
-		</li>
-		<li class="navbar__item">
-			Account
-		</li>
-	</ul>
+    <div class="navbar__brand">
+        <router-link class="navbar__link" to="#">Elearning</router-link>
+    </div>
+    <div @click="toggleLinks" class="navbar__toggler navbar__toggler--hidden">
+        =
+    </div>
+    <ul v-bind:class="{ 'navbar__link-list': true, 'navbar__link-list--show': showLinks }">
+        <li class="navbar__item">
+            <router-link class="navbar__link" to="/about">About</router-link>
+        </li>
+        <li class="navbar__item">
+            <router-link class="navbar__link" to="/contact">Contact</router-link>
+        </li>
+        <li v-if="!authenticated" class="navbar__item">
+            <router-link class="navbar__link" to="/login">Login</router-link>
+        </li>
+        <li v-if="!authenticated" class="navbar__item">
+            <router-link class="navbar__link" to="/register">Register</router-link>
+        </li>
+        <li v-if="authenticated" class="navbar__item">
+            <router-link class="navbar__link" to="/logout">Logout</router-link>
+        </li>
+    </ul>
 </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
-	name: 'Navbar',
-	data() {
-		return {
-			showLinks: false
-		}
-	},
-	methods: {
-		toggleLinks() {
-			this.showLinks = !this.showLinks;
-		}
-	}
+    name: 'Navbar',
+    data() {
+        return {
+            showLinks: false
+        }
+    },
+    methods: {
+        toggleLinks() {
+            this.showLinks = !this.showLinks;
+        }
+    },
+    computed: {
+        ...mapGetters({
+            authenticated: 'auth/authenticated'
+        })
+    }
 }
 </script>
 
 <style lang="scss" scoped>
 .navbar {
-	padding: 1rem;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	background-color: #333;
-	color: #fff;
-	font-size: .9rem;
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: white;
+    color: #cccaca;
+    font-size: 0.9rem;
+    box-shadow: 1px 1px 5px 0px;
 
-	.navbar__toggler--hidden {
-		display: none;
-	}
+    &__toggler {
+        cursor: pointer;
+        color: #806f6f;
+    }
 
-	.navbar__links {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		display: flex;
-	}
+    &__toggler--hidden {
+        display: none;
+    }
 
-	.navbar__item {
-		margin-right: .5rem;
-	}
+    &__link-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    &__item {
+        margin-right: .5rem;
+    }
+
+    &__link {
+        color: #806f6f;
+    }
 }
 
 @media screen and (max-width: 500px) {
-	.navbar {
-		.navbar__toggler {
-			display: block;
-		}
+    .navbar {
+        &__toggler {
+            display: block;
+        }
 
-		.navbar__links {
-			display: none;
-		}
+        &__link-list {
+            display: none;
+        }
 
-		.navbar__links--show {
-			flex-basis: 100%;
-			display: flex;
-			flex-direction: column;
-			margin-top: .8rem;
-			border-top: 1px solid white;
+        &__link-list--show {
+            flex-basis: 100%;
+            display: flex;
+            flex-direction: column;
+            margin-top: .8rem;
+            border-top: 1px solid #DDD;            
+        }
 
-			.navbar__item {
-				margin-top: .8rem;
-				font-size: .8rem;
-			}
-		}
-	}
+        &__item {
+            margin-top: .8rem;
+        }
+    }
 }
 
 </style>

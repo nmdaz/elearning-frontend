@@ -37,6 +37,7 @@
 <script>
 import CommentItem from '@/components/CommentItem';
 import AddComment from '@/components/AddComment';
+import { mapState } from 'vuex';
 
 export default {
     components: {
@@ -46,10 +47,16 @@ export default {
     name: 'UserCourse',
     data() {
         return {
-            user: this.$store.state.user,
+            courseId: undefined,
             course: null,
             currentLesson: null,
         }
+    },
+    computed: {
+        ...mapState({
+            apiUrl: state => state.server.apiUrl,
+            user: state => state.auth.user
+        }),
     },
     methods: {
         lessonClick(lesson) {
@@ -79,26 +86,24 @@ export default {
             })
             .catch( (error) => {
                 console.log(error);
-            })
+            })           
+        },
 
-            
+        async fetchCourses() {
+            try {
+                const url = `${this.apiUrl}/users/${this.user.id}/courses/${this.courseId}`;
+                const response = await window.axios.get(url);
+                this.course = response.data.course;
+                this.currentLesson = this.course.sections[0].lessons[0];
+            }
+            catch (error) {
+               console.log(error);
+            }
         }
     },
     mounted() {
-        let courseId = this.$route.params.id;
-
-        let url = this.$store.state.serverApi;
-        url += '/users/' + this.$store.state.user.id;
-        url += '/courses/' + courseId;
-
-        window.axios.get(url)
-        .then( (response) => {
-            this.course = response.data.course;
-            this.currentLesson = this.course.sections[0].lessons[0];
-        })
-        .catch( (error) => {
-            console.log(error);
-        })
+        this.courseId = this.$route.params.id;
+        this.fetchCourses();
     }
 }
 </script>
