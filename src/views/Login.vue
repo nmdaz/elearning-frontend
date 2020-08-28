@@ -1,18 +1,18 @@
 <template>
     <div class="login-view">
-        <form class="login-form" @submit.prevent="submit">
-
+        <BasicForm class="login-view__form" @submit="submit" legend="Login">
             <InputGroup  
-                class="login-form__control-group"
+                class="login-view__control-group"
                 v-model="email"
                 label="Email"
                 type="email" 
                 ref="email"
                 :error="error.email"
+                placeholder="youremail@mail.com"
             />
 
             <InputGroup  
-                class="login-form__control-group"
+                class="login-view__control-group"
                 v-model="password"
                 label="Password"
                 type="password" 
@@ -20,13 +20,14 @@
                 :error="error.password"
             />
 
-            <BaseButton type="submit" text="Login" class="login-form__button" />    
+            <BaseButton type="submit" text="Login" class="login-view__button" />    
 
-            <small v-if="error.server" class="login-form__error">
+            <small v-if="error.server" class="login-view__error">
                     {{ error.server }}
             </small>        
 
-        </form>
+            <router-link class="forgot-password-link" :to="{ name: 'ForgotPassword' }"> Forgot Password? </router-link>
+        </BasicForm>
     </div>
 </template>
 
@@ -34,9 +35,10 @@
 
 import BaseButton from '@/components/base/BaseButton';
 import InputGroup from '@/components/InputGroup';
+import BasicForm from '@/components/BasicForm';
 
 export default {
-    components: { BaseButton, InputGroup },
+    components: { BaseButton, InputGroup, BasicForm },
     data() {
         return {
             error: { email: '', password: '', server: '' },
@@ -99,29 +101,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    
-    .login-view {
-        margin-top: 2rem;
-        padding: 2rem;
+.login-view {
+    margin-top: 2rem;
+    padding: 2rem;
+
+    &__control-group {
+        margin-bottom: 1rem;
     }
 
-    .login-form {
-        padding: 1rem;
-        max-width: 500px;
-        margin: auto;
-
-        .login-form__control-group {
-            margin-bottom: 1rem;
-        }
-
-        .login-form__error {
-            display: block;
-            margin-bottom: 1rem;
-            color: red;
-        }
-
-        .login-form__button {
-            margin-bottom: 1rem;
-        }
+    &__error {
+        display: block;
+        margin-bottom: 1rem;
+        color: red;
     }
+
+    &__button {
+        margin-bottom: 1rem;
+    }
+}
+
+.forgot-password-link {
+    display: block;
+    font-size: 0.8rem;
+    text-decoration: none;
+    color: #636060;
+}
 </style>

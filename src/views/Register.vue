@@ -1,7 +1,8 @@
 <template>
 	<div class="register-view">
-		<form class="register-form" @submit.prevent="register">
+		<BasicForm class="register-view__form" legend="Register an Account" @submit="register">
 			<InputGroup
+				class="register-view__input-group"
 				label="Name"
 				type="text"
 				v-model="name"
@@ -9,6 +10,7 @@
 			/>
 
 			<InputGroup
+				class="register-view__input-group"
 				label="Email"
 				type="email"
 				v-model="email"
@@ -16,6 +18,7 @@
 			/>
 
 			<InputGroup
+				class="register-view__input-group"
 				label="Password"
 				type="password"
 				v-model="password"
@@ -23,24 +26,26 @@
 			/>
 
 			<InputGroup
+				class="register-view__input-group"
 				label="Confirm Password"
 				type="password"
 				v-model="password_confirmation"
 				:error="error.password_confirmation"
 			/>
 
-			<BaseButton type="submit" text="Register" />
-		</form>
+			<BaseButton class="register-view__button" type="submit" text="Register" />
+		</BasicForm>
 	</div>
 </template>
 
 <script>
 import BaseButton from '@/components/base/BaseButton';
 import InputGroup from '@/components/InputGroup';
+import BasicForm from '@/components/BasicForm';
 
 export default {
 	name: 'register',
-	components: { InputGroup, BaseButton },
+	components: { InputGroup, BaseButton, BasicForm },
 	data() {
 		return {
 			error: {
@@ -94,40 +99,12 @@ export default {
 </script>
 
 <style lang="scss">
-
 .register-view {
 	margin-top: 2rem;
 	padding: 2rem;
-}
 
-.register-form {
-	padding: 1rem;
-	max-width: 500px;
-	margin: auto;
-
-	.register-form__control-group {
-		display: flex;
-		flex-direction: column;
-		margin-bottom: 2rem;
-	}
-
-	.register-form__label {
-		font-size: .8rem;
-		margin-bottom: .2rem;
-		color: #444;
-	}
-
-	.register-form__input {
-		padding: .4rem;
-		border-width: 0 0 1px 0;
-	}
-
-	.register-form__error {
-		margin-top: .2rem;
-		color: red;
+	&__input-group {
+		margin-bottom: 1rem;
 	}
 }
-
-
-
 </style>

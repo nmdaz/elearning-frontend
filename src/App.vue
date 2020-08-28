@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Navbar />
+    <Navbar class="header-block" />
     <router-view/>
   </div>
 </template>
@@ -17,18 +17,5 @@ export default {
 </script>
 
 <style lang="scss">
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-html {
-    font-size: 16px;
-    letter-spacing: .15rem;
-    font-family: Helvetica, Arial;
-}
-
+@import '@/css/_global.scss';
 </style>

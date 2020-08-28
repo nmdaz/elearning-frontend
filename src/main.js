@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 
+axios.defaults.headers.common.Accept = 'application/json';
 window.axios = axios;
 
 Vue.config.productionTip = false
