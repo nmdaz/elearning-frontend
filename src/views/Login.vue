@@ -46,6 +46,9 @@ export default {
             password: ''
         }
     },
+    mounted() {
+        console.log(this);
+    },
     methods: {
         submit() {
             this.resetErrors();
@@ -63,6 +66,11 @@ export default {
                     email: this.email,
                     password: this.password
                 })
+
+                if (this.$route.params.redirect) {
+                    this.$router.push(this.$route.params.redirect);
+                    return;
+                }
 
                 this.$router.push({ name: 'Home' });
             } 

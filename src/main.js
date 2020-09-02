@@ -4,6 +4,19 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { 
+	faBars, faPlay, faBookReader, faArrowCircleRight, 
+	faChevronDown, faChevronUp, faChevronLeft, 
+	faChevronRight, faList, faCircle ,
+	faHeart, faAngry
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+library.add(faBars, faPlay, faBookReader, faArrowCircleRight, faChevronDown, faChevronUp, faChevronLeft, faChevronRight, faList, faCircle, faHeart, faAngry)
+ 
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+
 axios.defaults.headers.common.Accept = 'application/json';
 window.axios = axios;
 

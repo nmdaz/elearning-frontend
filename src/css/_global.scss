@@ -1,23 +1,68 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    list-style: none;
+
+@font-face {
+  font-family: OpenSans;
+  src: url('/../assets/fonts/OpenSans-Regular.ttf');
 }
 
-html {
-    font-size: 16px;
-    letter-spacing: .15rem;
-    font-family: Helvetica, Arial;
+@font-face {
+  font-family: OpenSans;
+  src: url('/../assets/fonts/OpenSans-Bold.ttf');
+  font-weight: bold;
 }
 
-a {
-    text-decoration: none;
-    color: inherit;
+html, body {
+    font-size: 20px;
+    letter-spacing: 0.02rem;
+    font-family: OpenSans, Helvetica, Arial;
+    line-height: 1.25rem;
+    color: #444;
 }
 
-ul, li {
-	list-style: none;
-	margin: 0;
-	padding: 0;
+h1, h2, h3, h4, h5, h6 {
+	color: #222;
 }
+
+h1 {
+	font-size: 1.5rem;
+}
+
+h2 {
+	font-size: 1.4rem;
+}
+
+.l-flex {
+    display: flex;
+}
+
+.l-flex--space-between {
+	justify-content: space-between;
+}
+
+.l-flex--space-around {
+	justify-content: space-around;
+}
+
+.l-flex--align-items-center {
+  align-items: center;
+}
+
+.w-100 {
+	width: 100%;
+}
+
+.pd-1rem {
+    padding: 1rem;
+}
+
+.pd-2rem {
+    padding: 2rem;
+}
+
+.mb-1rem {
+	margin-bottom: 1rem;
+}
+
+.mb-2rem {
+	margin-bottom: 2rem;
+}
+

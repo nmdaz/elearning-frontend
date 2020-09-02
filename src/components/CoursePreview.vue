@@ -13,15 +13,23 @@
         </router-link>
 
         <div class="course-preview__text">{{ description }}</div>
+
+        <router-link 
+            :to="url"
+        >
+            <BaseButton text="Watch Now" />
+        </router-link>
     </div>
 </template>
 
 <script>
+import BaseButton from '@/components/base/BaseButton';
 export default {
     name: 'CoursePreview',
     props: [
         'title', 'cover', 'description', 'url'
     ],
+    components: { BaseButton },
     data() {
         return {
 
@@ -37,19 +45,21 @@ export default {
 
     .course-preview__cover {
         width: 100%;
-        margin-bottom: .5rem;
+        margin-bottom: 1rem;
     }
 
     .course-preview__title {
         font-size: 1.2rem;
         display: block;
-        margin-bottom: .2rem;
+        margin-bottom: .5rem;
         text-decoration: none;
-        color: inherit;
+        color: #008051;
+        letter-spacing: .02rem;
     }
 
     .course-preview__text {
         font-size: .9rem;
+        margin-bottom: 1rem;
     }
 }
 </style>
