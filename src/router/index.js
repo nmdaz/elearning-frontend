@@ -7,7 +7,9 @@ import Home from '@/views/Home.vue'
 import UserCourse from '@/views/UserCourse.vue'
 import ForgotPassword from '@/views/ForgotPassword'
 import PasswordReset from '@/views/PasswordReset'
-import store from '../store';
+import CoursePlayer from '@/views/CoursePlayer'
+import Courses from '@/views/Courses'
+import store from '../store'
 
 
 Vue.use(VueRouter)
@@ -27,7 +29,7 @@ const routes = [
         }
     },
     {
-        path: '/login',
+        path: '/login/:redirect?',
         name: 'Login',
         component: Login,
         meta: { redirectIfAuth: true }
@@ -37,6 +39,11 @@ const routes = [
         name: 'Home',
         component: Home,
         meta: { requiresAuth: true }
+    },
+    {
+        path: '/courses',
+        name: 'Courses',
+        component: Courses
     },
     {
         path: '/mycourses/course/:id',
@@ -55,6 +62,12 @@ const routes = [
         component: PasswordReset,
         props: true
     },
+    {
+        path: '/course-player/:courseId',
+        name: 'CoursePlayer',
+        component: CoursePlayer,
+        props: true
+    },
 ]
 
 const router = new VueRouter({
@@ -64,6 +77,10 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+
+    if (store.state.navbar)
+        store.state.navbar.showLeftToggler = false;
+
     //browser refresh or manual url enter
     if (from.path === '/' && from.name === null) 
         store.commit('auth/refreshAuthFromSession');
@@ -83,5 +100,6 @@ router.beforeEach((to, from, next) => {
 
     next();
 })
+
 
 export default router

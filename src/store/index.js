@@ -9,6 +9,7 @@ export default new Vuex.Store({
 	state: {
 		apiUrl: 'http://elearning.test/api',
         home: 'http://localhost:8080/home',
+        navbar: null
 	},
 	modules: {
 		auth,

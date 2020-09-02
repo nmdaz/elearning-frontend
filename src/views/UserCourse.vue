@@ -7,7 +7,7 @@
             <h3 class="course-viewer__section-name">{{ section.name }}</h3>
 
             <div v-bind:class="['course-viewer__lesson', { active: lesson.id == currentLesson.id }]" v-for="lesson in section.lessons" :key="lesson.id">
-                <p @click="lessonClick(lesson)" class="course-viewer__lesson-name">{{ 'Video: ' + lesson.name }}</p>
+                <p @click="lessonClick(lesson)" class="course-viewer__lesson-name">{{ lesson.name }}</p>
             </div>
 
         </div>
@@ -21,14 +21,16 @@
             <h3 class="lesson-viewer__name">{{ currentLesson.name }}</h3>
             <p class="lesson-viewer__description">{{ currentLesson.description }}</p>
         </div>
-        <AddComment @submit="addComment" />
-        <div v-for="comment in currentLesson.comments" :key="comment.id">
-            <CommentItem
-                :author="comment.user_name"
-                :date="comment.created_at"
-                :cover="require('@/assets/img/cover-placeholder.jpg')"
-                :content="comment.body"
-            />
+        <div class="lesson-viewer__comments">   
+            <AddComment @submit="addComment" />
+            <div v-for="comment in currentLesson.comments" :key="comment.id">
+                <CommentItem
+                    :author="comment.user_name"
+                    :date="comment.created_at"
+                    :cover="require('@/assets/img/cover-placeholder.jpg')"
+                    :content="comment.body"
+                />
+            </div>
         </div>
     </div>
 </div>
@@ -62,31 +64,17 @@ export default {
         lessonClick(lesson) {
             this.currentLesson = lesson;
         },
-        addComment(newComment) {
-            window.axios.post(`${this.$store.state.serverApi}/lessons/${this.currentLesson.id}/comments`, { body: newComment })
-            .then( (response) => {
-                console.log(response);
+       async addComment(newComment) {
 
-                let courseId = this.$route.params.id;
+            try {
+                const url = `${this.apiUrl}/lessons/${this.currentLesson.id}/comments`;
+                window.axios.post(url, { body: newComment });
 
-                let url = this.$store.state.serverApi;
-                url += '/users/' + this.$store.state.user.id;
-                url += '/courses/' + courseId;
-
-                window.axios.get(url)
-                .then( (response) => {
-                    console.log(response);
-                    this.course = response.data.course;
-                    this.currentLesson = this.course.sections[0].lessons[0];
-                    console.log([this.currentLesson]);
-                })
-                .catch( (error) => {
-                    console.log(error);
-                })
-            })
-            .catch( (error) => {
+                this.fetchCourses();
+            }
+            catch (error) {
                 console.log(error);
-            })           
+            }    
         },
 
         async fetchCourses() {
@@ -118,12 +106,14 @@ export default {
     display: flex;
 
     &__controls {
-        letter-spacing: .01rem;
+        letter-spacing: 0.01rem;
         font-family: Roboto;
-        padding: .5rem;
+        padding: 0.5rem;
         max-width: 300px;
         min-height: 100vh;
-        background-color: #EEE;
+        background-color: #fff;
+        box-shadow: 1px 17px 6px 0px;
+        color: #00000061;
 
         @media only screen and (max-width: 800px) {
             display: none;
@@ -134,15 +124,22 @@ export default {
     &__title {
         font-size: 1.2rem;
         margin-top: .5rem;
-        margin-bottom: .5rem;
+        margin-bottom: 1rem;
+        color: #1a9c4e;
     }
 
     &__section {
-        font-size: .7rem;
         margin-bottom: 1rem;
+        color: #444;
 
         .course-viewer__section-name {
             margin-bottom: .5rem;
+            font-size:  .9rem;
+        }
+
+        .course-viewer__lesson {
+            font-size:  .85rem;
+            margin-bottom:  .5rem;
         }
     }
 
@@ -153,10 +150,15 @@ export default {
         
     }
 
+    .active:before {
+        content: 'Playing Now';
+        font-size: .7rem;
+    }
+
     .active {
-        border: 1px solid black;
-        font-size: 1rem;
-        padding: .1rem;
+        padding: 0.2rem;
+        background-color: #1a9c4e;
+        color: white;
     }
 
     &__lesson-name {
@@ -168,7 +170,7 @@ export default {
     width: 100%;
 
     &__info {
-        padding: .5rem;
+        padding: 1rem;
     }
 
     &__video {
@@ -179,6 +181,10 @@ export default {
 
     &__name {
         margin-bottom: .4rem;
+    }
+
+    &__comments {
+        padding: 1rem;
     }
 }
 

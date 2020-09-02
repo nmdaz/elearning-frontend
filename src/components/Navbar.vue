@@ -1,12 +1,20 @@
 <template>
 <div class="navbar">
+    <div v-if="showLeftToggler"  @click="$emit('toggleMenu')" class="navbar__menu-toggler">
+        <font-awesome-icon :icon="['fas', 'list']" />
+    </div>
     <div class="navbar__brand">
-        <router-link class="navbar__link" to="#">Elearning</router-link>
+        <router-link class="navbar__brand-link" to="/">
+            <font-awesome-icon :icon="['fas', 'book-reader']" />
+        </router-link>
     </div>
     <div @click="toggleLinks" class="navbar__toggler navbar__toggler--hidden">
-        =
+        <font-awesome-icon :icon="['fas', 'bars']" />
     </div>
     <ul v-bind:class="{ 'navbar__link-list': true, 'navbar__link-list--show': showLinks }">
+        <li class="navbar__item">
+            <router-link class="navbar__link" to="/courses">Courses</router-link>
+        </li>
         <li class="navbar__item">
             <router-link class="navbar__link" to="/about">About</router-link>
         </li>
@@ -33,7 +41,8 @@ export default {
     name: 'Navbar',
     data() {
         return {
-            showLinks: false
+            showLinks: false,
+            showLeftToggler: false
         }
     },
     methods: {
@@ -45,11 +54,17 @@ export default {
         ...mapGetters({
             authenticated: 'auth/authenticated'
         })
+    },
+    mounted() {
+        this.$store.state.navbar = this;
+        this.showLeftToggler = false;
     }
 }
 </script>
 
 <style lang="scss" scoped>
+@import '@/css/_mixin.scss';
+
 .navbar {
     padding: 1rem;
     display: flex;
@@ -59,10 +74,19 @@ export default {
     color: #cccaca;
     font-size: 0.9rem;
     box-shadow: 1px 1px 5px 0px;
+    position: relative;
+    align-items: center;
+    z-index: 100;
 
-    &__toggler {
+    &__brand {
+        font-size: 2rem;
+        color: #38bb8e;
+    }
+
+    &__toggler, &__menu-toggler {
         cursor: pointer;
-        color: #806f6f;
+        color: #38bb8e;
+        font-size: 2rem;
     }
 
     &__toggler--hidden {
@@ -83,9 +107,15 @@ export default {
     &__link {
         color: #806f6f;
     }
+
+    .router-link-active {
+        color: #38bb8e;
+        font-weight: bold;
+    }
+
 }
 
-@media screen and (max-width: 500px) {
+@include for-tablet-down {
     .navbar {
         &__toggler {
             display: block;

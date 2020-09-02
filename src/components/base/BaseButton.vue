@@ -1,5 +1,5 @@
 <template>
-	<button class="button" :type="type" @click="click">
+	<button class="base-button" :type="type" @click="click">
 		{{ text }}
 	</button>
 </template>
@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.button {
+.base-button {
 	padding: .6rem 1.5rem;
     background-color: #38bb8e;
     border: none;
@@ -25,5 +25,6 @@ export default {
     letter-spacing: 0.12rem;
     border-radius: 0.2rem;
     font-size: .8rem;
+	cursor: pointer;
 }
 </style>
