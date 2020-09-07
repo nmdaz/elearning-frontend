@@ -1,21 +1,36 @@
 <template>
-<div class="c-comment-item">
-    <div>
-        <div class="c-comment-item__header">
-            <img class="c-comment-item__avatar" :src="cover">
-            <div class="c-comment-item__author">{{ author }}</div>
-            <div class="c-comment-item__date">{{ date }}</div>
-        </div>
-        <div class="c-comment-item__content">
-            {{ content }}
-        </div>
-        <div v-if="canLike" class="c-comment-item__reacts">
-            <font-awesome-icon @click="$emit('like')" :class="['c-comment-item__icon', {'c-comment-item__icon--active':liked}]" :icon="['fas', 'heart']" />
-            <span class="c-comment-item__count"> x{{ likes }} </span>
-            <font-awesome-icon @click="$emit('dislike')" :class="['c-comment-item__icon', {'c-comment-item__icon--active':disliked}]" :icon="['fas', 'angry']" />
-            <span class="c-comment-item__count"> x{{ dislikes }} </span>
-        </div>
+<div class="comment-item">
+    <div class="comment-item__header">
+        <img class="comment-item__avatar" :src="cover">
+        <div class="comment-item__author">{{ author }}</div>
+        <div class="comment-item__date">{{ date }}</div>
     </div>
+
+    <div class="comment-item__content">
+        {{ content }}
+    </div>
+    
+    <div v-if="canLike" class="comment-item__reacts">
+        <font-awesome-icon 
+            @click="$emit('like')" 
+            :class="['comment-item__icon', {'comment-item__icon--active':liked}]" 
+            :icon="['fas', 'heart']" 
+        />
+
+        <span class="comment-item__count"> x {{ likes }} </span>
+
+        <font-awesome-icon 
+            @click="$emit('dislike')" 
+            :class="['comment-item__icon', {'comment-item__icon--active':disliked}]" 
+            :icon="['fas', 'angry']" 
+        />
+
+        <span class="comment-item__count"> x{{ dislikes }} </span>
+
+        <div class="comment-item__add-reply" @click="$emit('reply')">Reply</div>
+    </div>
+
+    <slot></slot>
 </div>
 </template>
 
@@ -30,8 +45,7 @@ export default {
 
 <style lang="scss">
 
-.c-comment-item {
-    display: flex;
+.comment-item {
     margin-bottom: 1rem;
     border: 1px solid #DDD;
     padding: 1rem;
@@ -82,6 +96,11 @@ export default {
     &__count {
         margin-right: .5rem;
         font-size:  .6rem;
+    }
+
+    &__add-reply {
+        font-size: .7rem;
+        cursor: pointer;
     }
 }
     

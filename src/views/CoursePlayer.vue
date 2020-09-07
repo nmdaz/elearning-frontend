@@ -2,7 +2,7 @@
 <PageLoader v-if="!course" text="Please wait white page is loading" />
 <div v-else class="l-flex">
     <SlideFade>
-        <div v-if="showSidebar" class="c-sidebar" ref="sidebar">
+        <div v-if="showSidebar" class="sidebar" ref="sidebar">
 
             <HeaderGroup 
                 :src="'data:' + course.cover_image_mime_type + ';base64,' + course.cover_image" 
@@ -11,7 +11,7 @@
 
             <div
                 v-for="section in course.sections" :key="section.id"
-                class="c-section"
+                class="section"
             >
 
                 <SectionHeader 
@@ -32,8 +32,8 @@
         </div>
     </SlideFade>
 
-    <div class="c-content">
-        <div class="c-video">
+    <div class="content">
+        <div class="video">
             
         </div>
 
@@ -45,25 +45,48 @@
             <TextLink 
                 v-else
                 left-text="Please"
-                src-text="Login"
+                srtext="Login"
                 right-text="to add comments"
                 class="mb-2rem"
+                srcText="Login"
                 :src="{ name: 'Login', params: { redirect: $route.path  }}"
             />
 
-            <CommentItem v-for="comment in currentLesson.comments" :key="comment.id"
+            <CommentItem 
+                v-for="comment in currentLesson.comments" 
+                :key="comment.id"
+                :ref="'commentItem' + comment.id"
                 :author="comment.user_name"
                 :date="comment.created_at"
                 :cover="require('@/assets/img/cover-placeholder.jpg')"
                 :content="comment.body"
-                @like="isLiked(comment) ? unlikeComment(comment) :likeComment(comment)"
-                @dislike="isDisliked(comment) ? unlikeComment(comment) :dislikeComment(comment)"
                 :can-like="authenticated"
                 :liked="authenticated ? isLiked(comment) : ''"
                 :disliked="authenticated ? isDisliked(comment) : ''"
                 :likes="comment.likes.length"
                 :dislikes="comment.dislikes.length"
-            />
+                @like="isLiked(comment) ? unlikeComment(comment) : likeComment(comment)"
+                @dislike="isDisliked(comment) ? unlikeComment(comment) : dislikeComment(comment)"
+                @reply="reply(comment)"
+            >
+
+                <NewReply 
+                    v-if="newReplyComment == comment" 
+                    class="course-player__new-reply" 
+                    @submit="submitReply"
+                    @cancel="cancelReply"
+                />
+
+                <ReplyItem 
+                    v-for="reply in comment.replies" 
+                    class="course-player__reply-item" 
+                    :key="reply.id"
+                    :avatar="require('@/assets/img/cover-placeholder.jpg')"
+                    :author="reply.user.name"
+                    :date="reply.created_at"
+                    :content="reply.body"
+                />
+            </CommentItem>
         </div>
     </div>
 </div>
@@ -74,18 +97,30 @@ import AddComment from '@/components/AddComment';
 import CommentItem from '@/components/CommentItem';
 import TextLink from '@/components/TextLink';
 import { mapState, mapGetters } from 'vuex';
-import SlideFade from '@/components/transitions/SlideFade'
-import PageLoader from '@/components/PageLoader'
+import SlideFade from '@/components/transitions/SlideFade';
+import PageLoader from '@/components/PageLoader';
 
-import HeaderGroup from '@/components/player/HeaderGroup'
-import SectionHeader from '@/components/player/SectionHeader'
-import SectionBody from '@/components/player/SectionBody'
-import LessonControls from '@/components/player/LessonControls'
+import HeaderGroup from '@/components/player/HeaderGroup';
+import SectionHeader from '@/components/player/SectionHeader';
+import SectionBody from '@/components/player/SectionBody';
+import LessonControls from '@/components/player/LessonControls';
+import NewReply from '@/components/player/NewReply';
+import ReplyItem from '@/components/player/ReplyItem';
 
 export default {
     name: 'CoursePlayer',
     components: {
-        AddComment, CommentItem, TextLink, SlideFade, PageLoader, HeaderGroup, SectionHeader, SectionBody, LessonControls
+        AddComment, 
+        CommentItem, 
+        TextLink, 
+        SlideFade, 
+        PageLoader, 
+        HeaderGroup, 
+        SectionHeader, 
+        SectionBody, 
+        LessonControls,
+        NewReply,
+        ReplyItem
     },
     data() {
         return {
@@ -93,7 +128,9 @@ export default {
             course: null,
             currentLesson: null,
             currentSection: null,
-            showSidebar: true
+            showSidebar: true,
+            showNewReply: false,
+            newReplyComment: null
         }
     },
     computed: {
@@ -219,6 +256,28 @@ export default {
 
             return isDisliked;
         },
+
+        reply(comment) {
+            this.newReplyComment = comment;
+        },
+
+        async submitReply(reply) {
+            let url = `${this.apiUrl}/comments/${this.newReplyComment.id}/replies`;
+
+            try {
+                await window.axios.post(url, { body: reply });
+                this.newReplyComment = null;
+                this.fetchCourses();
+            }
+            catch (errors) {
+                console.log([errors]);
+            }
+            
+        },
+
+        cancelReply() {
+            this.newReplyComment = null;
+        }
     }
 }
 </script>
@@ -226,7 +285,7 @@ export default {
 <style lang="scss" scoped>
 @import '@/css/_mixin.scss';
 
-.c-sidebar {
+.sidebar {
     min-width: 350px;
     max-width: 350px;
     width: 350px;
@@ -241,23 +300,25 @@ export default {
 }
 
 
-.c-section {
+.section {
     padding: .5rem;
     color: #444;
     border-bottom: 1px solid #38bb8e;
 }
 
-.c-content {
+.content {
     width: 100%;
 }
 
-.c-video {
+.video {
     background-color: black;
     height: 400px;
     width: 100%;
 }
 
-
-
+.course-player__reply-item {
+    margin-left: 1rem;
+    margin-top: .5rem;
+}
 
 </style>
