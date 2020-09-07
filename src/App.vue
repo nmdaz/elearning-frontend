@@ -20,4 +20,6 @@ export default {
 @import '@/css/_reset.scss';
 @import '@/css/_global.scss';
 
+
+
 </style>

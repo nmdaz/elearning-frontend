@@ -1,14 +1,9 @@
 
 @font-face {
-  font-family: OpenSans;
-  src: url('/../assets/fonts/OpenSans-Regular.ttf');
+  font-family: 'OpenSans';
+  src: url('assets/fonts/OpenSans-Bold.ttf') format('truetype');
 }
 
-@font-face {
-  font-family: OpenSans;
-  src: url('/../assets/fonts/OpenSans-Bold.ttf');
-  font-weight: bold;
-}
 
 html, body {
     font-size: 20px;

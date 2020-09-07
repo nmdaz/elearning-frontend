@@ -3,7 +3,7 @@
     <div class="add-comment__content">
         <img class="add-comment__avatar" src="@/assets/img/cover-placeholder.jpg" width="32px">
         <form class="add-comment__form" @submit.prevent="submit">
-            <input class="add-comment__input" ref="input" type="text" name="newComment" v-model="newComment">
+            <input class="add-comment__input" type="text" name="newComment" v-model="newComment">
         </form>
     </div>
     <div class="add-comment__controls">
@@ -17,7 +17,7 @@
 import Button from '@/components/Button';
 
 export default {
-    name: 'AddComment',
+    name: 'AddReply',
     data() {
         return {
             newComment: ''
@@ -33,9 +33,6 @@ export default {
         },
         cancel() {
             this.newComment = '';
-        },
-        focus() {
-            this.refs.input.focus();
         }
     }
 }
