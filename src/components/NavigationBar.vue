@@ -1,34 +1,34 @@
 <template>
-<div class="navbar">
-    <div v-if="showLeftToggler"  @click="$emit('toggleMenu')" class="navbar__menu-toggler">
+<div :class="['navigation-bar', { 'navigation-bar--transparent': transparentMode }]">
+    <div v-if="showLeftToggler"  @click="$emit('toggleMenu')" class="navigation-bar__menu-toggler">
         <font-awesome-icon :icon="['fas', 'list']" />
     </div>
-    <div class="navbar__brand">
-        <router-link class="navbar__brand-link" to="/">
+    <div class="navigation-bar__brand">
+        <router-link class="navigation-bar__brand-link" to="/">
             <font-awesome-icon :icon="['fas', 'book-reader']" />
         </router-link>
     </div>
-    <div @click="toggleLinks" class="navbar__toggler navbar__toggler--hidden">
+    <div @click="toggleLinks" class="navigation-bar__toggler navigation-bar__toggler--hidden">
         <font-awesome-icon :icon="['fas', 'bars']" />
     </div>
-    <ul v-bind:class="{ 'navbar__link-list': true, 'navbar__link-list--show': showLinks }">
-        <li class="navbar__item">
-            <router-link class="navbar__link" to="/courses">Courses</router-link>
+    <ul v-bind:class="{ 'navigation-bar__link-list': true, 'navigation-bar__link-list--show': showLinks }">
+        <li class="navigation-bar__item">
+            <router-link class="navigation-bar__link" to="/courses">Courses</router-link>
         </li>
-        <li class="navbar__item">
-            <router-link class="navbar__link" to="/about">About</router-link>
+        <li class="navigation-bar__item">
+            <router-link class="navigation-bar__link" to="/about">About</router-link>
         </li>
-        <li class="navbar__item">
-            <router-link class="navbar__link" to="/contact">Contact</router-link>
+        <li class="navigation-bar__item">
+            <router-link class="navigation-bar__link" to="/contact">Contact</router-link>
         </li>
-        <li v-if="!authenticated" class="navbar__item">
-            <router-link class="navbar__link" to="/login">Login</router-link>
+        <li v-if="!authenticated" class="navigation-bar__item">
+            <router-link class="navigation-bar__link" to="/login">Login</router-link>
         </li>
-        <li v-if="!authenticated" class="navbar__item">
-            <router-link class="navbar__link" to="/register">Register</router-link>
+        <li v-if="!authenticated" class="navigation-bar__item">
+            <router-link class="navigation-bar__link" to="/register">Register</router-link>
         </li>
-        <li v-if="authenticated" class="navbar__item">
-            <router-link class="navbar__link" to="/logout">Logout</router-link>
+        <li v-if="authenticated" class="navigation-bar__item">
+            <router-link class="navigation-bar__link" to="/logout">Logout</router-link>
         </li>
     </ul>
 </div>
@@ -38,16 +38,21 @@
 import { mapGetters } from 'vuex';
 
 export default {
-    name: 'Navbar',
+    name: 'navigation-bar',
     data() {
         return {
             showLinks: false,
-            showLeftToggler: false
+            showLeftToggler: false,
+            transparentMode: false
         }
     },
     methods: {
         toggleLinks() {
             this.showLinks = !this.showLinks;
+        },
+
+        trans(transparentMode = true) {
+            this.transparentMode = transparentMode;
         }
     },
     computed: {
@@ -65,7 +70,7 @@ export default {
 <style lang="scss" scoped>
 @import '@/css/_mixin.scss';
 
-.navbar {
+.navigation-bar {
     padding: 1rem;
     display: flex;
     flex-wrap: wrap;
@@ -105,18 +110,31 @@ export default {
     }
 
     &__link {
-        color: #806f6f;
+        color: #38bb8e;
     }
 
     .router-link-active {
         color: #38bb8e;
         font-weight: bold;
     }
+}
 
+.navigation-bar--transparent {
+    position: absolute;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: transparent;
+    box-shadow: none;
+
+    .navigation-bar {
+        &__link {
+            color: #38bb8e;
+        }
+    }
 }
 
 @include for-tablet-down {
-    .navbar {
+    .navigation-bar {
         &__toggler {
             display: block;
         }

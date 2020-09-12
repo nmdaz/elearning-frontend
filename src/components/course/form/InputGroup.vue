@@ -34,20 +34,20 @@ export default {
 .input-group {
     display: flex;
     flex-direction: column;
+    font-size: 1rem;
 
     &__label {
-        font-size: .8rem;
-        margin-bottom: .2rem;
+        font-size: .8em;
+        margin-bottom: .2em;
         color: #444;
     }
 
     &__input {
-        padding: .4rem;
+        padding: .4em;
         border-width: 0 0 1px 0;
-        margin-bottom: .5rem;
-        font-size:  1rem;
-        letter-spacing: .18rem;
-        background-color: transparent;
+        margin-bottom: .5em;
+        font-size:  1em;
+        letter-spacing: .18em;
     }
 
     &__input--error {
@@ -55,10 +55,10 @@ export default {
 
     &__error {
         display: block;
-        margin-bottom: 1rem;
+        margin-bottom: 1em;
         color: #962222;
-        letter-spacing: .12rem;
-        font-size: .8rem;
+        letter-spacing: .12em;
+        font-size: .8em;
     }
 }   
 </style>

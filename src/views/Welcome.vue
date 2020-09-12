@@ -1,82 +1,84 @@
 <template>
     <div class="welcome-view">
-        <header class="header">
-            <div class="header__group">
-                <h2>
-                    Teacher or Educators?
-                </h2>
-                <p>
-                    Create your own courses and lesson. Make it public or private. Add homework. Grade your students.
-                </p>
-            </div>
-            <div class="header__group">
-                <h2>
-                    Students
-                </h2>
-                <p>
-                    Enroll to public courses or join private courses by invites
-                </p>
-            </div>
-            <div class="header__group--100">
-                <router-link to="/register" class="hero-header--button">Signup Now</router-link>
+        <header>
+            <div class="hero-header">
+                <img class="hero-header__cover" src="../assets/img/welcome_bg.jpg">
+                <div class="hero-header__content">
+                    <div class="hero-header__title-group">
+                        <h2 class="hero-header__title">
+                            Teacher or Educators?
+                        </h2>
+                        <p class="hero-header__text">
+                            Create your own courses and lesson. Make it public or private and add homework.
+                        </p>
+                    </div>
+                    <div class="hero-header__title-group">
+                        <h2 class="hero-header__title">
+                            Students
+                        </h2>
+                        <p class="hero-header__text">
+                            Enroll to public courses or join private courses by invites
+                        </p>
+                    </div>
+                    <BaseButton @click="register" class="hero-header__button" text="Join Now" />
+                </div>
             </div>
         </header>
     </div>
 </template>
 
+<script>
+import BaseButton from '@/components/base/BaseButton';
+
+export default {
+    name: 'WelcomeView',
+    components: { BaseButton },
+    register() {
+        this.$router.push({name: 'Register' });
+    }
+}
+</script>
+
 <style lang="scss" scoped>
+@import '@/css/_mixin.scss';
 
-.header {
+.hero-header {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    height: 80vh;
+    align-items: center;
+
+    &__cover {
+        width: 500px;
+        padding: 1rem;
+        box-sizing: border-box;
+    }
+
+    &__content {
+        padding: 1rem;
+    }
+
+    &__title-group {
+        margin-bottom: 1rem;
+    }
+
+    &__title {
+        margin-bottom: .5rem;
+        color: #38bb8e;
+    }
+
+    &__text {
+        color: #444;
+    }
 }
 
-.header__group {
-    flex-basis: 50%;
-    max-width: 400px;
-    padding: 1rem;
-    box-sizing: border-box;
-    text-align: center;
+@include for-tablet-down {
+    .hero-header {
+        flex-wrap: wrap;
+
+        &__cover {
+            width: 100%;
+        }
+    }
 }
-
-.header__group--100 {
-    flex-basis: 100%;
-    text-align: center;
-}
-
-// .hero-header {
-//     margin-top: 5rem;
-//     text-align: center;
-
-//     .hero-header--text {
-//         margin-bottom: 1.5rem;
-//     }
-
-//     .hero-header--button {
-//         padding: 0.8rem;
-//         text-decoration: none;
-//         color: inherit;
-//         background-color: #333;
-//         color: white;
-//         border-radius: 0.2rem;
-//         font-size: .8rem;
-//     }
-// }
-
-// @media only screen and (max-width: 500px) {
-//     .hero-header {
-//         font-size: .8rem;
-
-//         .hero-header--text {
-//             margin-bottom: 1rem;
-//         }
-
-//         .hero-header--button {
-//             font-size: .6rem;
-//             padding: .6rem;
-//         }
-//     }
-// }
 
 </style>
