@@ -34,7 +34,6 @@
 
     <div class="content">
         <div class="video">
-            
         </div>
 
         <LessonControls :name="currentLesson.name"/>
@@ -60,15 +59,22 @@
                 :date="comment.created_at"
                 :cover="require('@/assets/img/cover-placeholder.jpg')"
                 :content="comment.body"
-                :can-like="authenticated"
-                :liked="authenticated ? isLiked(comment) : ''"
-                :disliked="authenticated ? isDisliked(comment) : ''"
-                :likes="comment.likes.length"
-                :dislikes="comment.dislikes.length"
-                @like="isLiked(comment) ? unlikeComment(comment) : likeComment(comment)"
-                @dislike="isDisliked(comment) ? unlikeComment(comment) : dislikeComment(comment)"
-                @reply="reply(comment)"
+                
             >
+
+                <div class="l-flex">
+                    <LikeDislike
+                        v-if="authenticated"
+                        :liked="isLiked(comment)"
+                        :disliked="isDisliked(comment)"
+                        :likes="comment.likes.length"
+                        :dislikes="comment.dislikes.length"
+                        @like="isLiked(comment) ? unlikeComment(comment) : likeComment(comment)"
+                        @dislike="isDisliked(comment) ? unlikeComment(comment) : dislikeComment(comment)"
+                    />
+
+                    <div class="course-player__add-reply" @click="reply(comment)">Reply</div>
+                </div>
 
                 <NewReply 
                     v-if="newReplyComment == comment" 
@@ -96,16 +102,17 @@
 import AddComment from '@/components/AddComment';
 import CommentItem from '@/components/CommentItem';
 import TextLink from '@/components/TextLink';
-import { mapState, mapGetters } from 'vuex';
 import SlideFade from '@/components/transitions/SlideFade';
 import PageLoader from '@/components/PageLoader';
-
 import HeaderGroup from '@/components/player/HeaderGroup';
 import SectionHeader from '@/components/player/SectionHeader';
 import SectionBody from '@/components/player/SectionBody';
 import LessonControls from '@/components/player/LessonControls';
 import NewReply from '@/components/player/NewReply';
 import ReplyItem from '@/components/player/ReplyItem';
+import LikeDislike from '@/components/player/LikeDislike';
+
+import { mapState, mapGetters } from 'vuex';
 
 export default {
     name: 'CoursePlayer',
@@ -120,7 +127,8 @@ export default {
         SectionBody, 
         LessonControls,
         NewReply,
-        ReplyItem
+        ReplyItem,
+        LikeDislike
     },
     data() {
         return {
@@ -188,8 +196,6 @@ export default {
                 this.course = response.data.course;
                 this.currentLesson = this.course.sections[0].lessons[0];
                 this.addCounterToLessons(this.course);
-
-                console.log(this.course.sections[0].lessons[0].comments[0]);
             }
             catch (error) {
                console.log([error]);
@@ -285,6 +291,18 @@ export default {
 <style lang="scss" scoped>
 @import '@/css/_mixin.scss';
 
+.course-player {
+    &__reply-item {
+        margin-left: 1rem;
+        margin-top: .5rem;
+    }
+
+    &__add-reply {
+        font-size: .7rem;
+        cursor: pointer;
+    }
+}
+
 .sidebar {
     min-width: 350px;
     max-width: 350px;
@@ -316,9 +334,6 @@ export default {
     width: 100%;
 }
 
-.course-player__reply-item {
-    margin-left: 1rem;
-    margin-top: .5rem;
-}
+
 
 </style>

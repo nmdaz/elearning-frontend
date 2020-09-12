@@ -9,8 +9,8 @@ import ForgotPassword from '@/views/ForgotPassword'
 import PasswordReset from '@/views/PasswordReset'
 import CoursePlayer from '@/views/CoursePlayer'
 import Courses from '@/views/Courses'
+import CreateCourse from '@/views/CreateCourse'
 import store from '../store'
-
 
 Vue.use(VueRouter)
 
@@ -68,6 +68,11 @@ const routes = [
         component: CoursePlayer,
         props: true
     },
+    {
+        path: '/create-course',
+        name: 'CreateCourse',
+        component: CreateCourse
+    }
 ]
 
 const router = new VueRouter({

@@ -10,25 +10,7 @@
         {{ content }}
     </div>
     
-    <div v-if="canLike" class="comment-item__reacts">
-        <font-awesome-icon 
-            @click="$emit('like')" 
-            :class="['comment-item__icon', {'comment-item__icon--active':liked}]" 
-            :icon="['fas', 'heart']" 
-        />
-
-        <span class="comment-item__count"> x {{ likes }} </span>
-
-        <font-awesome-icon 
-            @click="$emit('dislike')" 
-            :class="['comment-item__icon', {'comment-item__icon--active':disliked}]" 
-            :icon="['fas', 'angry']" 
-        />
-
-        <span class="comment-item__count"> x{{ dislikes }} </span>
-
-        <div class="comment-item__add-reply" @click="$emit('reply')">Reply</div>
-    </div>
+    
 
     <slot></slot>
 </div>
@@ -38,7 +20,7 @@
 export default {
     name: 'CommentItem',
     props: [
-        'cover', 'author', 'date', 'content', 'canLike', 'liked', 'disliked', 'likes', 'dislikes'
+        'cover', 'author', 'date', 'content'
     ]
 }
 </script>
@@ -75,32 +57,6 @@ export default {
     &__content {
         padding: 0 1rem;
         margin-bottom: .5rem;
-    }
-
-    &__reacts {
-        margin-left: .5rem;
-        display: flex;
-        align-items: center;
-    }
-
-    &__icon {
-        color: #AAA;
-        margin-right: .2rem;
-        cursor: pointer;
-    }
-
-    &__icon--active {
-        color: #2162c3;
-    }
-
-    &__count {
-        margin-right: .5rem;
-        font-size:  .6rem;
-    }
-
-    &__add-reply {
-        font-size: .7rem;
-        cursor: pointer;
     }
 }
     

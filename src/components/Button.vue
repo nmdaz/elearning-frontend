@@ -22,5 +22,6 @@ export default {
 <style lang="scss" scoped>
 .button {
 	padding: .5rem;
+	color: white;
 }
 </style>

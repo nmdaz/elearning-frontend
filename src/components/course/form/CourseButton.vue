@@ -1,19 +1,19 @@
 <template>
 	<button class="base-button" :type="type" @click="$emit('click')">
-		<slot></slot>
+		{{ text }}
 	</button>
 </template>
 
 <script>
 export default {
 	name: 'BaseButton',
-	props: { type: String }
+	props: { type: String, text: String }
 }
 </script>
 
 <style lang="scss" scoped>
 .base-button {
-	padding: .6rem 1.5rem;
+	padding: .4rem 1rem;
     background-color: #38bb8e;
     border: none;
     color: #1e311e;
