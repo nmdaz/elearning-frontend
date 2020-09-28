@@ -8,6 +8,7 @@
             :type="type" 
             @input="$emit('input', $event.target.value)"
             @focus="$emit('focus', $event.target.value)"
+            @change="type === 'file' ? $emit('select', $event.target.files[0]) : ''"
             :required="required" 
             :placeholder="placeholder"
             :id="_uid"
@@ -36,12 +37,13 @@ export default {
     flex-direction: column;
 
     &__label {
-        font-size: .8rem;
+        font-size: .75rem;
         margin-bottom: .2rem;
         color: #444;
     }
 
     &__input {
+        color: #131314;
         padding: .4rem;
         border-width: 0 0 1px 0;
         margin-bottom: .5rem;
@@ -57,8 +59,7 @@ export default {
         display: block;
         margin-bottom: 1rem;
         color: #962222;
-        letter-spacing: .12rem;
-        font-size: .8rem;
+        font-size: 0.7rem;
     }
 }   
 </style>

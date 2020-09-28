@@ -1,146 +1,121 @@
 <template>
     <div class="create-course">
-        <form class="create-course__form" @submit.prevent="()=>{}">
-            <div class="create-course__content">
-                <div class="create-course__course-info">
-                    Course Info
-                    <InputGroup  
-                        v-model="course.name"
-                        label="Name"
-                        type="text" 
-                    />
+        <PageLoader v-if="loading" />
+        <BasicForm v-else @submit="save" legend="Create Course">
+            <InputGroup  
+                v-model="course.name"
+                label="Name"
+                type="text"
+                :error="courseErrors && courseErrors.name ? courseErrors.name[0] : ''"
+            />
 
-                    <InputGroup  
-                        v-model="course.description"
-                        label="Description"
-                        type="text" 
-                    />
+            <InputGroup  
+                v-model="course.description"
+                label="Description"
+                type="text" 
+                :error="courseErrors && courseErrors.description ? courseErrors.description[0] : ''"
+            />
 
-                    <InputGroup  
-                        v-model="course.cover"
-                        label="Cover or Preview Image"
-                        type="file" 
-                    />
+            <InputGroup  
+                label="Cover or Preview Image"
+                type="file"
+                @select="selectCoverImage"
+                :error="courseErrors && courseErrors.cover_image ? courseErrors.cover_image[0] : ''"
+            />
 
-                    <InputGroup  
-                        v-model="course.attachment"
-                        label="Attachment (optional)"
-                        type="file" 
-                    />
+            <InputGroup  
+                label="Attachment (optional)"
+                type="file" 
+                @select="selectAttachment"
+                :error="courseErrors && courseErrors.attachment ? courseErrors.attachment[0] : ''"
+            />
 
-                    <BaseButton class="create-course__button" @click="addSection">Add Section</BaseButton>
-                    <BaseButton class="create-course__button" @click="saveCourse">Save Course</BaseButton>
-                </div>
-
-                <div class="create-course__sections">
-                    
-                    <div 
-                        v-for="(section, index) in course.sections" 
-                        :key="section.id"
-                        :class="['create-course__section', {'create-course__section--alt': index % 2 !== 0}]"
-                    >
-                        <div class="create-course__section-counter">
-                            Section {{ index + 1 }}
-                            <BaseButton @click="toggleSection(section)">
-                                <font-awesome-icon :icon="['fas', 'bars']" />
-                            </BaseButton>
-                        </div>
-
-                        <div v-if="currentSection == section" class="create-course__section-content">
-                            <InputGroup  
-                                v-model="section.name"
-                                label="Name"
-                                type="text" 
-                            />
-
-                            <InputGroup  
-                                v-model="section.description"
-                                label="Description"
-                                type="text" 
-                            />
-
-                            <BaseButton @click="addLesson(section)" class="create-course__button">Add Lesson</BaseButton>
-
-                            <div class="create-course__lessons">
-                                <div v-for="( lesson, index ) in section.lessons" :key="lesson.id" class="create-course__lesson">
-                                    <div class="create-course__lesson-counter">
-                                        Lesson {{ index + 1}}
-                                    </div>
-
-                                    <InputGroup  
-                                        v-model="lesson.name"
-                                        label="Name"
-                                        type="text" 
-                                    />
-
-                                    <InputGroup  
-                                        v-model="lesson.description"
-                                        label="Description"
-                                        type="text" 
-                                    />
-
-                                    <InputGroup  
-                                        v-model="lesson.url"
-                                        label="Youtube Url"
-                                        type="text" 
-                                    />
-                                </div>
-                            </div>
-                        </div>                       
-                    </div>
-                </div>
-            </div>
-        </form>
+            <BaseButton class="create-course__button" type="submit" @click="save">Save Course</BaseButton>
+        </BasicForm>
     </div>
 </template>
 
 <script>
 import InputGroup from '@/components/InputGroup';
 import BaseButton from '@/components/base/BaseButton';
+import BasicForm from '@/components/BasicForm';
+import PageLoader from '@/components/PageLoader';
+import { mapState } from 'vuex';
+
 export default {
     name: 'CreateCourse',
     components: {
-        InputGroup, BaseButton
+        InputGroup, BaseButton, BasicForm, PageLoader
     },
     data() {
         return {
             course: {
                 name: '',
                 description: '',
-                cover: null,
-                sections: []
+                cover_image: null,
+                attachment: null
             },
-            currentSection: null
+            courseErrors: {},
+            loading: false
         }
     },
+    computed: {
+        ...mapState({
+            'apiUrl': (state) => state.server.apiUrl
+        })
+    },
     methods: {
-        addSection() {
-            let section = {
-                name: '',
-                description: '',
-                lessons: [],
-                collapse: true
-            };
-
-            this.course.sections.push(section);
-            this.currentSection = section;
+        selectCoverImage(file) {
+            this.course.cover_image = file;
         },
 
-        addLesson(section) {
-            section.lessons.push({
-                name: '',
-                description: '',
-                url: ''
-            })
+        selectAttachment(file) {
+            this.course.attachment = file;
         },
 
-        toggleSection(section) {
-            if (this.currentSection != section || !this.currentSection) this.currentSection = section; 
-            else this.currentSection = null;
+        async save() {
+            this.loading = true;
+
+            try {
+                let courseId = await this.submitCourse();
+                this.loading = false;
+                this.$router.push({ name: 'EditCourse', params: { courseId: courseId }});
+            }
+            catch (error) {
+                console.log([error]);
+                this.loading = false;
+                this.courseErrors = error.response.data.errors;
+            }           
         },
 
-        saveCourse() {
+        async submitCourse() {
+            let data = new FormData();
 
+            data.append('name', this.course.name);
+            data.append('description', this.course.description);
+            data.append('cover_image', this.course.cover_image);
+
+            if (this.course.attachment) data.append('attachment', this.course.attachment);
+
+            try {
+                let response = await window.axios.post(`${this.apiUrl}/courses`, data);
+                return response.data.course_id;
+            }
+            catch (error) {
+                throw error;
+            }
+        },
+
+        async submitSection(courseId, section) {
+            let data = { name: section.name };
+
+            try {
+                let response = await window.axios.post(`${this.apiUrl}/courses/${courseId}/sections`, data);
+                return response.data.section_id;
+            }
+            catch (error) {
+                throw new Error(error.message);
+            }
         }
     }
 }
@@ -150,73 +125,7 @@ export default {
 @import '@/css/_mixin.scss';
 
 .create-course {
-    &__content {
-        display: flex;
-    }
-
-    &__course-info {
-        width: 40%;
-        padding: 1rem;
-    }
-
-    &__sections {
-        width: 60%;
-        padding: 1rem;
-    }
-
-    &__section {
-        border: 1px solid #DDD;
-        padding: 1rem;
-        margin-bottom: 1rem;
-    }
-
-    &__section--alt {
-        background-color: #f0fffa;
-    }
-
-    &__section-counter {
-        color: #38bb8e;
-        margin-bottom: .5rem;
-        font-size: .8rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    &__lesson {
-        border: 1px solid #DDD;
-        padding: 1rem;
-        margin-bottom: 1rem;
-    }
-
-    &__button {
-        margin-bottom: 1rem;
-        margin-right: 1rem;
-    }
-
-    &__lesson-counter {
-        color: #38bb8e;
-        margin-bottom: .5rem;
-        font-size: .8rem;
-    }
-}
-
-@include for-tablet-down {
-    .create-course {
-        &__content {
-            flex-wrap: wrap;
-        }
-
-        &__course-info {
-            width: 100%;
-            padding: 1rem;
-        }
-
-        &__sections {
-            width: 100%;
-            padding: 1rem;
-        }
-    }
+    margin: 1rem;
 }
 
 </style>

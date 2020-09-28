@@ -194,6 +194,7 @@ export default {
                 const response = await window.axios.get(url);
 
                 this.course = response.data.course;
+
                 this.currentLesson = this.course.sections[0].lessons[0];
                 this.addCounterToLessons(this.course);
             }

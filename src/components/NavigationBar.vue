@@ -15,11 +15,14 @@
         <li class="navigation-bar__item">
             <router-link class="navigation-bar__link" to="/courses">Courses</router-link>
         </li>
-        <li class="navigation-bar__item">
-            <router-link class="navigation-bar__link" to="/about">About</router-link>
+        <li v-if="authenticated" class="navigation-bar__item">
+            <router-link class="navigation-bar__link" :to="{ name: 'CreateCourse'}">Create Course</router-link>
         </li>
-        <li class="navigation-bar__item">
-            <router-link class="navigation-bar__link" to="/contact">Contact</router-link>
+        <li v-if="authenticated" class="navigation-bar__item">
+            <router-link class="navigation-bar__link" :to="{ name: 'EnrolledCourses'}">Enrolled Courses</router-link>
+        </li>
+        <li v-if="authenticated" class="navigation-bar__item">
+            <router-link class="navigation-bar__link" :to="{ name: 'CreatedCourses' }">Created Courses</router-link>
         </li>
         <li v-if="!authenticated" class="navigation-bar__item">
             <router-link class="navigation-bar__link" to="/login">Login</router-link>
@@ -106,7 +109,7 @@ export default {
     }
 
     &__item {
-        margin-right: .5rem;
+        margin-right: 1rem;
     }
 
     &__link {
