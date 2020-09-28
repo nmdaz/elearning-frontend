@@ -20,7 +20,9 @@
                             Enroll to public courses or join private courses by invites
                         </p>
                     </div>
-                    <BaseButton @click="register" class="hero-header__button" text="Join Now" />
+                    <BaseButton @click="register" class="hero-header__button">
+                        Join Now
+                    </BaseButton>
                 </div>
             </div>
         </header>
@@ -33,9 +35,12 @@ import BaseButton from '@/components/base/BaseButton';
 export default {
     name: 'WelcomeView',
     components: { BaseButton },
-    register() {
-        this.$router.push({name: 'Register' });
-    }
+    methods: {
+        register() {
+            this.$router.push({name: 'Register' });
+        }
+    },
+    
 }
 </script>
 

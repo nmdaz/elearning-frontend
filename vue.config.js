@@ -1,4 +1,7 @@
 
 module.exports = {
-	publicPath: '/dist/'
+	// publicPath: '/dist/'
+	configureWebpack: {
+		devtool: 'source-map'
+	}
 }

@@ -10,6 +10,7 @@ import PasswordReset from '@/views/PasswordReset'
 import CoursePlayer from '@/views/CoursePlayer'
 import Courses from '@/views/Courses'
 import CreateCourse from '@/views/CreateCourse'
+import EditCourse from '@/views/EditCourse'
 import store from '../store'
 
 Vue.use(VueRouter)
@@ -71,7 +72,15 @@ const routes = [
     {
         path: '/create-course',
         name: 'CreateCourse',
-        component: CreateCourse
+        component: CreateCourse,
+        meta: { requiresAuth: true }
+    },
+    {
+        path: '/edit-course/:courseId',
+        name: 'EditCourse',
+        component: EditCourse,
+        meta: { requiresAuth: true },
+        props: true
     }
 ]
 

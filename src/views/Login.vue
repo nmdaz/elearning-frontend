@@ -20,7 +20,9 @@
                 :error="error.password"
             />
 
-            <BaseButton type="submit" text="Login" class="login-view__button" />    
+            <BaseButton type="submit" class="login-view__button">
+                Login
+            </BaseButton>    
 
             <small v-if="error.server" class="login-view__error">
                     {{ error.server }}
@@ -46,9 +48,6 @@ export default {
             password: ''
         }
     },
-    mounted() {
-        console.log(this);
-    },
     methods: {
         submit() {
             this.resetErrors();
@@ -61,6 +60,7 @@ export default {
         },
 
         async login() {
+            console.log('login');
             try {
                 await this.$store.dispatch('auth/login', {
                     email: this.email,

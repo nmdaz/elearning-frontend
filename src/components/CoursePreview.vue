@@ -1,23 +1,15 @@
 <template>
     <div class="course-preview">
-        <img 
-            class="course-preview__cover" 
-            :src="cover"
-        >
+        <img class="course-preview__cover" :src="cover">
 
-        <router-link 
-            class="course-preview__title" 
-            :to="url"
-        >
+        <router-link class="course-preview__title" :to="url">
             {{ title }}
         </router-link>
 
         <div class="course-preview__text">{{ description }}</div>
 
-        <router-link 
-            :to="url"
-        >
-            <BaseButton text="Watch Now" />
+        <router-link :to="url">
+            <BaseButton> Watch Now </BaseButton>
         </router-link>
     </div>
 </template>
@@ -29,12 +21,7 @@ export default {
     props: [
         'title', 'cover', 'description', 'url'
     ],
-    components: { BaseButton },
-    data() {
-        return {
-
-        }
-    }
+    components: { BaseButton }
 }
 </script>
 
