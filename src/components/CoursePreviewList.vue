@@ -6,18 +6,27 @@
                 :cover="'data:' + course.cover_image_mime_type + ';base64,' + course.cover_image"
                 :description="course.description"
                 :url="'/course-player/' + course.id"
-            />
+            >
+                <BaseButton v-if="$store.getters['auth/authenticated']" @click="$emit('enroll', course.id)">Enroll</BaseButton>
+                <BaseButton v-else @click="redirectToLogin">Login to view course</BaseButton>
+            </CoursePreview>
         </div>
     </div>
 </template>
 
 <script>
+import BaseButton from '@/components/base/BaseButton';
 import CoursePreview from '@/components/CoursePreview';
 
 export default {
-    name: 'CourseViewer',
+    name: 'CoursePreviewList',
     props: [ 'courses' ],
-    components: { CoursePreview }
+    components: { CoursePreview, BaseButton },
+    methods: {
+        redirectToLogin() {
+            this.$router.push('/login/courses');
+        }
+    }
 }
 </script>
 

@@ -8,20 +8,14 @@
 
         <div class="course-preview__text">{{ description }}</div>
 
-        <router-link :to="url">
-            <BaseButton> Watch Now </BaseButton>
-        </router-link>
+        <slot></slot>
     </div>
 </template>
 
 <script>
-import BaseButton from '@/components/base/BaseButton';
 export default {
     name: 'CoursePreview',
-    props: [
-        'title', 'cover', 'description', 'url'
-    ],
-    components: { BaseButton }
+    props: [ 'title', 'cover', 'description', 'url' ]
 }
 </script>
 
