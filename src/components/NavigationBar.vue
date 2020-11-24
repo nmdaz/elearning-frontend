@@ -13,16 +13,13 @@
     </div>
     <ul v-bind:class="{ 'navigation-bar__link-list': true, 'navigation-bar__link-list--show': showLinks }">
         <li class="navigation-bar__item">
-            <router-link class="navigation-bar__link" to="/courses">Courses</router-link>
+            <router-link class="navigation-bar__link" to="/courses">Find Courses</router-link>
         </li>
         <li v-if="authenticated" class="navigation-bar__item">
-            <router-link class="navigation-bar__link" :to="{ name: 'CreateCourse'}">Create Course</router-link>
+            <router-link class="navigation-bar__link" to="/enrolled-courses">Enrolled Courses</router-link>
         </li>
         <li v-if="authenticated" class="navigation-bar__item">
-            <router-link class="navigation-bar__link" :to="{ name: 'EnrolledCourses'}">Enrolled Courses</router-link>
-        </li>
-        <li v-if="authenticated" class="navigation-bar__item">
-            <router-link class="navigation-bar__link" :to="{ name: 'CreatedCourses' }">Created Courses</router-link>
+            <router-link class="navigation-bar__link" to="/authored-courses">Created Courses</router-link>
         </li>
         <li v-if="!authenticated" class="navigation-bar__item">
             <router-link class="navigation-bar__link" to="/login">Login</router-link>

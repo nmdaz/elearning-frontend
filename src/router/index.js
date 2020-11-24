@@ -3,12 +3,12 @@ import VueRouter from 'vue-router'
 import Welcome from '@/views/Welcome.vue'
 import Register from '@/views/Register.vue'
 import Login from '@/views/Login.vue'
-import Home from '@/views/Home.vue'
-import UserCourse from '@/views/UserCourse.vue'
+import EnrolledCourses from '@/views/EnrolledCourses.vue'
+import AuthoredCourses from '@/views/AuthoredCourses.vue'
+import Courses from '@/views/Courses.vue'
 import ForgotPassword from '@/views/ForgotPassword'
 import PasswordReset from '@/views/PasswordReset'
 import CoursePlayer from '@/views/CoursePlayer'
-import Courses from '@/views/Courses'
 import CreateCourse from '@/views/CreateCourse'
 import EditCourse from '@/views/EditCourse'
 import store from '../store'
@@ -25,32 +25,13 @@ const routes = [
         path: '/register',
         name: 'Register',
         component: Register,
-        meta: {
-            redirectIfAuth: true
-        }
+        meta: { redirectIfAuth: true }
     },
     {
         path: '/login/:redirect?',
         name: 'Login',
         component: Login,
         meta: { redirectIfAuth: true }
-    },
-    {
-        path: '/home',
-        name: 'Home',
-        component: Home,
-        meta: { requiresAuth: true }
-    },
-    {
-        path: '/courses',
-        name: 'Courses',
-        component: Courses
-    },
-    {
-        path: '/mycourses/course/:id',
-        name: 'UserCourse',
-        component: UserCourse,
-        meta: { requiresAuth: true }
     },
     {
         path: '/forgot-password',
@@ -62,6 +43,29 @@ const routes = [
         name: 'PasswordReset',
         component: PasswordReset,
         props: true
+    },
+    {
+        path: '/courses',
+        name: 'Courses',
+        component: Courses
+    },
+    {
+        path: '/enrolled-courses',
+        name: 'EnrolledCourses',
+        component: EnrolledCourses,
+        meta: { requiresAuth: true }
+    },
+    {
+        path: '/home',
+        name: 'Home',
+        component: EnrolledCourses,
+        meta: { requiresAuth: true }
+    },
+    {
+        path: '/authored-courses',
+        name: 'AuthoredCourses',
+        component: AuthoredCourses,
+        meta: { requiresAuth: true }
     },
     {
         path: '/course-player/:courseId',
@@ -92,10 +96,12 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
 
-    if (store.state.navbar)
+    if (store.state.navbar) {
+        store.state.navbar.showLinks = false;
         store.state.navbar.showLeftToggler = false;
+    }
 
-    //browser refresh or manual url enter
+    //when browser is refresh or manual url enter
     if (from.path === '/' && from.name === null) 
         store.commit('auth/refreshAuthFromSession');
 

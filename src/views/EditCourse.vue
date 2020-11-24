@@ -110,7 +110,7 @@ export default {
         async fetchCourse() {
             this.loading = true;
             try {
-                const response = await window.axios.get(`${this.apiUrl}/users/${this.user.id}/courses/${this.courseId}`);
+                const response = await window.axios.get(`${this.apiUrl}/courses/${this.courseId}`);
                 this.course = response.data.course;
                 this.loading = false;
                 console.log(this.course);

@@ -34,6 +34,7 @@
 
     <div class="content">
         <div class="video">
+            <iframe width="100%" height="100%" :src="'//www.youtube.com/embed/' + currentLesson.video_id" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
 
         <LessonControls :name="currentLesson.name"/>
@@ -284,6 +285,15 @@ export default {
 
         cancelReply() {
             this.newReplyComment = null;
+        },
+
+        getId(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+            const match = url.match(regExp);
+
+            return (match && match[2].length === 11)
+              ? match[2]
+              : null;
         }
     }
 }
