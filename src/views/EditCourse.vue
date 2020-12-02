@@ -45,6 +45,8 @@
             @download-attachment="downloadAttachment"
         />
 
+        <hr/>
+
         <div class="sections">
             <div class="section" v-for="section in this.sections" :key="section.id">
                 <div class="section-info">
@@ -89,9 +91,6 @@ export default {
             courseId: undefined,
             course: null,
 
-            editCourseNameValue: undefined,
-            editCourseDescriptionValue: undefined,
-            editCourseAttachmentValue: null,
             errors: null,
 
             sections: null,
