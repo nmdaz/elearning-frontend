@@ -11,6 +11,7 @@ import PasswordReset from '@/views/PasswordReset'
 import CoursePlayer from '@/views/CoursePlayer'
 import CreateCourse from '@/views/CreateCourse'
 import EditCourse from '@/views/EditCourse'
+import Home from '@/views/Home'
 import store from '../store'
 
 Vue.use(VueRouter)
@@ -58,8 +59,18 @@ const routes = [
     {
         path: '/home',
         name: 'Home',
-        component: EnrolledCourses,
-        meta: { requiresAuth: true }
+        component: Home,
+        meta: { requiresAuth: true },
+        children: [
+            {
+                path: 'enrolled-courses',
+                component: EnrolledCourses
+            },
+            {
+                path: 'authored-courses',
+                component: AuthoredCourses
+            }
+        ]
     },
     {
         path: '/authored-courses',

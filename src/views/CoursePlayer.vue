@@ -206,11 +206,21 @@ export default {
 
                 this.course = response.data.course;
 
-                if (!this.course.sections || !this.course.sections.lessons) {
+                let firstLesson = null;
+
+                this.course.sections.forEach(function(section) {
+                    section.lessons.forEach(function(lesson) {
+                        if (firstLesson) return;
+                        firstLesson = lesson;
+                    })
+                });
+
+                if (!firstLesson) {
                     this.currentLesson = null;
                 }
                 else {
-                    this.currentLesson = this.course.sections[0].lessons[0];
+                    this.currentLesson = firstLesson;
+                    console.log(this.currentLesson);
                     this.addCounterToLessons(this.course);
                 }
             }
