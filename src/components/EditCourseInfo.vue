@@ -3,24 +3,25 @@
 
         <div class="l-flex l-flex--wrap l-flex--j-center">
             <div class="l-flex-child l-flex-child--half pd-1rem">
-                <div class="edit-item edit-item--center">
-                    <img class="edit-item__cover-image" :src="'data:' + course.cover_image_mime_type + ';base64,' + course.cover_image">
+                <div class="edit-item">
+                    <img class="edit-item__cover-image" :src="newCoverImagePreview ?  newCoverImagePreview : 'data:' + course.cover_image_mime_type + ';base64,' + course.cover_image">
 
-                    <InputGroup  
-                        label="Cover or Preview Image"
-                        type="file"
-                        @select="selectNewCoverImage"
-                        :error="errors && errors.cover_image ? errors.cover_image[0] : ''"
-                    />
-
-                    <div v-if="newCoverImage">
-                        <font-awesome-icon class="edit-item__icon" @click="saveNewCoverImage" :icon="['fas', 'save']" />
-                        <font-awesome-icon class="edit-item__icon" @click="cancelNewCoverImage" :icon="['fas', 'trash']" />
+                    <div v-if="!newCoverImage" class="edit-item__controls" @click="$refs.coverImageInput.click()">
+                        <font-awesome-icon class="edit-item__icon--big" :icon="['fas', 'edit']" />
                     </div>
+                    <div v-else class="edit-item__controls">
+                        <font-awesome-icon class="edit-item__icon edit-item__icon--big" @click="saveNewCoverImage" :icon="['fas', 'save']" />
+                        <font-awesome-icon class="edit-item__icon edit-item__icon--big" @click="cancelNewCoverImage" :icon="['fas', 'trash-alt']" />
+                    </div>
+
+                    <div v-if="errors && errors.cover_image" class="edit-item__error">{{ errors.cover_image[0] }}</div>
+                    <div v-if="coverImageError" class="edit-item__error">{{ coverImageError }}</div>
+
+                     <input type="file" ref="coverImageInput" @change="selectNewCoverImage" style="display: none">
                 </div>
             </div>
             <div class="l-flex-child l-flex-child--half pd-1rem">
-                <div class="edit-item mb-1rem">
+                <div class="edit-item edit-item--border mb-1rem">
                     <span class="edit-item__label"> Name </span> 
 
                     <template v-if="newName === undefined">
@@ -32,14 +33,14 @@
                         <input class="edit-item__input" type="text" v-model="newName">
                         <div>
                             <font-awesome-icon class="edit-item__icon" @click="saveNewName" :icon="['fas', 'save']" />
-                            <font-awesome-icon class="edit-item__icon" @click="cancelNewName" :icon="['fas', 'trash']"/>
+                            <font-awesome-icon class="edit-item__icon" @click="cancelNewName" :icon="['fas', 'trash-alt']"/>
                         </div>
                     </template>              
 
                     <div v-if="errors && errors.name" class="edit-item__error">{{ errors.name[0] }}</div>
                 </div>              
 
-                <div class="edit-item mb-1rem">
+                <div class="edit-item edit-item--border mb-1rem">
                     <span class="edit-item__label"> Description </span> 
 
                     <template v-if="newDescription === undefined">
@@ -49,141 +50,97 @@
 
                     <template v-else>
                         <textarea class="edit-item__textarea" v-model="newDescription"></textarea>
-                        <div>
+                        <div class="edit-item__controls">
                             <font-awesome-icon class="edit-item__icon" @click="saveNewDescription" :icon="['fas', 'save']" />
-                            <font-awesome-icon class="edit-item__icon" @click="cancelNewDescription" :icon="['fas', 'trash']"/>
+                            <font-awesome-icon class="edit-item__icon" @click="cancelNewDescription" :icon="['fas', 'trash-alt']"/>
                         </div>
                     </template>                   
 
-                    <div v-if="errors && errors.name" class="edit-item__error">{{ errors.name[0] }}</div>
+                    <div v-if="errors && errors.description" class="edit-item__error">{{ errors.description[0] }}</div>
                 </div>
 
-                <div class="edit-item"> 
+                <div class="edit-item edit-item--border"> 
                    <div v-if="!course.attachment_url">This course has no attachment</div>
-                   <button v-else @click="$emit('download-attachment')">Download Attachment</button>
-                   <InputGroup  
-                       label="Change/Add attachment"
-                       type="file"
-                       @select="selectNewAttachment"
-                       :error="errors && errors.attachment ? errors.attachment[0] : ''"
-                       reference="attachment"
-                   />
-                   <div v-if="newAttachment">
-                       <font-awesome-icon class="edit-item__icon" @click="saveNewAttachment" :icon="['fas', 'save']" />
-                       <font-awesome-icon class="edit-item__icon" @click="cancelNewAttachment" :icon="['fas', 'trash']"/>
+                   <div class="mb-1rem" v-else>
+                        <div class="edit-item__attachment">
+                            {{ newAttachment ? 'New Attachment Ready' : 'Attachment Available' }}
+                        </div>
+                        <template v-if="newAttachment">
+                            <font-awesome-icon class="edit-item__icon" @click="saveNewAttachment" :icon="['fas', 'save']" />
+                            <font-awesome-icon class="edit-item__icon" @click="cancelNewAttachment" :icon="['fas', 'trash-alt']"/>
+                        </template>
+                        <template v-else>
+                            <font-awesome-icon class="edit-item__icon" @click="$emit('download-attachment')" :icon="['fas', 'download']" />
+                            <font-awesome-icon @click="$refs.attachmentInput.click()" class="edit-item__icon" :icon="['fas', 'edit']" />
+                        </template>
                    </div>
+                    
+                   <div v-if="errors && errors.attachment" class="edit-item__error">{{ errors.attachment[0] }}</div>
+                   <div v-if="attachmentError" class="edit-item__error">{{ attachmentError }}</div>
+
+                    <input type="file" ref="attachmentInput" @change="selectNewAttachment" style="display: none">
                 </div>
 
             </div>
         </div>
-        
-        
-<!--         <div class="edit-item mb-1rem">
-            <div class="edit-item__header">
-                <span class="edit-item__label"> Name </span> 
-                <font-awesome-icon 
-                    v-if="newName === undefined" 
-                    class="edit-item__icon" :icon="['fas', 'edit']"  
-                    @click="editCourseName(course.name)" 
-                />
-            </div>
-
-            <div v-if="newName === undefined" class="edit-item__value"> {{ course.name }} </div>
-
-            <div v-else>
-                <input class="edit-item__input" type="text" v-model="newName">
-                <div>
-                    <font-awesome-icon 
-                        class="edit-item__icon" 
-                        @click="saveCourseName" 
-                        :icon="['fas', 'save']" 
-                    />
-                    <font-awesome-icon 
-                        class="edit-item__icon" 
-                        @click="cancelCourseName" 
-                        :icon="['fas', 'trash']" 
-                    />
-                </div>
-            </div>                   
-
-            <div v-if="errors && errors.name" class="edit-item__error">{{ errors.name[0] }}</div>
-        </div>
-
-        <div class="edit-item mb-1rem">
-            <div class="edit-item__header">
-                <span class="edit-item__label"> Description </span> 
-                <font-awesome-icon 
-                    v-if="editCourseDescriptionValue === undefined" 
-                    class="edit-item__icon" :icon="['fas', 'edit']"  
-                    @click="editCourseDescription(course.description)" 
-                />
-            </div>
-
-            <div v-if="editCourseDescriptionValue === undefined" class="edit-item__value"> {{ course.description }} </div>
-
-            <div v-else>
-                <textarea class="edit-item__input" v-model="editCourseDescriptionValue"></textarea>
-                <div>
-                    <font-awesome-icon class="edit-item__icon" @click="saveCourseDescription" :icon="['fas', 'save']" />
-                    <font-awesome-icon class="edit-item__icon" @click="cancelCourseDescription" :icon="['fas', 'trash']" />
-                </div>
-            </div>
-
-            <div v-if="errors && errors.description" class="edit-item__error">{{ errors.description[0] }}</div>
-        </div>
-        
-        
-
-         <div class="mb-1rem"> 
-            <div class="course-info__text">
-                <div v-if="!course.attachment_url">This course has no attachment</div>
-                <a 
-                    v-else 
-                    class="course-info__text course-info__text--link" 
-                    href="#" 
-                    target="_blank"
-                >
-                    Download Attachment
-                </a> 
-                <InputGroup  
-                    label="Change/Add attachment"
-                    type="file"
-                    @select="selectEditCourseAttachment"
-                    :error="errors && errors.attachment ? errors.attachment[0] : ''"
-                />
-                <button v-if="editCourseAttachmentValue" @click="saveEditCourseAttachment" class="btn">Save</button> 
-            </div>
-         </div> -->
     </div>
 </template>
 
 <script>
-import InputGroup from '@/components/InputGroup';
 
 export default {
     name: 'EditCourseInfo',
-    components: { InputGroup },
     props: [ 'course', 'errors' ],
     data() {
         return {
             newCoverImage: null,
+            newCoverImagePreview: null,
             newName: undefined,
             newDescription: undefined,
             newAttachment: null,
+            coverImageError: undefined,
+            attachmentError: undefined
         }
     },
     methods: {
-        selectNewCoverImage(file) {
+        selectNewCoverImage(event) {
+            this.coverImageError = null;
+
+            if (event.target.files.length == 0) return;
+
+            const file = event.target.files[0];
+            const fileName = file.name.split('.');
+
+            if (!fileName || fileName.length < 2) {
+                this.coverImageError = 'Invalid File';
+            }
+
+            const fileType = fileName[1];
+
+            if (fileType !== 'jpg' && fileType !== 'jpeg') {
+                this.coverImageError = 'Wrong File Type: JPEG or JPG only';
+                return;
+            }
+
+            const reader = new FileReader();
+            
             this.newCoverImage = file;
+
+            reader.onload = (e) => {
+                this.newCoverImagePreview = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
         },
 
-        async saveNewCoverImage() {
+        saveNewCoverImage() {
             this.$emit('new-cover-image', this.newCoverImage);
             this.newCoverImage = null;
         },
 
         cancelNewCoverImage() {
             this.newCoverImage = null;
+            this.newCoverImagePreview = null;
         },
 
         editName(oldCourseName) {
@@ -212,7 +169,25 @@ export default {
             this.newDescription = undefined;
         },
 
-        selectNewAttachment(file) {
+        selectNewAttachment(event) {
+            this.attachmentError = null;
+            
+            if (event.target.files.length == 0) return;
+
+            const file = event.target.files[0];
+            const fileName = file.name.split('.');
+
+            if (!fileName || fileName.length < 2) {
+                this.attachmentError = 'Invalid File';
+            }
+
+            const fileType = fileName[1];
+
+            if (fileType !== 'rar' && fileType !== 'zip') {
+                this.attachmentError = 'Wrong File Type: ZIP or RAR only';
+                return;
+            }
+
             this.newAttachment = file;
         },
 
@@ -231,8 +206,12 @@ export default {
 
 <style lang="scss">
 .edit-item {
-    border: 1px solid #DDD;
     padding: 1rem;
+    position: relative;
+
+    &--border {
+        border: 1px solid #DDD;
+    }
 
     &--center {
         text-align: center;
@@ -240,6 +219,10 @@ export default {
 
     &__cover-image {
         width: 100%;
+    }
+
+    &__attachment {
+        font-size: .8rem;
     }
     
     &__label {
@@ -253,12 +236,39 @@ export default {
 
     &__icon {
         margin-right: .5rem;
+        cursor: pointer;
+    }
+
+    &__icon--big {
+        font-size: 1.5rem;
     }
 
     &__textarea {
         width: 100%;
         height: 200px;
         padding: 1rem;
+    }
+
+    &__controls {
+        margin-top: .5rem;
+    }
+
+    &__controls--inside {
+        position: absolute;
+        bottom: 1.5rem;
+        right: 2rem;
+        color: #FFF;
+    }
+
+    &__controls--center {
+        text-align: center;
+    }
+
+    &__error {
+        font-size: .7rem;
+        color: red;
+        line-height: .7rem;
+        margin-top: .5rem;
     }
 }
 </style>
