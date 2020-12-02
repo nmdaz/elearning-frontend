@@ -22,5 +22,6 @@ export default {
     font-size: .8rem;
 	cursor: pointer;
 	color: white;
+	font-family: Roboto;
 }
 </style>

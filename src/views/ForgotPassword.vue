@@ -18,10 +18,7 @@
                     :required="true"
                 />
 
-                <BaseButton 
-                    type="submit"
-                    text="Submit"
-                />
+                <BaseButton>Submit</BaseButton>
             </BasicForm>
         </CenterWrapper>
     
@@ -68,8 +65,7 @@ export default {
                 this.emailSent = true;
             }
             catch (error) {
-                if (error.response.data.errors.email)
-                    this.emailError = error.response.data.errors.email[0];
+                if (error.response.data.errors.email) this.emailError = error.response.data.errors.email[0];
             }
         },
 

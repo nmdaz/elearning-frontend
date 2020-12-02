@@ -29,10 +29,7 @@
                 @focus="resetError"
             />
 
-            <BaseButton 
-                type="submit"
-                text="Reset Password"
-            />
+            <BaseButton type="submit">Reset Password</BaseButton>
 
             <small v-if="errors.token" class="error-message">
                     {{ errors.token }}
@@ -66,9 +63,7 @@ export default {
         }
     },
     computed: {
-        ...mapState([
-            'apiUrl'
-        ])
+        ...mapState({ apiUrl: state => state.server.apiUrl })
     },
     methods: {
         async submit() {

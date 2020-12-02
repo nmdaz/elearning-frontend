@@ -21,6 +21,7 @@
                         :cover="'data:' + course.cover_image_mime_type + ';base64,' + course.cover_image"
                         :description="course.description"
                         :url="'/mycourses/course/' + course.id"
+                        :lessonsCount="course.lessons_count"
                     >
 
                         <BaseButton class="mb-p5rem" @click="editCourse(course.id)">Edit Course</BaseButton>
@@ -40,6 +41,7 @@ import BaseButton from '@/components/base/BaseButton';
 import PageLoader from '@/components/PageLoader';
 import CoursePreview from '@/components/CoursePreview';
 import { mapState } from 'vuex';
+import { addLessonCountToCourses } from '../includes/Helper';
 
 export default {
     name: 'Home',
@@ -54,7 +56,7 @@ export default {
     computed: {
          ...mapState({
             user: state => state.auth.user,
-            apiUrl: state => state.auth.apiUrl
+            apiUrl: state => state.server.apiUrl
         })
     },
     mounted() {
@@ -65,6 +67,7 @@ export default {
             window.axios.get(`${this.apiUrl}/users/${this.user.id}/authored-courses`)
             .then((response) => {
                 this.authoredCourses = response.data.courses;
+                addLessonCountToCourses(this.authoredCourses);
             })
             .catch( (error) => {
                 console.log(error);
@@ -90,7 +93,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 .title {
     font-size: 1.5rem;

@@ -78,10 +78,11 @@ export default {
     background-color: white;
     color: #cccaca;
     font-size: 0.9rem;
-    box-shadow: 1px 1px 5px 0px;
+    // box-shadow: 1px 1px 5px 0px;
     position: relative;
     align-items: center;
     z-index: 100;
+    border-bottom: 1px solid #e2dfdf;
 
     &__brand {
         font-size: 2rem;

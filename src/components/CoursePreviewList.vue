@@ -6,6 +6,7 @@
                 :cover="'data:' + course.cover_image_mime_type + ';base64,' + course.cover_image"
                 :description="course.description"
                 :url="'/course-player/' + course.id"
+                :lessonsCount="course.lessons_count"
             >
                 <BaseButton v-if="$store.getters['auth/authenticated']" @click="$emit('enroll', course.id)">Enroll</BaseButton>
                 <BaseButton v-else @click="redirectToLogin">Login to view course</BaseButton>
