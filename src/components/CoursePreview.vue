@@ -1,13 +1,11 @@
 <template>
     <div class="course-preview">
         <img class="course-preview__cover" :src="cover">
-
-        <router-link class="course-preview__title" :to="url">
-            {{ title }}
-        </router-link>
-
-        <div class="course-preview__text">{{ description }}</div>
-
+        <h2 class="course-preview__title">{{ title }}</h2>
+        <div class="course-preview__text">
+            <div class="mb-p5rem"> {{ description }} </div>
+            <div> Lessons: {{ lessonsCount  }} </div>
+        </div>
         <slot></slot>
     </div>
 </template>
@@ -15,7 +13,7 @@
 <script>
 export default {
     name: 'CoursePreview',
-    props: [ 'title', 'cover', 'description', 'url' ]
+    props: [ 'title', 'cover', 'description', 'url', 'lessonsCount' ]
 }
 </script>
 

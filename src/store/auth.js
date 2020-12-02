@@ -4,15 +4,25 @@ export default {
     state: {
         bearerToken: null,
         user: null,
-        apiUrl: 'http://elearning.test/api',
-        home: 'http://localhost:8080/home',
-        passwordResetCallbackUrl: 'http://localhost:8080/dist'
+        passwordResetCallbackUrl: 'http://localhost:8080'
     },
 
     getters: {
         authenticated (state) {
             if (state.bearerToken && state.user) return true;
             return false;
+        },
+
+        apiUrl(state, getters, rootState) {
+            return rootState.server.apiUrl;
+        },
+
+        serverUrl(state, getters, rootState) {
+            return rootState.server.url;
+        },
+
+        home(state, getters, rootState) {
+            return rootState.server.url + '/home';
         }
     },
 
@@ -51,9 +61,9 @@ export default {
     },
 
     actions: {
-        async login ({commit, state}, payload) {
+        async login ({commit, getters}, payload) {
             try {
-                const url = `${state.apiUrl}/auth/login`;
+                const url = `${getters.apiUrl}/auth/login`;
 
                 const data = {
                     email: payload.email,
@@ -74,9 +84,9 @@ export default {
             }
         },
 
-        async register ({commit, state}, payload) {
+        async register ({commit, getters}, payload) {
             try {
-                const url = `${state.apiUrl}/auth/register`;
+                const url = `${getters.apiUrl}/auth/register`;
 
                 const data = {
                     name: payload.name,

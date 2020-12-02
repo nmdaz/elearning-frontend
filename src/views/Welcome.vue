@@ -1,30 +1,17 @@
 <template>
     <div class="welcome-view">
-        <header>
-            <div class="hero-header">
-                <img class="hero-header__cover" src="../assets/img/welcome_bg.jpg">
-                <div class="hero-header__content">
-                    <div class="hero-header__title-group">
-                        <h2 class="hero-header__title">
-                            Teacher or Educators?
-                        </h2>
-                        <p class="hero-header__text">
-                            Create your own courses and lesson. Make it public or private and add homework.
-                        </p>
-                    </div>
-                    <div class="hero-header__title-group">
-                        <h2 class="hero-header__title">
-                            Students
-                        </h2>
-                        <p class="hero-header__text">
-                            Enroll to public courses or join private courses by invites
-                        </p>
-                    </div>
-                    <BaseButton @click="register" class="hero-header__button">
-                        Join Now
-                    </BaseButton>
-                </div>
+        <header class="hero-header">
+
+            <div class="hero-header__quote">
+               <font-awesome-icon :icon="['fa', 'quote-left']" />
+                They cannot stop me. I will get my education. If it is in the home, school or any place
+                <font-awesome-icon :icon="['fa', 'quote-right']" />
             </div>
+
+            <p class="hero-header__text">Create your own courses and lesson</p>
+            <p class="hero-header__text mb-1rem">or enroll to others user's course</p>
+
+            <BaseButton @click="register" class="hero-header__button">Join Now</BaseButton>
         </header>
     </div>
 </template>
@@ -48,42 +35,50 @@ export default {
 @import '@/css/_mixin.scss';
 
 .hero-header {
-    display: flex;
-    height: 80vh;
-    align-items: center;
+    padding: 3rem;
+    background-image: url('../assets/img/bg_welcome.jpg');
+    background-size: cover;
+    min-height: 90vh;
+    color: #f1f1f1;
 
-    &__cover {
-        width: 500px;
-        padding: 1rem;
-        box-sizing: border-box;
-    }
-
-    &__content {
-        padding: 1rem;
-    }
-
-    &__title-group {
-        margin-bottom: 1rem;
-    }
-
-    &__title {
-        margin-bottom: .5rem;
-        color: #38bb8e;
+    &__quote {
+       font-family: "Open Sans";
+       font-weight: bold;
+       text-align: center;
+       font-size: 1.8rem;
+       margin-bottom: 2rem;
+       line-height: 2.5rem;
     }
 
     &__text {
-        color: #444;
+        text-align: center;
+        font-size: 1.25rem;
     }
-}
 
-@include for-tablet-down {
-    .hero-header {
-        flex-wrap: wrap;
+    &__button {
+        margin: 0 auto 0 auto;
+        display: block;
+    }
 
-        &__cover {
-            width: 100%;
+    @include for-tablet-down {
+        &__quote {
+            font-size: 1.5rem;
+            line-height: 2rem;
+        }
+
+        &__text {
+            font-size: 1rem;
+        }
+    }
+
+    @include for-phone-only {
+        &__quote {
+            font-size: 1.1rem;
+            line-height: 1.6rem;
         }
     }
 }
+
+
 
 </style>

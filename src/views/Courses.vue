@@ -30,6 +30,7 @@
 import PageLoader from '@/components/PageLoader.vue';
 import CoursePreviewList from '@/components/CoursePreviewList';
 import { mapState } from 'vuex';
+import { addLessonCountToCourses } from '../includes/Helper';
 
 export default {
     name: 'Courses',
@@ -64,6 +65,9 @@ export default {
 
                 this.courses = response.data.courses;
 
+                addLessonCountToCourses(this.courses);
+                console.log(this.courses);
+
                 this.paginator.currentPage = response.data.meta.current_page;
                 this.paginator.lastPage = response.data.meta.last_page;
             }
@@ -96,6 +100,7 @@ export default {
                 console.log(response);
 
                 this.courses = response.data.courses;
+                addLessonCountToCourses(this.courses);
 
                 this.paginator.currentPage = response.data.meta.current_page;
                 this.paginator.lastPage = response.data.meta.last_page;
@@ -115,6 +120,7 @@ export default {
                 const response = await window.axios.get(url);
 
                 this.courses = response.data.courses;
+                addLessonCountToCourses(this.courses);
 
                 this.paginator.currentPage = response.data.meta.current_page;
                 this.paginator.lastPage = response.data.meta.last_page;
