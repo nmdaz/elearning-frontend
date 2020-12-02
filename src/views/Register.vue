@@ -33,7 +33,7 @@
 				:error="error.password_confirmation"
 			/>
 
-			<BaseButton class="register-view__button" type="submit" text="Register" />
+			<BaseButton class="register-view__button" type="submit">Register</BaseButton>
 		</BasicForm>
 	</div>
 </template>

@@ -1,9 +1,9 @@
 <template>
     <div class="input-group">
-        <label class="input-group__label" :for="_uid">{{ label }}</label>
+        <label v-if="label" class="input-group__label" :for="_uid">{{ label }}</label>
         <input 
             :class="['input-group__input', {'input-group__input--error': error}]"
-            ref="input"
+            :ref="reference ? reference : 'input'"
             :value="value" 
             :type="type" 
             @input="$emit('input', $event.target.value)"
@@ -22,7 +22,7 @@
 <script>
 export default {
     name: 'InputGroup',
-    props: { label: String, type: String, value: String, error: String, required: Boolean, placeholder: String },
+    props: { label: String, type: String, value: String, error: String, required: Boolean, placeholder: String, reference: String },
     methods: {
         focus() {
             this.$refs.input.focus();

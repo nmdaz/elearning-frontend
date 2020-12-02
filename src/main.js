@@ -9,11 +9,30 @@ import {
 	faBars, faPlay, faBookReader, faArrowCircleRight, 
 	faChevronDown, faChevronUp, faChevronLeft, 
 	faChevronRight, faList, faCircle ,
-	faHeart, faAngry
+	faHeart, faAngry, faQuoteLeft, faQuoteRight, 
+	faEdit, faSave, faTrash
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faBars, faPlay, faBookReader, faArrowCircleRight, faChevronDown, faChevronUp, faChevronLeft, faChevronRight, faList, faCircle, faHeart, faAngry)
+library.add (
+	faBars, 
+	faPlay, 
+	faBookReader, 
+	faArrowCircleRight, 
+	faChevronDown, 
+	faChevronUp, 
+	faChevronLeft, 
+	faChevronRight, 
+	faList, 
+	faCircle, 
+	faHeart, 
+	faAngry,
+	faQuoteLeft,
+	faQuoteRight,
+	faEdit,
+	faSave,
+	faTrash
+)
  
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

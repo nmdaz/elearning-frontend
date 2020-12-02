@@ -1,5 +1,9 @@
 <template>
+
 <PageLoader v-if="!course" text="Please wait white page is loading" />
+
+<div v-else-if="!currentLesson" class="no-lesson"> This course has no lesson</div>
+
 <div v-else class="l-flex">
     <SlideFade>
         <div v-if="showSidebar" class="sidebar" ref="sidebar">
@@ -32,8 +36,11 @@
         </div>
     </SlideFade>
 
-    <div class="content">
+    <div v-if="!this.currentLesson" class="content">This course has no lesson</div>
+
+    <div v-else class="content">
         <div class="video">
+            <iframe width="100%" height="100%" :src="'//www.youtube.com/embed/' + currentLesson.video_id" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
 
         <LessonControls :name="currentLesson.name"/>
@@ -96,6 +103,7 @@
         </div>
     </div>
 </div>
+
 </template>
 
 <script>
@@ -150,15 +158,18 @@ export default {
             'authenticated'
         ])
     },
-    mounted() {
+    async mounted() {
         this.courseId = this.$route.params.courseId;
-        this.fetchCourses();
 
-        this.$store.state.navbar.showLeftToggler = true;
+        await this.fetchCourses();
 
-        this.$store.state.navbar.$on('toggleMenu', () => {
-            this.showSidebar = !this.showSidebar;
-        })
+        if (this.currentLesson) {            
+            this.$store.state.navbar.showLeftToggler = true;
+
+            this.$store.state.navbar.$on('toggleMenu', () => {
+                this.showSidebar = !this.showSidebar;
+            })   
+        }         
     },
     updated() {
         if (this.$refs.sidebar)
@@ -195,8 +206,13 @@ export default {
 
                 this.course = response.data.course;
 
-                this.currentLesson = this.course.sections[0].lessons[0];
-                this.addCounterToLessons(this.course);
+                if (!this.course.sections || !this.course.sections.lessons) {
+                    this.currentLesson = null;
+                }
+                else {
+                    this.currentLesson = this.course.sections[0].lessons[0];
+                    this.addCounterToLessons(this.course);
+                }
             }
             catch (error) {
                console.log([error]);
@@ -284,6 +300,15 @@ export default {
 
         cancelReply() {
             this.newReplyComment = null;
+        },
+
+        getId(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+            const match = url.match(regExp);
+
+            return (match && match[2].length === 11)
+              ? match[2]
+              : null;
         }
     }
 }
@@ -335,6 +360,9 @@ export default {
     width: 100%;
 }
 
-
+.no-lesson {
+    text-align: center;
+    margin-top: 10%;
+}
 
 </style>

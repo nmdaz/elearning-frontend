@@ -35,15 +35,16 @@
     </BasicForm>
 
     <div v-else class="edit-course">
-        <div class="course-info">
-            <img class="course-info__cover-image" :src="'data:' + course.cover_image_mime_type + ';base64,' + course.cover_image"> 
-            <div>  Name: {{ course.name }} </div>
-            <div>  Description: {{ course.description }} </div>
-            <div> 
-                <a :href="`${apiUrl}/courses/${courseId}/download-attachment`" target="_blank">Download Attachment</a> 
-            </div>
-            <BaseButton class="edit-course__button"  @click="addSection"> Add Section </BaseButton>
-        </div>
+        <EditCourseInfo 
+            :course="course"
+            :errors="errors"
+            @new-cover-image="newCoverImage"
+            @new-name="newName"
+            @new-description="newDescription"
+            @new-attachment="newAttachment"
+            @download-attachment="downloadAttachment"
+        />
+
         <div class="sections">
             <div class="section" v-for="section in this.sections" :key="section.id">
                 <div class="section-info">
@@ -76,21 +77,28 @@ import InputGroup from '@/components/InputGroup';
 import BaseButton from '@/components/base/BaseButton';
 import BasicForm from '@/components/BasicForm';
 import ConfirmationBox from '@/components/ConfirmationBox';
+import EditCourseInfo from '@/components/EditCourseInfo';
 
 export default {
     name: 'EditCourse',
     components: {
-        BaseButton, InputGroup, BasicForm, PageLoader, ConfirmationBox
+        BaseButton, InputGroup, BasicForm, PageLoader, ConfirmationBox, EditCourseInfo
     },
     data() {
         return {
             courseId: undefined,
             course: null,
+
+            editCourseNameValue: undefined,
+            editCourseDescriptionValue: undefined,
+            editCourseAttachmentValue: null,
+            errors: null,
+
             sections: null,
             newSection: null,
+            newLesson: null,
             message: null,
             deleteSectionId: undefined,
-            newLesson: null,
             loading: false
         }
     },
@@ -110,16 +118,15 @@ export default {
         async fetchCourse() {
             this.loading = true;
             try {
-                const response = await window.axios.get(`${this.apiUrl}/users/${this.user.id}/courses/${this.courseId}`);
+                const response = await window.axios.get(`${this.apiUrl}/courses/${this.courseId}`);
                 this.course = response.data.course;
                 this.loading = false;
-                console.log(this.course);
             }
             catch (error) {
-                console.log([error]);
                 this.loading = false;
             }
         },
+
         async fetchSections() {
             this.loading = true;
             try {
@@ -131,6 +138,51 @@ export default {
                 console.log([error]);
                 this.loading = false;
             }
+        },
+
+        async newCoverImage(newCoverImage) {
+            try {
+                await this.updateCourse('cover_image', newCoverImage);
+                this.fetchCourse();
+            }
+            catch (error) {
+                console.log(error);
+            }
+        },
+
+        async newName(newName) {
+            try {
+                await this.updateCourse('name', newName);
+                this.course.name = newName;
+                this.editCourseNameValue = undefined;
+            }
+            catch (error) {
+                console.log(error);
+            }
+        },
+
+        async newDescription(newDescription) {
+            try {
+                await this.updateCourse('description', newDescription);
+                this.course.description = newDescription;
+            }
+            catch (error) {
+                console.log(error);
+            }
+        },
+
+        async newAttachment(newAttachment) {
+            try {
+                await this.updateCourse('attachment', newAttachment);
+                this.fetchCourse();
+            }
+            catch (error) {
+                console.log(error);
+            }
+        },
+
+        downloadAttachment() {
+            window.open(`${this.apiUrl}/courses/${this.course.id}/download-attachment`, '_blank');
         },
 
         addSection() {
@@ -217,6 +269,29 @@ export default {
         cancelNewLesson() {
             this.newLesson = null;
         },
+
+        async selectEditCourseAttachment(file) {
+            this.editCourseAttachmentValue = file;
+        },
+
+        
+
+        
+
+        async updateCourse(field, value) {
+            try {
+                this.loading = true;
+                let data = new FormData();
+                data.append('_method', 'PATCH');
+                data.append(field, value);
+                await window.axios.post(`${this.apiUrl}/courses/${this.course.id}`, data);
+                this.loading = false;
+            }
+            catch (error) {
+                this.loading = false;
+                this.errors = error.response.data.errors;
+            }
+        }
     }
 }
 </script>
@@ -233,9 +308,27 @@ export default {
 .course-info {
     margin-bottom: 1rem;
 
+    &__group {
+
+    }
+
+    &__group--column {
+        display: flex;
+        flex-direction: column;
+        width: fit-content;
+    }
+
     &__cover-image {
-        width: 32px;
-        height: 32px;
+        width: 300px;
+    }
+
+    &__text {
+        font-size: 1rem;
+    }
+
+    &__text--link {
+        font-size: .8rem;
+        color: #1f6eff;
     }
 }
 
@@ -260,4 +353,8 @@ export default {
     margin-right: .5rem;
     padding: .5rem .5rem;
 }
+
+
+
+
 </style>

@@ -4,6 +4,9 @@
   src: url('assets/fonts/OpenSans-Bold.ttf') format('truetype');
 }
 
+* {
+  box-sizing: border-box;
+}
 
 html, body {
     font-size: 20px;
@@ -29,16 +32,36 @@ h2 {
     display: flex;
 }
 
-.l-flex--space-between {
+.l-flex--d-column {
+  flex-direction: column;
+}
+
+.l-flex--wrap {
+  flex-wrap: wrap;
+}
+
+.l-flex--j-between {
 	justify-content: space-between;
 }
 
-.l-flex--space-around {
+.l-flex--j-center {
+  justify-content: center;
+}
+
+.l-flex--j-around {
 	justify-content: space-around;
 }
 
-.l-flex--align-items-center {
+.l-flex--a-center {
   align-items: center;
+}
+
+.l-flex-child {
+  flex-basis: 400px;
+}
+
+.l-flex-child--half {
+  width: 50%;
 }
 
 .w-100 {
@@ -53,6 +76,22 @@ h2 {
     padding: 2rem;
 }
 
+.m-1rem {
+  margin: 1rem;
+}
+
+.mt-p5rem {
+  margin-top: .5rem;
+}
+
+.mt-1rem {
+  margin-top: 1rem;
+}
+
+.mb-p5rem {
+  margin-bottom: .5rem;
+}
+
 .mb-1rem {
 	margin-bottom: 1rem;
 }
@@ -61,3 +100,23 @@ h2 {
 	margin-bottom: 2rem;
 }
 
+.mr-p5rem {
+  margin-right: .5rem;
+}
+
+.mr-1rem {
+  margin-right: 1rem;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.d-block {
+  display: block;
+}

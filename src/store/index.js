@@ -6,11 +6,7 @@ import server from './server'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-	state: {
-		apiUrl: 'http://elearning.test/api',
-        home: 'http://localhost:8080/home',
-        navbar: null
-	},
+	state: { navbar: null },
 	modules: {
 		auth,
 		server

@@ -60,7 +60,6 @@ export default {
         },
 
         async login() {
-            console.log('login');
             try {
                 await this.$store.dispatch('auth/login', {
                     email: this.email,
@@ -68,7 +67,7 @@ export default {
                 })
 
                 if (this.$route.params.redirect) {
-                    this.$router.push(this.$route.params.redirect);
+                    this.$router.push('/' + this.$route.params.redirect);
                     return;
                 }
 
