@@ -1,20 +1,21 @@
 <template>
 <div class="add-comment">
+    <div class="add-comment__label">Add Comment</div>
     <div class="add-comment__content">
         <img class="add-comment__avatar" src="@/assets/img/cover-placeholder.jpg" width="32px">
         <form class="add-comment__form" @submit.prevent="submit">
             <input class="add-comment__input" ref="input" type="text" name="newComment" v-model="newComment">
         </form>
     </div>
-    <div class="add-comment__controls">
-        <Button class="add-comment__button" text="Cancel" @click="cancel" />
-        <Button class="add-comment__button" text="Comment" @click="submit" />
+    <div v-if="newComment" class="add-comment__controls">
+        <BaseButton class="add-comment__button" text="Cancel" @click="cancel">Cancel</BaseButton>
+        <BaseButton class="add-comment__button" text="Comment" @click="submit">Comment</BaseButton>
     </div>
 </div>
 </template>
 
 <script>
-import Button from '@/components/Button';
+import BaseButton from '@/components/base/BaseButton';
 
 export default {
     name: 'AddComment',
@@ -24,7 +25,7 @@ export default {
         }
     },
     components: {
-        Button
+        BaseButton
     },
     methods: {
         submit() {
@@ -57,6 +58,10 @@ export default {
         height: 32px;
         margin: .5rem;
         border-radius: 100%;
+    }
+
+    &__label {
+        font-size: .8rem;
     }
 
     &__form {

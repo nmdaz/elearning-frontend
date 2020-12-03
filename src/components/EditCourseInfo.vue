@@ -5,17 +5,17 @@
             <div class="l-flex-child l-flex-child--half pd-1rem">
                 <div class="edit-item">
                     <img class="edit-item__cover-image" :src="newCoverImagePreview ?  newCoverImagePreview : 'data:' + course.cover_image_mime_type + ';base64,' + course.cover_image">
-
-                    <div v-if="!newCoverImage" class="edit-item__controls" @click="$refs.coverImageInput.click()">
-                        <font-awesome-icon class="edit-item__icon--big" :icon="['fas', 'edit']" />
+                    <div v-if="!newCoverImage" class="edit-item__controls edit-item__controls--center" @click="$refs.coverImageInput.click()">
+                        <font-awesome-icon class="edit-item__icon edit-item__icon--big" :icon="['fas', 'edit']" /> 
+                        <span class="edit-item__label edit-item__label--big">New Cover Image</span>
                     </div>
-                    <div v-else class="edit-item__controls">
+                    <div v-else class="edit-item__controls edit-item__controls--center">
                         <font-awesome-icon class="edit-item__icon edit-item__icon--big" @click="saveNewCoverImage" :icon="['fas', 'save']" />
                         <font-awesome-icon class="edit-item__icon edit-item__icon--big" @click="cancelNewCoverImage" :icon="['fas', 'trash-alt']" />
                     </div>
 
-                    <div v-if="errors && errors.cover_image" class="edit-item__error">{{ errors.cover_image[0] }}</div>
-                    <div v-if="coverImageError" class="edit-item__error">{{ coverImageError }}</div>
+                    <div v-if="errors && errors.cover_image" class="edit-item__error edit-item__error--center">{{ errors.cover_image[0] }}</div>
+                    <div v-if="coverImageError" class="edit-item__error edit-item__error--center">{{ coverImageError }}</div>
 
                      <input type="file" ref="coverImageInput" @change="selectNewCoverImage" style="display: none">
                 </div>
@@ -60,17 +60,16 @@
                 </div>
 
                 <div class="edit-item edit-item--border"> 
-                   <div v-if="!course.attachment_url">This course has no attachment</div>
-                   <div class="mb-1rem" v-else>
-                        <div class="edit-item__attachment">
-                            {{ newAttachment ? 'New Attachment Ready' : 'Attachment Available' }}
-                        </div>
+                   <div class="edit-item__label" v-if="!course.attachment_url && !newAttachment">This course has no attachment</div>
+                   <div class="edit-item__label" v-else-if="newAttachment">New Attachment Ready</div>
+                   <div class="edit-item__label" v-else>Attachment Available</div>
+                   <div class="mb-1rem">
                         <template v-if="newAttachment">
                             <font-awesome-icon class="edit-item__icon" @click="saveNewAttachment" :icon="['fas', 'save']" />
                             <font-awesome-icon class="edit-item__icon" @click="cancelNewAttachment" :icon="['fas', 'trash-alt']"/>
                         </template>
                         <template v-else>
-                            <font-awesome-icon class="edit-item__icon" @click="$emit('download-attachment')" :icon="['fas', 'download']" />
+                            <font-awesome-icon v-if="course.attachment_url" class="edit-item__icon" @click="$emit('download-attachment')" :icon="['fas', 'download']" />
                             <font-awesome-icon @click="$refs.attachmentInput.click()" class="edit-item__icon" :icon="['fas', 'edit']" />
                         </template>
                    </div>
@@ -226,7 +225,12 @@ export default {
     }
     
     &__label {
-        font-size: .8rem;
+        font-size: 0.8rem;
+        color: #38bb8e;
+    }
+
+    &__label--big {
+        font-size: 1rem;
     }
 
     &__input {
@@ -237,6 +241,7 @@ export default {
     &__icon {
         margin-right: .5rem;
         cursor: pointer;
+        color: #d85c5c;
     }
 
     &__icon--big {
@@ -253,13 +258,6 @@ export default {
         margin-top: .5rem;
     }
 
-    &__controls--inside {
-        position: absolute;
-        bottom: 1.5rem;
-        right: 2rem;
-        color: #FFF;
-    }
-
     &__controls--center {
         text-align: center;
     }
@@ -269,6 +267,10 @@ export default {
         color: red;
         line-height: .7rem;
         margin-top: .5rem;
+    }
+
+    &__error--center {
+        text-align: center;
     }
 }
 </style>
