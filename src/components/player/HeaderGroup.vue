@@ -18,21 +18,33 @@ export default {
     display: flex;
     align-items: center;
     border-bottom: 2px solid #38bb8e;
-    padding: .5rem .5rem;
     width: 100%;
+    background-color: #38bb8e;
+
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    border-bottom: none;
+    width: 100%;
+    background-color: #38bb8e;
 
     &__img {
-        width: 42px;
-        height: 42px;
+        width: 100px;
+        height: 100px;
         flex-shrink: 0;
-        border-radius: 100%;
         padding: .5rem;
+
+        width: 100px;
+        height: 100px;
+        flex-shrink: 0;
+        padding: 0;
     }
 
-    &_title {
-        font-size: 1.2rem;
+    &__title {
+        font-size: 1rem;
         margin-top: 0.5rem;
-        color: #1a9c4e;
+        color: white;
+        padding: .25rem;
     }
 }
 </style>

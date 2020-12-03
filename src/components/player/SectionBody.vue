@@ -4,10 +4,9 @@
         v-for="lesson in lessons" :key="lesson.id"
         class="c-lesson-header" 
     >
-        <div class="c-lesson-header__play-icon" v-if="currentLesson && lesson.id === currentLesson.id">
+        <div v-if="currentLesson && lesson.id === currentLesson.id" class="c-lesson-header__play-icon" >
             <font-awesome-icon :icon="['fas', 'play']"/>
         </div>
-
         <div v-else class="c-lesson-header__counter">{{ lesson.counter }}</div>
         <p @click="$emit('click', lesson)" class="c-lesson-header__title">{{ lesson.name }}</p>
     </div>
@@ -32,11 +31,8 @@ export default {
     align-items: center;
 
     &__counter {
-        border: 2px solid #38bb8e;
         padding: 0.25rem;
         border-radius: 100%;
-        width: 1rem;
-        height: 1rem;
         text-align: center;
         color: #38bb8e;
         font-weight: bold;
@@ -54,7 +50,7 @@ export default {
         font-weight: bold;
         margin-right: 0.5rem;
         flex-shrink: 0;
-        font-size: 1.5rem;
+        font-size: 1rem;
     }
 
     &__title {

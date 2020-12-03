@@ -10,7 +10,7 @@ import {
 	faChevronDown, faChevronUp, faChevronLeft, 
 	faChevronRight, faList, faCircle ,
 	faHeart, faAngry, faQuoteLeft, faQuoteRight, 
-	faEdit, faSave, faTrash, faDownload, faTrashAlt
+	faEdit, faSave, faTrash, faDownload, faTrashAlt, faAngleRight
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -33,7 +33,8 @@ library.add (
 	faSave,
 	faTrash,
 	faDownload,
-	faTrashAlt
+	faTrashAlt,
+	faAngleRight
 )
  
 Vue.component('font-awesome-icon', FontAwesomeIcon)

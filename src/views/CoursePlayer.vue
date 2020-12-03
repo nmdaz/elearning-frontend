@@ -208,6 +208,7 @@ export default {
 
                 let firstLesson = null;
 
+                //check if course has lesson
                 this.course.sections.forEach(function(section) {
                     section.lessons.forEach(function(lesson) {
                         if (firstLesson) return;
@@ -343,7 +344,12 @@ export default {
     min-width: 350px;
     max-width: 350px;
     width: 350px;
-    height: 100vh;
+    background-color: #fff;
+    box-shadow: 1px 17px 6px 0px;
+    min-width: 350px;
+    max-width: 350px;
+    width: 350px;
+    min-height: 100vh;
     background-color: #fff;
     box-shadow: 1px 17px 6px 0px;
 

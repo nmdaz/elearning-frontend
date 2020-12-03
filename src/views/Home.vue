@@ -1,0 +1,51 @@
+<template>
+    <div class="home">
+        <div class="home__controls">
+            <div class="home__control-item">
+                <font-awesome-icon v-if="$route.path == '/home/enrolled-courses'" :icon="['fas', 'angle-right']" />
+                <a class="home__button" href="/home/enrolled-courses">ENROLLED COURSES</a>
+            </div>      
+            <div class="home__control-item">
+                <font-awesome-icon v-if="$route.path == '/home/authored-courses'" :icon="['fas', 'angle-right']" />
+                <a class="home__button" href="/home/authored-courses">AUTHORED COURSES</a>
+            </div>
+        </div>
+        <router-view></router-view>
+    </div>
+</template>
+
+<script>
+export default {
+    name: 'Home',
+    mounted() {
+        if (this.$route.path === '/home' || this.$route.path === '/home') 
+            this.$router.push('/home/enrolled-courses');
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+.home {
+    font-size: .7rem;
+
+    &__controls {
+        margin-bottom: 2rem;
+        display: flex;
+        background-color: #38bb8e;
+        padding: .5rem;
+        justify-content: center;
+        color: white;
+    }
+
+    &__control-item {
+        display: flex;
+        align-items: center;
+    }
+
+    &__button {
+        white-space: nowrap;
+        margin-right: 1rem;
+        margin-left: .25rem;
+    }
+}
+</style>

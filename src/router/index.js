@@ -12,6 +12,7 @@ import CoursePlayer from '@/views/CoursePlayer'
 import CreateCourse from '@/views/CreateCourse'
 import EditCourse from '@/views/EditCourse'
 import Home from '@/views/Home'
+import NotFound from '@/views/NotFound'
 import store from '../store'
 
 Vue.use(VueRouter)
@@ -63,6 +64,10 @@ const routes = [
         meta: { requiresAuth: true },
         children: [
             {
+                path: '',
+                component: EnrolledCourses
+            },
+            {
                 path: 'enrolled-courses',
                 component: EnrolledCourses
             },
@@ -96,6 +101,11 @@ const routes = [
         component: EditCourse,
         meta: { requiresAuth: true },
         props: true
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'NotFound',
+        component: NotFound
     }
 ]
 

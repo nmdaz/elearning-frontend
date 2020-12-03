@@ -108,8 +108,15 @@ export default {
         })
     },
     async mounted() {
+
+        if (! this.$route.params.courseId) return this.$router.push({name: 'NotFound'});
+
         this.courseId = this.$route.params.courseId;
+
         await this.fetchCourse();
+
+        if (!this.course || this.course.author_id !== this.user.id) return this.$router.push({name: 'NotFound'});
+
         await this.fetchSections();
     },
 
@@ -153,7 +160,6 @@ export default {
             try {
                 await this.updateCourse('name', newName);
                 this.course.name = newName;
-                this.editCourseNameValue = undefined;
             }
             catch (error) {
                 console.log(error);
@@ -272,11 +278,7 @@ export default {
         async selectEditCourseAttachment(file) {
             this.editCourseAttachmentValue = file;
         },
-
         
-
-        
-
         async updateCourse(field, value) {
             try {
                 this.loading = true;
@@ -289,6 +291,7 @@ export default {
             catch (error) {
                 this.loading = false;
                 this.errors = error.response.data.errors;
+                throw error;
             }
         }
     }

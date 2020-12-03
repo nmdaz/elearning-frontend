@@ -16,10 +16,7 @@
             <router-link class="navigation-bar__link" to="/courses">Find Courses</router-link>
         </li>
         <li v-if="authenticated" class="navigation-bar__item">
-            <router-link class="navigation-bar__link" to="/enrolled-courses">Enrolled Courses</router-link>
-        </li>
-        <li v-if="authenticated" class="navigation-bar__item">
-            <router-link class="navigation-bar__link" to="/authored-courses">Created Courses</router-link>
+            <router-link class="navigation-bar__link" to="/home">Home</router-link>
         </li>
         <li v-if="!authenticated" class="navigation-bar__item">
             <router-link class="navigation-bar__link" to="/login">Login</router-link>
