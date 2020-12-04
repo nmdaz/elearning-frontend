@@ -35,7 +35,11 @@
     </BasicForm>
 
     <div v-else class="edit-course">
+
+        <div v-if="loadingCourses"></div>
+
         <EditCourseInfo 
+            v-else
             :course="course"
             :errors="errors"
             @new-cover-image="newCoverImage"
@@ -46,6 +50,8 @@
         />
 
         <hr/>
+
+        <BaseButton @click="addSection">Add Section</BaseButton>
 
         <div class="sections">
             <div class="section" v-for="section in this.sections" :key="section.id">
@@ -91,8 +97,10 @@ export default {
             courseId: undefined,
             course: null,
 
-            errors: null,
+            loadingCourses: false,
+            loadingSections: false,
 
+            errors: null,
             sections: null,
             newSection: null,
             newLesson: null,
@@ -122,14 +130,15 @@ export default {
 
     methods: {
         async fetchCourse() {
-            this.loading = true;
+            this.loadingCourses = true;
             try {
                 const response = await window.axios.get(`${this.apiUrl}/courses/${this.courseId}`);
                 this.course = response.data.course;
-                this.loading = false;
+                this.loadingCourses = false;
             }
             catch (error) {
-                this.loading = false;
+                console.log([error.response.data]);
+                this.loadingCourses = false;
             }
         },
 
@@ -141,7 +150,7 @@ export default {
                 this.loading = false;
             }
             catch (error) {
-                console.log([error]);
+                console.log([error.response.data]);
                 this.loading = false;
             }
         },
@@ -162,7 +171,7 @@ export default {
                 this.course.name = newName;
             }
             catch (error) {
-                console.log(error);
+                console.log(error.response.data);
             }
         },
 

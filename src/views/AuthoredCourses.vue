@@ -1,5 +1,4 @@
 <template>
-
     <PageLoader v-if="!authoredCourses" text="Loading Enrolled Courses" />
 
     <div v-else class="enrolled-courses">
@@ -11,27 +10,21 @@
             You have no created course yet
         </div>
 
-        <div v-else>
-            <div class="title">Your Created Courses</div>
-            
-            <div class="flex">
-                <div v-for="course in authoredCourses" :key="course.id" class="flex__child">
-                    <CoursePreview
-                        :title="course.name"  
-                        :cover="'data:' + course.cover_image_mime_type + ';base64,' + course.cover_image"
-                        :description="course.description"
-                        :url="'/mycourses/course/' + course.id"
-                        :lessonsCount="course.lessons_count"
-                    >
+        <div v-else class="flex">
+            <div v-for="course in authoredCourses" :key="course.id" class="flex__child">
+                <CoursePreview
+                    :title="course.name"  
+                    :cover="'data:' + course.cover_image_mime_type + ';base64,' + course.cover_image"
+                    :description="course.description"
+                    :url="'/mycourses/course/' + course.id"
+                    :lessonsCount="course.lessons_count"
+                >
 
-                        <BaseButton class="mb-p5rem" @click="editCourse(course.id)">Edit Course</BaseButton>
-                        <BaseButton @click="deleteCourse(course.id)">Delete</BaseButton>
-
-                    </CoursePreview>
-                </div>
+                    <BaseButton class="mb-p5rem" @click="editCourse(course.id)">Edit Course</BaseButton>
+                    <BaseButton @click="deleteCourse(course.id)">Delete</BaseButton>
+                </CoursePreview>
             </div>
         </div>
-
     </div>
 
 </template>
@@ -70,7 +63,7 @@ export default {
                 addLessonCountToCourses(this.authoredCourses);
             })
             .catch( (error) => {
-                console.log(error);
+                console.log([error]);
             });
         },
         editCourse(courseId) {

@@ -13,19 +13,19 @@
     </div>
     <ul v-bind:class="{ 'navigation-bar__link-list': true, 'navigation-bar__link-list--show': showLinks }">
         <li class="navigation-bar__item">
-            <router-link class="navigation-bar__link" to="/courses">Find Courses</router-link>
+            <router-link class="navigation-bar__link" to="/courses">FIND COURSES</router-link>
         </li>
         <li v-if="authenticated" class="navigation-bar__item">
-            <router-link class="navigation-bar__link" to="/home">Home</router-link>
+            <router-link class="navigation-bar__link" to="/home">HOME</router-link>
         </li>
         <li v-if="!authenticated" class="navigation-bar__item">
-            <router-link class="navigation-bar__link" to="/login">Login</router-link>
+            <router-link class="navigation-bar__link" to="/login">LOGIN</router-link>
         </li>
         <li v-if="!authenticated" class="navigation-bar__item">
-            <router-link class="navigation-bar__link" to="/register">Register</router-link>
+            <router-link class="navigation-bar__link" to="/register">REGISTER</router-link>
         </li>
         <li v-if="authenticated" class="navigation-bar__item">
-            <router-link class="navigation-bar__link" to="/logout">Logout</router-link>
+            <router-link class="navigation-bar__link" to="/logout">LOGOUT</router-link>
         </li>
     </ul>
 </div>
@@ -74,8 +74,7 @@ export default {
     justify-content: space-between;
     background-color: white;
     color: #cccaca;
-    font-size: 0.9rem;
-    // box-shadow: 1px 1px 5px 0px;
+    font-size: 0.8rem;
     position: relative;
     align-items: center;
     z-index: 100;
