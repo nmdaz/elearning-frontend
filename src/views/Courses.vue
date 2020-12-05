@@ -3,12 +3,18 @@
         Loading Courses Please Wait...
     </PageLoader>
 
+<<<<<<< HEAD
     <FullPageText v-else-if="courses.length === 0" text="No Course Available" />
+=======
+    <FullPageText v-else-if="courses.length === 0">
+         Sorry. No course available.
+    </FullPageText>
+>>>>>>> Improve layouts
 
     <div v-else>
         <CoursePreviewList :courses="courses" @enroll="enroll" />
 
-        <div class="align-center">
+        <div class="paginator-controls">
             <button 
                 class="mr-p5rem"
                 @click="previousPage" 
@@ -26,6 +32,10 @@
             </button>
         </div>
     </div>
+<<<<<<< HEAD
+=======
+    
+>>>>>>> Improve layouts
 </template>
 
 <script>
@@ -55,7 +65,7 @@ export default {
         })
     },
     mounted() {
-
+        // dont show courses authored by user
         if (this.$store.getters['auth/authenticated']) this.coursesUrl = `${this.apiUrl}/users/${this.user.id}/not-enrolled-courses`;
         else this.coursesUrl = `${this.apiUrl}/courses`;
 
@@ -69,7 +79,6 @@ export default {
                 this.courses = response.data.courses;
 
                 addLessonCountToCourses(this.courses);
-                console.log(this.courses);
 
                 this.paginator.currentPage = response.data.meta.current_page;
                 this.paginator.lastPage = response.data.meta.last_page;
@@ -135,3 +144,13 @@ export default {
     }
 }   
 </script>
+
+<style lang="scss">
+.paginator-controls {
+    position: absolute;
+    margin: auto;
+    width: 100%;
+    bottom: 10px;
+    text-align: center;
+}
+</style>
