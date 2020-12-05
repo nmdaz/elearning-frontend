@@ -1,8 +1,16 @@
 <template>
-    <div v-if="courses">
+    <PageLoader v-if="!courses" text="Loading Courses">
+        Loading Courses Please Wait...
+    </PageLoader>
+
+    <FullPageText v-else-if="courses.length === 0">
+         Sorry. No course available.
+    </FullPageText>
+
+    <div v-else>
         <CoursePreviewList :courses="courses" @enroll="enroll" />
 
-        <div class="align-center">
+        <div class="paginator-controls">
             <button 
                 class="mr-p5rem"
                 @click="previousPage" 
@@ -21,20 +29,19 @@
         </div>
         
     </div>
-    <PageLoader v-else text="Loading Courses">
-        Loading Courses Please Wait...
-    </PageLoader>
+    
 </template>
 
 <script>
 import PageLoader from '@/components/PageLoader.vue';
 import CoursePreviewList from '@/components/CoursePreviewList';
+import FullPageText from '@/components/FullPageText';
 import { mapState } from 'vuex';
 import { addLessonCountToCourses } from '../includes/Helper';
 
 export default {
     name: 'Courses',
-    components: { CoursePreviewList, PageLoader },
+    components: { CoursePreviewList, PageLoader, FullPageText },
     data() {
         return {
             courses: null,
@@ -52,7 +59,7 @@ export default {
         })
     },
     mounted() {
-
+        // dont show courses authored by user
         if (this.$store.getters['auth/authenticated']) this.coursesUrl = `${this.apiUrl}/users/${this.user.id}/not-enrolled-courses`;
         else this.coursesUrl = `${this.apiUrl}/courses`;
 
@@ -66,7 +73,6 @@ export default {
                 this.courses = response.data.courses;
 
                 addLessonCountToCourses(this.courses);
-                console.log(this.courses);
 
                 this.paginator.currentPage = response.data.meta.current_page;
                 this.paginator.lastPage = response.data.meta.last_page;
@@ -132,3 +138,13 @@ export default {
     }
 }   
 </script>
+
+<style lang="scss">
+.paginator-controls {
+    position: absolute;
+    margin: auto;
+    width: 100%;
+    bottom: 10px;
+    text-align: center;
+}
+</style>

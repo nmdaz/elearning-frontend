@@ -37,13 +37,11 @@ export default {
     font-size: 1rem;
 
     &__label {
-        font-size: .8em;
-        margin-bottom: .2em;
+        font-size: .8rem;
         color: #444;
     }
 
     &__input {
-        padding: .4em;
         border-width: 0 0 1px 0;
         margin-bottom: .5em;
         font-size:  1em;
@@ -55,10 +53,10 @@ export default {
 
     &__error {
         display: block;
-        margin-bottom: 1em;
+        margin-bottom: 1rem;
         color: #962222;
-        letter-spacing: .12em;
-        font-size: .8em;
+        letter-spacing: .12rem;
+        font-size: .8rem;
     }
 }   
 </style>

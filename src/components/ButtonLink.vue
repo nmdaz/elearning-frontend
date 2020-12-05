@@ -1,5 +1,5 @@
 <template>
-		<a class="button-link" :href="url"><slot></slot></a>
+		<router-link class="button-link" :to="url"><slot></slot></router-link>
 </template>
 
 <script>
