@@ -8,10 +8,11 @@
                 :url="'/course-player/' + course.id"
                 :lessonsCount="course.lessons_count"
             >
-                <BaseButton v-if="$store.getters['auth/authenticated']" @click="$emit('enroll', course.id)">Enroll</BaseButton>
-                <BaseButton v-else @click="redirectToLogin">Login to view course</BaseButton>
+                <BaseButton v-if="$store.getters['auth/authenticated']" class="button" @click="$emit('enroll', course.id)">Enroll</BaseButton>
+                <BaseButton v-else @click="redirectToLogin" class="button">Login to view course</BaseButton>
+                <BaseButton @click="watchCourse(course.id)" class="button">Watch Course</BaseButton>
             </CoursePreview>
-        </div>
+        </div>  
     </div>
 </template>
 
@@ -26,6 +27,10 @@ export default {
     methods: {
         redirectToLogin() {
             this.$router.push('/login/courses');
+        },
+
+        watchCourse(courseId) {
+            this.$router.push('/course-player/' + courseId);
         }
     }
 }
@@ -36,6 +41,11 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+
+    .button {
+        width: 100%;
+        margin-top: .5rem;
+    }
 
     .course-viewer__item {
         padding: 1rem;

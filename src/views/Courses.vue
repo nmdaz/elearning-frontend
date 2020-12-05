@@ -147,7 +147,6 @@ export default {
 
 <style lang="scss">
 .paginator-controls {
-    position: absolute;
     margin: auto;
     width: 100%;
     bottom: 10px;
