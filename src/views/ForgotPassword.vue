@@ -1,5 +1,6 @@
 <template>
-    <div class="password-email">
+    <PageLoader v-if="loading" text="Loading..." />
+    <div v-else class="password-email">
 
         <CenterWrapper>
             <MessageBox v-if="emailSent"  title="Success">
@@ -9,7 +10,7 @@
 
             <BasicForm v-else legend="Forgot Password" @submit="submit">
                 <InputGroup
-                    v-model = "email"
+                    v-model="email"
                     label="Email"
                     type="email"
                     class="form-reset__input-group"
@@ -17,7 +18,6 @@
                     @focus="resetError"
                     :required="true"
                 />
-
                 <BaseButton>Submit</BaseButton>
             </BasicForm>
         </CenterWrapper>
@@ -32,16 +32,18 @@ import InputGroup from '@/components/InputGroup';
 import BasicForm from '@/components/BasicForm';
 import MessageBox from '@/components/MessageBox';
 import CenterWrapper from '@/components/CenterWrapper';
+import PageLoader from '@/components/PageLoader';
 import { mapState } from 'vuex';
 
 export default {
     name: 'ForgotPassword',
-    components: { InputGroup, BaseButton, BasicForm, MessageBox, CenterWrapper },
+    components: { InputGroup, BaseButton, BasicForm, MessageBox, CenterWrapper, PageLoader },
     data() {
         return {
             email: '',
             emailError: '',
-            emailSent: false
+            emailSent: false,
+            loading: false
         }
     },
     computed: {
@@ -58,13 +60,17 @@ export default {
             const url = `${this.apiUrl}/auth/password/email`;
 
             try {
+                this.loading = true;
                 await window.axios.post(url, {
                     email: this.email,
                     callbackUrl: this.passwordResetCallbackUrl
                 });
                 this.emailSent = true;
+                this.loading = false;
             }
             catch (error) {
+                this.loading = false;
+                console.log([error]);
                 if (error.response.data.errors.email) this.emailError = error.response.data.errors.email[0];
             }
         },
