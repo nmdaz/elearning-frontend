@@ -37,29 +37,25 @@ export default {
     flex-direction: column;
 
     &__label {
-        font-size: .75rem;
-        margin-bottom: .2rem;
+        font-size: .75em;
         color: #444;
     }
 
     &__input {
-        color: #131314;
+        color: #333;
         padding: .4rem;
         border-width: 0 0 1px 0;
-        margin-bottom: .5rem;
-        font-size:  1rem;
-        letter-spacing: .18rem;
+        margin-bottom: 1rem;
+        font-size:  1em;
+        letter-spacing: .02rem;
         background-color: transparent;
-    }
-
-    &__input--error {
     }
 
     &__error {
         display: block;
         margin-bottom: 1rem;
         color: #962222;
-        font-size: 0.7rem;
+        font-size: 0.7em;
     }
 }   
 </style>
