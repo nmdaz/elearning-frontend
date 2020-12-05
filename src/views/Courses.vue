@@ -3,9 +3,7 @@
         Loading Courses Please Wait...
     </PageLoader>
 
-    <FullPageText v-else-if="courses.length === 0">
-         Sorry. No course available.
-    </FullPageText>
+    <FullPageText v-else-if="courses.length === 0" text="No Course Available" />
 
     <div v-else>
         <CoursePreviewList :courses="courses" @enroll="enroll" />
@@ -27,9 +25,8 @@
                 Next
             </button>
         </div>
-        
     </div>
-    
+
 </template>
 
 <script>

@@ -14,7 +14,7 @@
             <div v-for="course in authoredCourses" :key="course.id" class="flex__child">
                 <CoursePreview
                     :title="course.name"  
-                    :cover="'data:' + course.cover_image_mime_type + ';base64,' + course.cover_image"
+                    :cover="course.cover_image ? 'data:' + course.cover_image_mime_type + ';base64,' + course.cover_image : require('../assets/img/404.jpg')"
                     :description="course.description"
                     :url="'/mycourses/course/' + course.id"
                     :lessonsCount="course.lessons_count"
