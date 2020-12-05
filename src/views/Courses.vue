@@ -1,5 +1,11 @@
 <template>
-    <div v-if="courses">
+    <PageLoader v-if="!courses" text="Loading Courses">
+        Loading Courses Please Wait...
+    </PageLoader>
+
+    <FullPageText v-else-if="courses.length === 0" text="No Course Available" />
+
+    <div v-else>
         <CoursePreviewList :courses="courses" @enroll="enroll" />
 
         <div class="align-center">
@@ -19,22 +25,19 @@
                 Next
             </button>
         </div>
-        
     </div>
-    <PageLoader v-else text="Loading Courses">
-        Loading Courses Please Wait...
-    </PageLoader>
 </template>
 
 <script>
 import PageLoader from '@/components/PageLoader.vue';
 import CoursePreviewList from '@/components/CoursePreviewList';
+import FullPageText from '@/components/FullPageText';
 import { mapState } from 'vuex';
 import { addLessonCountToCourses } from '../includes/Helper';
 
 export default {
     name: 'Courses',
-    components: { CoursePreviewList, PageLoader },
+    components: { CoursePreviewList, PageLoader, FullPageText },
     data() {
         return {
             courses: null,

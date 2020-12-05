@@ -4,7 +4,8 @@
         <div class="l-flex l-flex--wrap l-flex--j-center">
             <div class="l-flex-child l-flex-child--half pd-1rem">
                 <div class="edit-item">
-                    <img class="edit-item__cover-image" :src="newCoverImagePreview ?  newCoverImagePreview : 'data:' + course.cover_image_mime_type + ';base64,' + course.cover_image">
+                    <img v-if="!course.cover_image" class="edit-item__cover-image" src="../assets/img/404.jpg">
+                    <img v-else class="edit-item__cover-image" :src="newCoverImagePreview ?  newCoverImagePreview : 'data:' + course.cover_image_mime_type + ';base64,' + course.cover_image">
                     <div v-if="!newCoverImage" class="edit-item__controls edit-item__controls--center" @click="$refs.coverImageInput.click()">
                         <font-awesome-icon class="edit-item__icon edit-item__icon--big" :icon="['fas', 'edit']" /> 
                         <span class="edit-item__label edit-item__label--big">New Cover Image</span>
