@@ -93,8 +93,8 @@ export default {
 
             data.append('name', this.course.name);
             data.append('description', this.course.description);
-            data.append('cover_image', this.course.cover_image);
-
+            
+            if (this.course.cover_image) data.append('cover_image', this.course.cover_image);
             if (this.course.attachment) data.append('attachment', this.course.attachment);
 
             try {

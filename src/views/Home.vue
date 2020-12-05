@@ -3,11 +3,11 @@
         <div class="home__controls">
             <div class="home__control-item">
                 <font-awesome-icon v-if="$route.path == '/home/enrolled-courses'" :icon="['fas', 'angle-right']" />
-                <a class="home__button" href="/home/enrolled-courses">ENROLLED COURSES</a>
+                <router-link class="home__button" to="/home/enrolled-courses">ENROLLED COURSES</router-link>
             </div>      
             <div class="home__control-item">
                 <font-awesome-icon v-if="$route.path == '/home/authored-courses'" :icon="['fas', 'angle-right']" />
-                <a class="home__button" href="/home/authored-courses">AUTHORED COURSES</a>
+                <router-link class="home__button" to="/home/authored-courses">AUTHORED COURSES</router-link>
             </div>
         </div>
         <router-view></router-view>

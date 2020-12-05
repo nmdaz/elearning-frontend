@@ -1,5 +1,5 @@
 <template>
-    <PageLoader v-if="loading || !course" />
+    <PageLoader v-if="loading" />
 
     <ConfirmationBox 
         v-else-if="deleteSectionId"
@@ -36,10 +36,10 @@
 
     <div v-else class="edit-course">
 
-        <div v-if="loadingCourses"></div>
+        <div v-if="loadingCourse">Loading Courses</div>
 
         <EditCourseInfo 
-            v-else
+            v-else-if="course"
             :course="course"
             :errors="errors"
             @new-cover-image="newCoverImage"
@@ -49,12 +49,16 @@
             @download-attachment="downloadAttachment"
         />
 
-        <hr/>
+        <div v-if="loadingSections">Loading Sections</div>
 
-        <BaseButton @click="addSection">Add Section</BaseButton>
+        <div v-else-if="course && sections" class="sections">
+            <hr/>
 
-        <div class="sections">
-            <div class="section" v-for="section in this.sections" :key="section.id">
+            <BaseButton @click="addSection">Add Section</BaseButton>
+
+            <div v-if="sections.length === 0">No sections yet</div>
+
+            <div v-else class="section" v-for="section in this.sections" :key="section.id">
                 <div class="section-info">
                     Section Name: {{ section.name }} 
                 </div>
@@ -97,7 +101,7 @@ export default {
             courseId: undefined,
             course: null,
 
-            loadingCourses: false,
+            loadingCourse: false,
             loadingSections: false,
 
             errors: null,
@@ -130,28 +134,28 @@ export default {
 
     methods: {
         async fetchCourse() {
-            this.loadingCourses = true;
+            this.loadingCourse = true;
             try {
                 const response = await window.axios.get(`${this.apiUrl}/courses/${this.courseId}`);
                 this.course = response.data.course;
-                this.loadingCourses = false;
+                this.loadingCourse = false;
             }
             catch (error) {
                 console.log([error.response.data]);
-                this.loadingCourses = false;
+                this.loadingCourse = false;
             }
         },
 
         async fetchSections() {
-            this.loading = true;
+            this.loadingSections = true;
             try {
                 const response = await window.axios.get(`${this.apiUrl}/courses/${this.courseId}/sections`);
                 this.sections = response.data.sections;
-                this.loading = false;
+                this.loadingSections = false;
             }
             catch (error) {
                 console.log([error.response.data]);
-                this.loading = false;
+                this.loadingSections = false;
             }
         },
 
@@ -188,7 +192,7 @@ export default {
         async newAttachment(newAttachment) {
             try {
                 await this.updateCourse('attachment', newAttachment);
-                this.fetchCourse();
+                this.course.attachment = 'true';
             }
             catch (error) {
                 console.log(error);
@@ -290,15 +294,12 @@ export default {
         
         async updateCourse(field, value) {
             try {
-                this.loading = true;
                 let data = new FormData();
                 data.append('_method', 'PATCH');
                 data.append(field, value);
                 await window.axios.post(`${this.apiUrl}/courses/${this.course.id}`, data);
-                this.loading = false;
             }
             catch (error) {
-                this.loading = false;
                 this.errors = error.response.data.errors;
                 throw error;
             }
