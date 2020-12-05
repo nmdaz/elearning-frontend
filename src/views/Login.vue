@@ -8,7 +8,6 @@
                 type="email" 
                 ref="email"
                 :error="error.email"
-                placeholder="youremail@mail.com"
             />
 
             <InputGroup  
@@ -110,7 +109,12 @@ export default {
 <style lang="scss" scoped>
 .login-view {
     margin-top: 2rem;
-    padding: 2rem;
+    padding: 1rem;
+
+    &__form {
+        margin-left: auto;
+        margin-right: auto;
+    }
 
     &__control-group {
         margin-bottom: 1rem;
@@ -124,6 +128,7 @@ export default {
 
     &__button {
         margin-bottom: 1rem;
+        width: 100%;
     }
 }
 

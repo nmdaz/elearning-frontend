@@ -16,21 +16,17 @@ export default {
 
 <style lang="scss" scoped>
 .basic-form {
-    min-width: 350px;
     max-width: 500px;
     margin: auto;
-    box-shadow: 1px 1px 4px 1px;
-    color: #0e0e0e5c;
-    border-radius: .2rem;
+    box-shadow: #00000021 1px 1px 3px 0px;
 
     &__legend {
         background-color: #38bb8e;
         padding: 1rem 0.75rem;
-        color: #434c42;
-        font-size: 0.8rem;
-        border-top-left-radius: .2rem;
-        border-top-right-radius: .2rem;
+        color: white;
+        font-size: 0.75rem;
         font-weight: bold;
+        letter-spacing: .05rem;
     }
 
     &__body {
