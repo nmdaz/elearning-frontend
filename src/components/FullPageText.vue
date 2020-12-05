@@ -1,9 +1,10 @@
+<template>
 
-</template>
-	<div class="full-page-text">
-		<div>{{ text }}</div>
-		<slot></slot>
-	</div>
+<div class="full-page-text">
+	<div>{{ text }}</div>
+	<slot></slot>
+</div>
+
 </template>
 
 <script>
