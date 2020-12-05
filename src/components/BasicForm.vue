@@ -21,16 +21,18 @@ export default {
     box-shadow: #00000021 1px 1px 3px 0px;
 
     &__legend {
-        background-color: #38bb8e;
         padding: 1rem 0.75rem;
         color: white;
         font-size: 0.75rem;
         font-weight: bold;
-        letter-spacing: .05rem;
+        letter-spacing: 0.05rem;
+        text-align: center;
+        color: #333;
+        font-size: 1.5rem;
     }
 
     &__body {
-        padding: 2rem;
+        padding: 0 2rem 2rem 2rem;
     }
 }
 </style>
