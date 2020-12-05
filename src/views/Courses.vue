@@ -3,13 +3,7 @@
         Loading Courses Please Wait...
     </PageLoader>
 
-<<<<<<< HEAD
     <FullPageText v-else-if="courses.length === 0" text="No Course Available" />
-=======
-    <FullPageText v-else-if="courses.length === 0">
-         Sorry. No course available.
-    </FullPageText>
->>>>>>> Improve layouts
 
     <div v-else>
         <CoursePreviewList :courses="courses" @enroll="enroll" />
@@ -32,10 +26,6 @@
             </button>
         </div>
     </div>
-<<<<<<< HEAD
-=======
-    
->>>>>>> Improve layouts
 </template>
 
 <script>
@@ -147,6 +137,7 @@ export default {
 
 <style lang="scss">
 .paginator-controls {
+    position: absolute;
     margin: auto;
     width: 100%;
     bottom: 10px;

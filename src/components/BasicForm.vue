@@ -29,6 +29,7 @@ export default {
         text-align: center;
         color: #333;
         font-size: 1.5rem;
+        letter-spacing: .05rem;
     }
 
     &__body {

@@ -1,5 +1,5 @@
-<template>
-<<<<<<< HEAD
+
+</template>
 	<div class="full-page-text">
 		<div>{{ text }}</div>
 		<slot></slot>
@@ -15,24 +15,6 @@ export default {
 
 </script>
 
-<style lang="scss">
-
-.full-page-text {
-	font-size: 1rem;
-	position: absolute;
-	height: 50vh;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-=======
-	
-<div class="full-page-text">
-     Sorry. No course available.
-</div>
-
-</template>
-
 <style lang="scss" scoped>
 
 .full-page-text {
@@ -40,7 +22,6 @@ export default {
     text-align: center;
     height: 50vh;
     margin-top: 20%;
->>>>>>> Improve layouts
 }
 
 </style>
