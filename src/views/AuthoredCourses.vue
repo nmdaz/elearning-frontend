@@ -91,6 +91,10 @@ export default {
 
 <style lang="scss" scoped>
 
+.enrolled-courses {
+    min-height: 90vh;
+}
+
 .title {
     font-size: 1.5rem;
     margin-top: 2rem;

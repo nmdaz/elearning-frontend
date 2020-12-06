@@ -30,7 +30,7 @@ export default {
 .full-page-text {
 	width: 100%;
     text-align: center;
-    height: 50vh;
+    height: 80vh;
     margin-top: 20%;
 }
 

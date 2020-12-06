@@ -108,6 +108,7 @@ export default {
 .no-enrolled {
     margin-top: 10%;
     text-align: center;
+    min-height: 90vh;
 }
     
 </style>

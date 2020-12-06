@@ -1,5 +1,5 @@
 <template>
-    <PageLoader v-if="loading" />
+    <PageLoader text="Loading Course" v-if="loading || loadingCourse" />
 
     <ConfirmationBox 
         v-else-if="deleteSectionId"
@@ -36,7 +36,7 @@
 
     <div v-else class="edit-course">
 
-        <div v-if="loadingCourse">Loading Courses</div>
+        <div class="loading-course" v-if="loadingCourse">Loading Courses</div>
 
         <EditCourseInfo 
             v-else-if="course"
@@ -54,7 +54,7 @@
         <div v-else-if="course && sections" class="sections">
             <hr/>
 
-            <BaseButton @click="addSection">Add Section</BaseButton>
+            <BaseButton class="mb-1rem" @click="addSection">Add Section</BaseButton>
 
             <div v-if="sections.length === 0">No sections yet</div>
 
@@ -195,7 +195,7 @@ export default {
                 this.course.attachment = 'true';
             }
             catch (error) {
-                console.log(error);
+                console.log([error]);
             }
         },
 
@@ -234,19 +234,19 @@ export default {
         },
 
         async saveSection() {
-            this.loading = true;
+            this.loadingSections = true;
 
             try {
                 await window.axios.post(`${this.apiUrl}/courses/${this.courseId}/sections`, {
                     name: this.newSection.name
                 });
                 
-                this.loading = false;
+                this.loadingSections = false;
                 this.newSection = null;
                 this.fetchSections();
             }
             catch (error) {
-                this.loading = false;
+                this.loadingSections = false;
                 this.newSection.errors = error.response.data.errors;
             }
         },
@@ -311,6 +311,7 @@ export default {
 <style lang="scss" scoped>
 .edit-course {
     margin: 1rem;
+    min-height: 90vh;
 
     &__confirmation-box {
         margin: 1rem auto 1rem auto;
@@ -364,9 +365,12 @@ export default {
     font-size: .6rem;
     margin-right: .5rem;
     padding: .5rem .5rem;
+    margin-top: .5rem;
 }
 
-
+.loading-course {
+    text-align: center;
+}
 
 
 </style>
