@@ -24,14 +24,10 @@ export default {
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-
-<style lang="scss" scoped>
-
-.full-page-text {
-	width: 100%;
-    text-align: center;
+	text-align: center;
     height: 80vh;
     margin-top: 20%;
 }
+
 
 </style>
