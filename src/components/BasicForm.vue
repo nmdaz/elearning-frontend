@@ -18,7 +18,6 @@ export default {
 .basic-form {
     max-width: 500px;
     margin: auto;
-    box-shadow: #00000021 1px 1px 3px 0px;
 
     &__legend {
         padding: 1rem 0.75rem;
@@ -27,9 +26,11 @@ export default {
         font-weight: bold;
         letter-spacing: 0.05rem;
         text-align: center;
-        color: #333;
+        color: #555;
         font-size: 1.5rem;
-        letter-spacing: .05rem;
+        letter-spacing: 0.05rem;
+        margin-bottom: 1.5rem;
+        font-family: Roboto;
     }
 
     &__body {

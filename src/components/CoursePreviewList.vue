@@ -3,15 +3,20 @@
         <div v-for="course in courses" :key="course.id" class="course-viewer__item">
             <CoursePreview 
                 :title="course.name"  
-                :cover="'data:' + course.cover_image_mime_type + ';base64,' + course.cover_image"
+                :cover="
+                    course.cover_image ? 'data:' + course.cover_image_mime_type + ';base64,' + course.cover_image :
+                    require('../assets/img/404.jpg')
+                "
                 :description="course.description"
                 :url="'/course-player/' + course.id"
                 :lessonsCount="course.lessons_count"
             >
+            </CoursePreview>
+            <div>
                 <BaseButton v-if="$store.getters['auth/authenticated']" class="button" @click="$emit('enroll', course.id)">Enroll</BaseButton>
                 <BaseButton v-else @click="redirectToLogin" class="button">Login to view course</BaseButton>
                 <BaseButton @click="watchCourse(course.id)" class="button">Watch Course</BaseButton>
-            </CoursePreview>
+            </div>
         </div>  
     </div>
 </template>
@@ -49,6 +54,9 @@ export default {
 
     .course-viewer__item {
         padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
     @media only screen and (max-width: 500px) {

@@ -17,34 +17,23 @@ export default {
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    border-bottom: 2px solid #38bb8e;
-    width: 100%;
-    background-color: #38bb8e;
-
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
     border-bottom: none;
     width: 100%;
     background-color: #38bb8e;
+    padding: .5rem;
 
     &__img {
-        width: 100px;
-        height: 100px;
-        flex-shrink: 0;
-        padding: .5rem;
-
-        width: 100px;
-        height: 100px;
+        width: 64px;
+        height: 64px;
         flex-shrink: 0;
         padding: 0;
+        margin-right: .5rem;
+        border-radius: 100%;
     }
 
     &__title {
         font-size: 1rem;
-        margin-top: 0.5rem;
         color: white;
-        padding: .25rem;
     }
 }
 </style>
