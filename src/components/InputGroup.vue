@@ -44,7 +44,7 @@ export default {
     &__input {
         color: #333;
         padding: .4rem;
-        border-width: 0 0 1px 0;
+        border-width: 0 0 2px 0;
         margin-bottom: 1rem;
         font-size:  1em;
         letter-spacing: .02rem;

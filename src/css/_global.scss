@@ -1,7 +1,13 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url('assets/fonts/RobotoRegular.ttf') format('truetype') font-weight-normal,
+       url('assets/fonts/RobotoBold.ttf') format('truetype') font-weight-bold,
+}
 
 @font-face {
   font-family: 'OpenSans';
-  src: url('assets/fonts/OpenSans-Bold.ttf') format('truetype');
+  src: url('assets/fonts/OpenSansRegular.ttf') format('truetype') font-weight-normal,
+       url('assets/fonts/OpenSansBold.ttf') format('truetype') font-weight-bold,
 }
 
 * {
@@ -10,14 +16,16 @@
 
 html, body {
     font-size: 20px;
-    letter-spacing: 0.02rem;
     font-family: OpenSans, Helvetica, Arial;
-    line-height: 1.25rem;
     color: #444;
+    line-height: 1.05rem;
 }
+
+
 
 h1, h2, h3, h4, h5, h6 {
 	color: #222;
+  line-height: 1.25rem;
 }
 
 h1 {
@@ -98,6 +106,14 @@ h2 {
 
 .mb-2rem {
 	margin-bottom: 2rem;
+}
+
+.ml-p5rem {
+  margin-left: .5rem;
+}
+
+.ml-p25rem {
+  margin-left: .25rem;
 }
 
 .mr-p5rem {
