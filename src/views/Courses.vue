@@ -74,7 +74,7 @@ export default {
                 this.paginator.lastPage = response.data.meta.last_page;
             }
             catch (error) {
-                console.log(error);
+                console.log([error]);
             }
         },
 

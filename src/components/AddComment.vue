@@ -2,7 +2,7 @@
 <div class="add-comment">
     <div class="add-comment__label">Add Comment</div>
     <div class="add-comment__content">
-        <img class="add-comment__avatar" src="@/assets/img/cover-placeholder.jpg" width="32px">
+        <img class="add-comment__avatar" src="@/assets/img/avatar-placeholder.png" width="32px">
         <form class="add-comment__form" @submit.prevent="submit">
             <input class="add-comment__input" ref="input" type="text" name="newComment" v-model="newComment">
         </form>

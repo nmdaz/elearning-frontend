@@ -19,9 +19,9 @@
                     :url="'/mycourses/course/' + course.id"
                     :lessonsCount="course.lessons_count"
                 >
-
-                    <BaseButton class="mb-p5rem" @click="editCourse(course.id)">Edit Course</BaseButton>
-                    <BaseButton @click="deleteCourse(course.id)">Delete</BaseButton>
+                    <BaseButton class="button mb-p5rem" @click="watchCourse(course.id)">Watch Course</BaseButton>
+                    <BaseButton class="button mb-p5rem" @click="editCourse(course.id)">Edit Course</BaseButton>
+                    <BaseButton class="button" @click="deleteCourse(course.id)">Delete</BaseButton>
                 </CoursePreview>
             </div>
         </div>
@@ -81,6 +81,9 @@ export default {
         },
         createCourse() {
             this.$router.push('/create-course');
+        },
+        watchCourse(courseId) {
+            this.$router.push('/course-player/' + courseId);
         }
     }
 }
@@ -104,6 +107,10 @@ export default {
     .flex__child {
         flex-basis: 300px;
     }
+}
+
+.button {
+    width: 100%;
 }
     
 </style>

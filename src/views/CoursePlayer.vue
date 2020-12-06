@@ -9,7 +9,7 @@
         <div v-if="showSidebar" class="sidebar" ref="sidebar">
 
             <HeaderGroup 
-                :src="'data:' + course.cover_image_mime_type + ';base64,' + course.cover_image" 
+                :src="course.cover_image ? 'data:' + course.cover_image_mime_type + ';base64,' + course.cover_image : require('../assets/img/404.jpg')"
                 :title="course.name" 
             />
 
@@ -64,7 +64,7 @@
                 :ref="'commentItem' + comment.id"
                 :author="comment.user_name"
                 :date="comment.created_at"
-                :cover="require('@/assets/img/cover-placeholder.jpg')"
+                :cover="require('@/assets/img/avatar-placeholder.png')"
                 :content="comment.body"
                 
             >

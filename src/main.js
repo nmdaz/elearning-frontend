@@ -3,16 +3,17 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import axios from 'axios'
-
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { 
-	faBars, faPlay, faBookReader, faArrowCircleRight, 
-	faChevronDown, faChevronUp, faChevronLeft, 
-	faChevronRight, faList, faCircle ,
-	faHeart, faAngry, faQuoteLeft, faQuoteRight, 
-	faEdit, faSave, faTrash, faDownload, faTrashAlt, faAngleRight
-} from '@fortawesome/free-solid-svg-icons'
+import { faCopyright } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+import { faPhp, faLaravel, faJs, faHtml5, faCss3, faVuejs, faSass, faFacebookSquare, faGithub } from '@fortawesome/free-brands-svg-icons'
+
+import { 
+	faBars, faPlay, faBookReader, faArrowCircleRight, faChevronDown, faChevronUp, faChevronLeft, 
+	faChevronRight, faList, faCircle, faHeart, faAngry, faQuoteLeft, faQuoteRight, faEdit, faSave, 
+	faTrash, faDownload, faTrashAlt, faAngleRight, faDatabase, faEnvelope
+} from '@fortawesome/free-solid-svg-icons'
 
 library.add (
 	faBars, 
@@ -34,7 +35,19 @@ library.add (
 	faTrash,
 	faDownload,
 	faTrashAlt,
-	faAngleRight
+	faAngleRight,
+	faCopyright,
+	faPhp,
+	faLaravel,
+	faDatabase, 
+	faHtml5, 
+	faCss3, 
+	faVuejs, 
+	faSass,
+	faJs,
+	faEnvelope,
+	faFacebookSquare,
+	faGithub
 )
  
 Vue.component('font-awesome-icon', FontAwesomeIcon)

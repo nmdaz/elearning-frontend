@@ -26,9 +26,19 @@ export default {
 }
 
 .c-lesson-header {
-    margin-bottom: .2rem;
     display: flex;
     align-items: center;
+    padding-bottom: .5rem;
+    margin-bottom: .5rem;
+
+    &:not(:last-child) {
+        border-bottom: 1px solid #e8e3e3;
+    }
+
+    &:first-child {
+        border-top: 1px solid #e8e3e3;
+        padding-top: .5rem;
+    }
 
     &__counter {
         padding: 0.25rem;

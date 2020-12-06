@@ -79,6 +79,7 @@ export default {
     align-items: center;
     z-index: 100;
     border-bottom: 1px solid #e2dfdf;
+    font-weight: bold;
 
     &__brand {
         font-size: 2rem;
