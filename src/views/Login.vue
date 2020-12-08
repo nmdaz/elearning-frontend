@@ -1,6 +1,6 @@
 <template>
     <div class="login-view">
-        <BasicForm class="login-view__form" @submit="submit" legend="Login">
+        <BasicForm class="login-view__form" @submit="submit">
             <InputGroup  
                 class="login-view__control-group"
                 v-model="email"
@@ -34,9 +34,9 @@
 
 <script>
 
-import BaseButton from '@/components/base/BaseButton';
+import BaseButton from '@/components/controls/BaseButton';
 import InputGroup from '@/components/InputGroup';
-import BasicForm from '@/components/BasicForm';
+import BasicForm from '@/components/controls/BaseForm';
 
 export default {
     components: { BaseButton, InputGroup, BasicForm },

@@ -38,16 +38,24 @@
 
         <div class="loading-course" v-if="loadingCourse">Loading Courses</div>
 
-        <EditCourseInfo 
-            v-else-if="course"
-            :course="course"
-            :errors="errors"
-            @new-cover-image="newCoverImage"
-            @new-name="newName"
-            @new-description="newDescription"
-            @new-attachment="newAttachment"
-            @download-attachment="downloadAttachment"
-        />
+        <template v-else-if="course">
+            <BaseButton 
+                class="edit-course__button edit-course__button--center" 
+                @click="$router.push('/course-player/' + course.id)"
+            >
+                Watch Lesson
+            </BaseButton> 
+
+            <EditCourseInfo 
+                :course="course"
+                :errors="errors"
+                @new-cover-image="newCoverImage"
+                @new-name="newName"
+                @new-description="newDescription"
+                @new-attachment="newAttachment"
+                @download-attachment="downloadAttachment"
+            />
+        </template>
 
         <div v-if="loadingSections">Loading Sections</div>
 
@@ -86,8 +94,8 @@
 import { mapState } from 'vuex';
 import PageLoader from '@/components/PageLoader';
 import InputGroup from '@/components/InputGroup';
-import BaseButton from '@/components/base/BaseButton';
-import BasicForm from '@/components/BasicForm';
+import BaseButton from '@/components/controls/BaseButton';
+import BasicForm from '@/components/controls/BaseForm';
 import ConfirmationBox from '@/components/ConfirmationBox';
 import EditCourseInfo from '@/components/EditCourseInfo';
 
@@ -366,6 +374,12 @@ export default {
     margin-right: .5rem;
     padding: .5rem .5rem;
     margin-top: .5rem;
+
+    &--center {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
 }
 
 .loading-course {

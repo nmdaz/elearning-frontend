@@ -2,15 +2,16 @@
     <PageLoader v-if="!authoredCourses" text="Loading Enrolled Courses" />
 
     <div v-else class="enrolled-courses">
-        <div class="align-center mt-1rem mb-1rem">
-            <BaseButton @click="createCourse">Create New Course</BaseButton>
-        </div>
-
+        
         <div class="align-center" v-if="authoredCourses.length == 0">
             You have no created course yet
         </div>
 
-        <div v-else class="flex">
+        <div class="align-center mt-1rem mb-1rem">
+            <BaseButton @click="createCourse">Create New Course</BaseButton>
+        </div>
+
+        <div v-if="authoredCourses.length != 0" class="flex">
             <div v-for="course in authoredCourses" :key="course.id" class="flex__child">
                 <CoursePreview
                     :title="course.name"  
@@ -30,7 +31,7 @@
 </template>
 
 <script>
-import BaseButton from '@/components/base/BaseButton';
+import BaseButton from '@/components/controls/BaseButton';
 import PageLoader from '@/components/PageLoader';
 import CoursePreview from '@/components/CoursePreview';
 import { mapState } from 'vuex';
@@ -70,7 +71,7 @@ export default {
             this.$router.push(`/edit-course/${courseId}`);
         },
         deleteCourse(courseId) {
-            window.axios.delete(`${this.apiUrl}/users/${this.user.id}/authored-courses/${courseId}`)
+            window.axios.delete(`${this.apiUrl}/courses/${courseId}`)
             .then(() => {
                 this.authoredCourses = null;
                 this.fetchAuthoredCourses();

@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import BaseButton from '@/components/base/BaseButton';
+import BaseButton from '@/components/controls/BaseButton';
 import ButtonLink from '@/components/ButtonLink'
 import PageLoader from '@/components/PageLoader';
 import CoursePreview from '@/components/CoursePreview';

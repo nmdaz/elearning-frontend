@@ -27,9 +27,9 @@
 </template>
 
 <script>
-import BaseButton from '@/components/base/BaseButton';
+import BaseButton from '@/components/controls/BaseButton';
 import InputGroup from '@/components/InputGroup';  
-import BasicForm from '@/components/BasicForm';
+import BasicForm from '@/components/controls/BaseForm';
 import MessageBox from '@/components/MessageBox';
 import CenterWrapper from '@/components/CenterWrapper';
 import PageLoader from '@/components/PageLoader';

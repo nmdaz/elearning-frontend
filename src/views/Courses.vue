@@ -4,7 +4,7 @@
     </PageLoader>
 
 
-    <FullPageText v-else-if="courses.length === 0" text="No Course Available" />
+    <FullHeight v-else-if="courses.length === 0" text="No Course Available" />
 
     <div v-else>
         <CoursePreviewList :courses="courses" @enroll="enroll" />
@@ -33,13 +33,13 @@
 <script>
 import PageLoader from '@/components/PageLoader.vue';
 import CoursePreviewList from '@/components/CoursePreviewList';
-import FullPageText from '@/components/FullPageText';
+import FullHeight from '@/components/FullHeight';
 import { mapState } from 'vuex';
 import { addLessonCountToCourses } from '../includes/Helper';
 
 export default {
     name: 'Courses',
-    components: { CoursePreviewList, PageLoader, FullPageText },
+    components: { CoursePreviewList, PageLoader, FullHeight },
     data() {
         return {
             courses: null,

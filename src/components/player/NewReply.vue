@@ -7,14 +7,14 @@
         </form>
     </div>
     <div class="add-comment__controls">
-        <Button class="add-comment__button" text="Cancel" @click="$emit('cancel')" />
-        <Button class="add-comment__button" text="Comment" @click="$emit('submit', newComment)" />
+        <BaseButton class="add-comment__button" text="Cancel" @click="$emit('cancel')" />
+        <BaseButton class="add-comment__button" text="Comment" @click="$emit('submit', newComment)" />
     </div>
 </div>
 </template>
 
 <script>
-import Button from '@/components/Button';
+import BaseButton from '@/components/controls/BaseButton';
 
 export default {
     name: 'NewReply',
@@ -24,7 +24,7 @@ export default {
         }
     },
     components: {
-        Button
+        BaseButton
     },
     methods: {
         submit() {

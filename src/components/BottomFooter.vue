@@ -8,7 +8,7 @@
 				</div>
 			</div>
 
-			<div class="c-big-footer__section">
+			<div class="c-big-footer__section c-big-footer__section--duo">
 				<div class="c-big-footer__content">
 					<div class="c-big-footer__title ml-p25rem">Frontend</div>
 					<p class="c-big-footer__item">
@@ -26,7 +26,7 @@
 				</div>
 			</div>
 
-			<div class="c-big-footer__section">
+			<div class="c-big-footer__section c-big-footer__section--duo">
 				<div class="c-big-footer__content">
 					<div class="c-big-footer__title ml-p25rem">Backend</div>
 					<p class="c-big-footer__item">
@@ -155,10 +155,10 @@ export default {
 
 		&__content {
 			width: 320px;
-			margin-left: 2rem;
+			margin-left:1rem;
 		}
 
-		&__section:nth-child(2), &__section:nth-child(3) {
+		&__section--duo {
 			flex-basis: 50%;
 
 			.c-big-footer__content {

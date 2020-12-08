@@ -2,7 +2,7 @@
 
 <PageLoader v-if="!course" text="Please wait white page is loading" />
 
-<div v-else-if="!currentLesson" class="no-lesson"> This course has no lesson</div>
+<FullHeight v-else-if="!currentLesson" class="no-lesson" text="This course has no lesson" />
 
 <div v-else class="l-flex">
     <SlideFade>
@@ -59,7 +59,7 @@
             />
 
             <CommentItem 
-                v-for="comment in currentLesson.comments" 
+                v-for="comment in comments" 
                 :key="comment.id"
                 :ref="'commentItem' + comment.id"
                 :author="comment.user_name"
@@ -94,7 +94,7 @@
                     v-for="reply in comment.replies" 
                     class="course-player__reply-item" 
                     :key="reply.id"
-                    :avatar="require('@/assets/img/cover-placeholder.jpg')"
+                    :avatar="require('@/assets/img/avatar-placeholder.png')"
                     :author="reply.user.name"
                     :date="reply.created_at"
                     :content="reply.body"
@@ -119,6 +119,7 @@ import LessonControls from '@/components/player/LessonControls';
 import NewReply from '@/components/player/NewReply';
 import ReplyItem from '@/components/player/ReplyItem';
 import LikeDislike from '@/components/player/LikeDislike';
+import FullHeight from '@/components/FullHeight';
 
 import { mapState, mapGetters } from 'vuex';
 
@@ -136,7 +137,8 @@ export default {
         LessonControls,
         NewReply,
         ReplyItem,
-        LikeDislike
+        LikeDislike,
+        FullHeight
     },
     data() {
         return {
@@ -146,7 +148,8 @@ export default {
             currentSection: null,
             showSidebar: true,
             showNewReply: false,
-            newReplyComment: null
+            newReplyComment: null,
+            comments: null
         }
     },
     computed: {
@@ -168,7 +171,9 @@ export default {
 
             this.$store.state.navbar.$on('toggleMenu', () => {
                 this.showSidebar = !this.showSidebar;
-            })   
+            })
+
+            await this.fetchComments();
         }         
     },
     updated() {
@@ -192,11 +197,22 @@ export default {
                 const url = `${this.apiUrl}/lessons/${this.currentLesson.id}/comments`;
                 await window.axios.post(url, { body: newComment });
 
-                this.fetchCourses();
+                this.fetchComments();
             }
             catch (error) {
                 console.log(error);
             }    
+        },
+
+        async fetchComments() {
+            try {
+                const url = `${this.apiUrl}/lessons/${this.currentLesson.id}/comments`;
+                const response = await window.axios.get(url);
+
+                this.comments = response.data.comments;
+            } catch (error) {
+                console.log(error);
+            }
         },
 
         async fetchCourses() {
@@ -244,7 +260,7 @@ export default {
         async likeComment(comment) {
             try {
                 await window.axios.post(`${this.apiUrl}/comments/${comment.id}/like`);
-                this.fetchCourses();
+                this.fetchComments();
             }
             catch (error) {
                 console.log(error);
@@ -254,7 +270,7 @@ export default {
         async dislikeComment(comment) {
             try {
                 await window.axios.post(`${this.apiUrl}/comments/${comment.id}/dislike`);
-                this.fetchCourses();
+                this.fetchComments();
             }
             catch (error) {
                 console.log(error);
@@ -301,7 +317,7 @@ export default {
             try {
                 await window.axios.post(url, { body: reply });
                 this.newReplyComment = null;
-                this.fetchCourses();
+                this.fetchComments();
             }
             catch (errors) {
                 console.log([errors]);

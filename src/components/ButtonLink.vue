@@ -16,7 +16,6 @@ export default {
 	border: none;
 	color: #1e311e;
 	letter-spacing: 0.12rem;
-	border-radius: 0.2rem;
 	font-size: .8rem;
 	cursor: pointer;
 	color: white;
