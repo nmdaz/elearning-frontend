@@ -3,8 +3,12 @@
         Loading Courses Please Wait...
     </PageLoader>
 
+<<<<<<< HEAD
 
     <FullHeight v-else-if="courses.length === 0" text="No Course Available" />
+=======
+    <FullPageText v-else-if="courses.length === 0" text="No Course Available" />
+>>>>>>> 339aa70e3233414930c9d0554896727f10200f32
 
     <div v-else>
         <CoursePreviewList :courses="courses" @enroll="enroll" />
@@ -27,19 +31,30 @@
             </button>
         </div>
     </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 339aa70e3233414930c9d0554896727f10200f32
 </template>
 
 <script>
 import PageLoader from '@/components/PageLoader.vue';
 import CoursePreviewList from '@/components/CoursePreviewList';
+<<<<<<< HEAD
 import FullHeight from '@/components/FullHeight';
+=======
+import FullPageText from '@/components/FullPageText';
+>>>>>>> 339aa70e3233414930c9d0554896727f10200f32
 import { mapState } from 'vuex';
 import { addLessonCountToCourses } from '../includes/Helper';
 
 export default {
     name: 'Courses',
+<<<<<<< HEAD
     components: { CoursePreviewList, PageLoader, FullHeight },
+=======
+    components: { CoursePreviewList, PageLoader, FullPageText },
+>>>>>>> 339aa70e3233414930c9d0554896727f10200f32
     data() {
         return {
             courses: null,

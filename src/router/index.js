@@ -59,13 +59,21 @@ const routes = [
     },
     {
         path: '/home',
+<<<<<<< HEAD
+=======
+        name: 'Home',
+>>>>>>> 339aa70e3233414930c9d0554896727f10200f32
         component: Home,
         meta: { requiresAuth: true },
         children: [
             {
                 path: '',
+<<<<<<< HEAD
                 component: EnrolledCourses,
                 name: 'Home',
+=======
+                component: EnrolledCourses
+>>>>>>> 339aa70e3233414930c9d0554896727f10200f32
             },
             {
                 path: 'enrolled-courses',

@@ -31,7 +31,11 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import BaseButton from '@/components/controls/BaseButton';
+=======
+import BaseButton from '@/components/base/BaseButton';
+>>>>>>> 339aa70e3233414930c9d0554896727f10200f32
 import ButtonLink from '@/components/ButtonLink'
 import PageLoader from '@/components/PageLoader';
 import CoursePreview from '@/components/CoursePreview';
@@ -108,7 +112,10 @@ export default {
 .no-enrolled {
     margin-top: 10%;
     text-align: center;
+<<<<<<< HEAD
     min-height: 90vh;
+=======
+>>>>>>> 339aa70e3233414930c9d0554896727f10200f32
 }
     
 </style>

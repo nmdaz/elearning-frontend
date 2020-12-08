@@ -2,7 +2,11 @@
 
 <PageLoader v-if="!course" text="Please wait white page is loading" />
 
+<<<<<<< HEAD
 <FullHeight v-else-if="!currentLesson" class="no-lesson" text="This course has no lesson" />
+=======
+<div v-else-if="!currentLesson" class="no-lesson"> This course has no lesson</div>
+>>>>>>> 339aa70e3233414930c9d0554896727f10200f32
 
 <div v-else class="l-flex">
     <SlideFade>
@@ -59,7 +63,11 @@
             />
 
             <CommentItem 
+<<<<<<< HEAD
                 v-for="comment in comments" 
+=======
+                v-for="comment in currentLesson.comments" 
+>>>>>>> 339aa70e3233414930c9d0554896727f10200f32
                 :key="comment.id"
                 :ref="'commentItem' + comment.id"
                 :author="comment.user_name"
@@ -94,7 +102,11 @@
                     v-for="reply in comment.replies" 
                     class="course-player__reply-item" 
                     :key="reply.id"
+<<<<<<< HEAD
                     :avatar="require('@/assets/img/avatar-placeholder.png')"
+=======
+                    :avatar="require('@/assets/img/cover-placeholder.jpg')"
+>>>>>>> 339aa70e3233414930c9d0554896727f10200f32
                     :author="reply.user.name"
                     :date="reply.created_at"
                     :content="reply.body"
@@ -119,7 +131,10 @@ import LessonControls from '@/components/player/LessonControls';
 import NewReply from '@/components/player/NewReply';
 import ReplyItem from '@/components/player/ReplyItem';
 import LikeDislike from '@/components/player/LikeDislike';
+<<<<<<< HEAD
 import FullHeight from '@/components/FullHeight';
+=======
+>>>>>>> 339aa70e3233414930c9d0554896727f10200f32
 
 import { mapState, mapGetters } from 'vuex';
 
@@ -137,8 +152,12 @@ export default {
         LessonControls,
         NewReply,
         ReplyItem,
+<<<<<<< HEAD
         LikeDislike,
         FullHeight
+=======
+        LikeDislike
+>>>>>>> 339aa70e3233414930c9d0554896727f10200f32
     },
     data() {
         return {
@@ -148,8 +167,12 @@ export default {
             currentSection: null,
             showSidebar: true,
             showNewReply: false,
+<<<<<<< HEAD
             newReplyComment: null,
             comments: null
+=======
+            newReplyComment: null
+>>>>>>> 339aa70e3233414930c9d0554896727f10200f32
         }
     },
     computed: {
@@ -171,9 +194,13 @@ export default {
 
             this.$store.state.navbar.$on('toggleMenu', () => {
                 this.showSidebar = !this.showSidebar;
+<<<<<<< HEAD
             })
 
             await this.fetchComments();
+=======
+            })   
+>>>>>>> 339aa70e3233414930c9d0554896727f10200f32
         }         
     },
     updated() {
@@ -197,13 +224,18 @@ export default {
                 const url = `${this.apiUrl}/lessons/${this.currentLesson.id}/comments`;
                 await window.axios.post(url, { body: newComment });
 
+<<<<<<< HEAD
                 this.fetchComments();
+=======
+                this.fetchCourses();
+>>>>>>> 339aa70e3233414930c9d0554896727f10200f32
             }
             catch (error) {
                 console.log(error);
             }    
         },
 
+<<<<<<< HEAD
         async fetchComments() {
             try {
                 const url = `${this.apiUrl}/lessons/${this.currentLesson.id}/comments`;
@@ -215,6 +247,8 @@ export default {
             }
         },
 
+=======
+>>>>>>> 339aa70e3233414930c9d0554896727f10200f32
         async fetchCourses() {
             try {
                 const url = `${this.apiUrl}/courses/${this.courseId}`;
@@ -260,7 +294,11 @@ export default {
         async likeComment(comment) {
             try {
                 await window.axios.post(`${this.apiUrl}/comments/${comment.id}/like`);
+<<<<<<< HEAD
                 this.fetchComments();
+=======
+                this.fetchCourses();
+>>>>>>> 339aa70e3233414930c9d0554896727f10200f32
             }
             catch (error) {
                 console.log(error);
@@ -270,7 +308,11 @@ export default {
         async dislikeComment(comment) {
             try {
                 await window.axios.post(`${this.apiUrl}/comments/${comment.id}/dislike`);
+<<<<<<< HEAD
                 this.fetchComments();
+=======
+                this.fetchCourses();
+>>>>>>> 339aa70e3233414930c9d0554896727f10200f32
             }
             catch (error) {
                 console.log(error);
@@ -317,7 +359,11 @@ export default {
             try {
                 await window.axios.post(url, { body: reply });
                 this.newReplyComment = null;
+<<<<<<< HEAD
                 this.fetchComments();
+=======
+                this.fetchCourses();
+>>>>>>> 339aa70e3233414930c9d0554896727f10200f32
             }
             catch (errors) {
                 console.log([errors]);

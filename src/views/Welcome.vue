@@ -16,7 +16,11 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import BaseButton from '@/components/controls/BaseButton';
+=======
+import BaseButton from '@/components/base/BaseButton';
+>>>>>>> 339aa70e3233414930c9d0554896727f10200f32
 
 export default {
     name: 'WelcomeView',
@@ -82,10 +86,13 @@ export default {
             font-size: 1.1rem;
             line-height: 1.6rem;
         }
+<<<<<<< HEAD
 
         &__text {
             font-size: .9rem;
         }
+=======
+>>>>>>> 339aa70e3233414930c9d0554896727f10200f32
     }
 }
 

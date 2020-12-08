@@ -6,6 +6,7 @@ import server from './server'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+<<<<<<< HEAD
 	state: { 
 		navbar: null 
 	},
@@ -19,6 +20,9 @@ export default new Vuex.Store({
 			return availableHeight;
 		}
 	},
+=======
+	state: { navbar: null },
+>>>>>>> 339aa70e3233414930c9d0554896727f10200f32
 	modules: {
 		auth,
 		server

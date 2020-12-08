@@ -92,7 +92,10 @@ export default {
     margin: auto;
     margin-top: 20%;
     letter-spacing: .15rem;
+<<<<<<< HEAD
     min-height: 90vh;
+=======
+>>>>>>> 339aa70e3233414930c9d0554896727f10200f32
     
 
     &__text {

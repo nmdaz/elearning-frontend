@@ -16,6 +16,10 @@ export default {
 	border: none;
 	color: #1e311e;
 	letter-spacing: 0.12rem;
+<<<<<<< HEAD
+=======
+	border-radius: 0.2rem;
+>>>>>>> 339aa70e3233414930c9d0554896727f10200f32
 	font-size: .8rem;
 	cursor: pointer;
 	color: white;
