@@ -1,9 +1,5 @@
 <template>
-<<<<<<< HEAD
     <PageLoader text="Loading Course" v-if="loading || loadingCourse" />
-=======
-    <PageLoader v-if="loading" />
->>>>>>> 339aa70e3233414930c9d0554896727f10200f32
 
     <ConfirmationBox 
         v-else-if="deleteSectionId"
@@ -40,7 +36,6 @@
 
     <div v-else class="edit-course">
 
-<<<<<<< HEAD
         <div class="loading-course" v-if="loadingCourse">Loading Courses</div>
 
         <template v-else-if="course">
@@ -48,7 +43,7 @@
                 class="edit-course__button edit-course__button--center" 
                 @click="$router.push('/course-player/' + course.id)"
             >
-                Watch Lesson
+                Watch Course
             </BaseButton> 
 
             <EditCourseInfo 
@@ -61,31 +56,13 @@
                 @download-attachment="downloadAttachment"
             />
         </template>
-=======
-        <div v-if="loadingCourse">Loading Courses</div>
-
-        <EditCourseInfo 
-            v-else-if="course"
-            :course="course"
-            :errors="errors"
-            @new-cover-image="newCoverImage"
-            @new-name="newName"
-            @new-description="newDescription"
-            @new-attachment="newAttachment"
-            @download-attachment="downloadAttachment"
-        />
->>>>>>> 339aa70e3233414930c9d0554896727f10200f32
 
         <div v-if="loadingSections">Loading Sections</div>
 
         <div v-else-if="course && sections" class="sections">
             <hr/>
 
-<<<<<<< HEAD
             <BaseButton class="mb-1rem" @click="addSection">Add Section</BaseButton>
-=======
-            <BaseButton @click="addSection">Add Section</BaseButton>
->>>>>>> 339aa70e3233414930c9d0554896727f10200f32
 
             <div v-if="sections.length === 0">No sections yet</div>
 
@@ -117,13 +94,8 @@
 import { mapState } from 'vuex';
 import PageLoader from '@/components/PageLoader';
 import InputGroup from '@/components/InputGroup';
-<<<<<<< HEAD
 import BaseButton from '@/components/controls/BaseButton';
 import BasicForm from '@/components/controls/BaseForm';
-=======
-import BaseButton from '@/components/base/BaseButton';
-import BasicForm from '@/components/BasicForm';
->>>>>>> 339aa70e3233414930c9d0554896727f10200f32
 import ConfirmationBox from '@/components/ConfirmationBox';
 import EditCourseInfo from '@/components/EditCourseInfo';
 
@@ -231,11 +203,7 @@ export default {
                 this.course.attachment = 'true';
             }
             catch (error) {
-<<<<<<< HEAD
                 console.log([error]);
-=======
-                console.log(error);
->>>>>>> 339aa70e3233414930c9d0554896727f10200f32
             }
         },
 
@@ -274,31 +242,19 @@ export default {
         },
 
         async saveSection() {
-<<<<<<< HEAD
             this.loadingSections = true;
-=======
-            this.loading = true;
->>>>>>> 339aa70e3233414930c9d0554896727f10200f32
 
             try {
                 await window.axios.post(`${this.apiUrl}/courses/${this.courseId}/sections`, {
                     name: this.newSection.name
                 });
                 
-<<<<<<< HEAD
                 this.loadingSections = false;
-=======
-                this.loading = false;
->>>>>>> 339aa70e3233414930c9d0554896727f10200f32
                 this.newSection = null;
                 this.fetchSections();
             }
             catch (error) {
-<<<<<<< HEAD
                 this.loadingSections = false;
-=======
-                this.loading = false;
->>>>>>> 339aa70e3233414930c9d0554896727f10200f32
                 this.newSection.errors = error.response.data.errors;
             }
         },
@@ -363,10 +319,7 @@ export default {
 <style lang="scss" scoped>
 .edit-course {
     margin: 1rem;
-<<<<<<< HEAD
     min-height: 90vh;
-=======
->>>>>>> 339aa70e3233414930c9d0554896727f10200f32
 
     &__confirmation-box {
         margin: 1rem auto 1rem auto;
@@ -420,7 +373,6 @@ export default {
     font-size: .6rem;
     margin-right: .5rem;
     padding: .5rem .5rem;
-<<<<<<< HEAD
     margin-top: .5rem;
 
     &--center {
@@ -433,11 +385,6 @@ export default {
 .loading-course {
     text-align: center;
 }
-=======
-}
-
-
->>>>>>> 339aa70e3233414930c9d0554896727f10200f32
 
 
 </style>

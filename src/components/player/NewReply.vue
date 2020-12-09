@@ -7,23 +7,14 @@
         </form>
     </div>
     <div class="add-comment__controls">
-<<<<<<< HEAD
         <BaseButton class="add-comment__button" text="Cancel" @click="$emit('cancel')" />
         <BaseButton class="add-comment__button" text="Comment" @click="$emit('submit', newComment)" />
-=======
-        <Button class="add-comment__button" text="Cancel" @click="$emit('cancel')" />
-        <Button class="add-comment__button" text="Comment" @click="$emit('submit', newComment)" />
->>>>>>> 339aa70e3233414930c9d0554896727f10200f32
     </div>
 </div>
 </template>
 
 <script>
-<<<<<<< HEAD
 import BaseButton from '@/components/controls/BaseButton';
-=======
-import Button from '@/components/Button';
->>>>>>> 339aa70e3233414930c9d0554896727f10200f32
 
 export default {
     name: 'NewReply',
@@ -33,11 +24,7 @@ export default {
         }
     },
     components: {
-<<<<<<< HEAD
         BaseButton
-=======
-        Button
->>>>>>> 339aa70e3233414930c9d0554896727f10200f32
     },
     methods: {
         submit() {

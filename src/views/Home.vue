@@ -25,11 +25,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-<<<<<<< HEAD
 @import '@/css/_mixin.scss';
-
-=======
->>>>>>> 339aa70e3233414930c9d0554896727f10200f32
 .home {
     font-size: .7rem;
 
@@ -52,12 +48,8 @@ export default {
         margin-right: 1rem;
         margin-left: .25rem;
     }
-<<<<<<< HEAD
-
     @include for-phone-only {
         font-size: .6rem;
     }
-=======
->>>>>>> 339aa70e3233414930c9d0554896727f10200f32
 }
 </style>

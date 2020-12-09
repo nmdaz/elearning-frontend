@@ -1,11 +1,7 @@
 <template>
 <div class="add-comment">
     <div class="add-comment__content">
-<<<<<<< HEAD
         <img class="add-comment__avatar" src="@/assets/img/avatar-placeholder.png" width="32px">
-=======
-        <img class="add-comment__avatar" src="@/assets/img/cover-placeholder.jpg" width="32px">
->>>>>>> 339aa70e3233414930c9d0554896727f10200f32
         <form class="add-comment__form" @submit.prevent="submit">
             <input class="add-comment__input" type="text" name="newComment" v-model="newComment">
         </form>

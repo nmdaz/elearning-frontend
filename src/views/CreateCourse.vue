@@ -17,11 +17,7 @@
             />
 
             <InputGroup  
-<<<<<<< HEAD
                 label="Cover Image (optional)"
-=======
-                label="Cover or Preview Image"
->>>>>>> 339aa70e3233414930c9d0554896727f10200f32
                 type="file"
                 @select="selectCoverImage"
                 :error="courseErrors && courseErrors.cover_image ? courseErrors.cover_image[0] : ''"
@@ -34,24 +30,15 @@
                 :error="courseErrors && courseErrors.attachment ? courseErrors.attachment[0] : ''"
             />
 
-<<<<<<< HEAD
             <BaseButton class="create-course__button" type="submit">Save Course</BaseButton>
-=======
-            <BaseButton class="create-course__button" type="submit" @click="save">Save Course</BaseButton>
->>>>>>> 339aa70e3233414930c9d0554896727f10200f32
         </BasicForm>
     </div>
 </template>
 
 <script>
 import InputGroup from '@/components/InputGroup';
-<<<<<<< HEAD
 import BaseButton from '@/components/controls/BaseButton';
 import BasicForm from '@/components/controls/BaseForm';
-=======
-import BaseButton from '@/components/base/BaseButton';
-import BasicForm from '@/components/BasicForm';
->>>>>>> 339aa70e3233414930c9d0554896727f10200f32
 import PageLoader from '@/components/PageLoader';
 import { mapState } from 'vuex';
 

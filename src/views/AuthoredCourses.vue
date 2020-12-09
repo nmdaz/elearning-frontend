@@ -2,27 +2,17 @@
     <PageLoader v-if="!authoredCourses" text="Loading Enrolled Courses" />
 
     <div v-else class="enrolled-courses">
-<<<<<<< HEAD
         
         <div class="align-center" v-if="authoredCourses.length == 0">
             You have no created course yet
         </div>
 
-=======
->>>>>>> 339aa70e3233414930c9d0554896727f10200f32
         <div class="align-center mt-1rem mb-1rem">
             <BaseButton @click="createCourse">Create New Course</BaseButton>
         </div>
 
-<<<<<<< HEAD
         <div v-if="authoredCourses.length != 0" class="flex">
-=======
-        <div class="align-center" v-if="authoredCourses.length == 0">
-            You have no created course yet
-        </div>
 
-        <div v-else class="flex">
->>>>>>> 339aa70e3233414930c9d0554896727f10200f32
             <div v-for="course in authoredCourses" :key="course.id" class="flex__child">
                 <CoursePreview
                     :title="course.name"  
@@ -42,11 +32,7 @@
 </template>
 
 <script>
-<<<<<<< HEAD
 import BaseButton from '@/components/controls/BaseButton';
-=======
-import BaseButton from '@/components/base/BaseButton';
->>>>>>> 339aa70e3233414930c9d0554896727f10200f32
 import PageLoader from '@/components/PageLoader';
 import CoursePreview from '@/components/CoursePreview';
 import { mapState } from 'vuex';
@@ -86,11 +72,7 @@ export default {
             this.$router.push(`/edit-course/${courseId}`);
         },
         deleteCourse(courseId) {
-<<<<<<< HEAD
             window.axios.delete(`${this.apiUrl}/courses/${courseId}`)
-=======
-            window.axios.delete(`${this.apiUrl}/users/${this.user.id}/authored-courses/${courseId}`)
->>>>>>> 339aa70e3233414930c9d0554896727f10200f32
             .then(() => {
                 this.authoredCourses = null;
                 this.fetchAuthoredCourses();
@@ -111,13 +93,10 @@ export default {
 
 <style lang="scss" scoped>
 
-<<<<<<< HEAD
 .enrolled-courses {
     min-height: 90vh;
 }
 
-=======
->>>>>>> 339aa70e3233414930c9d0554896727f10200f32
 .title {
     font-size: 1.5rem;
     margin-top: 2rem;
