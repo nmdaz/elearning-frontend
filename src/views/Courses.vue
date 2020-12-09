@@ -11,6 +11,7 @@
 
         <div class="paginator-controls">
             <button 
+                v-if="paginator.currentPage != 1"
                 class="mr-p5rem"
                 @click="previousPage" 
                 :disabled="paginator.currentPage == 1"
@@ -19,6 +20,7 @@
             </button>
 
             <button 
+                v-if="paginator.currentPage != paginator.lastPage"
                 class="mb-1rem" 
                 @click="nextPage" 
                 :disabled="paginator.currentPage == paginator.lastPage"
