@@ -46,7 +46,9 @@
 
         <LessonControls :name="currentLesson.name"/>
 
-        <div class="pd-1rem">
+        <div class="loading-comments" v-if="loadingComments">Loading Comments</div>
+
+        <div v-else class="pd-1rem">
             <AddComment class="mb-1rem" v-if="authenticated" @submit="addComment" />
 
             <TextLink 
@@ -147,10 +149,11 @@ export default {
             course: null,
             currentLesson: null,
             currentSection: null,
-            showSidebar: true,
+            showSidebar: false,
             showNewReply: false,
             newReplyComment: null,
-            comments: null
+            comments: null,
+            loadingComments: false
         }
     },
     computed: {
@@ -168,7 +171,7 @@ export default {
         await this.fetchCourses();
 
         if (this.currentLesson) {            
-            this.$store.state.navbar.showLeftToggler = true;
+            this.$store.state.navbar.showLeftToggler = false;
 
             this.$store.state.navbar.$on('toggleMenu', () => {
                 this.showSidebar = !this.showSidebar;
@@ -207,12 +210,16 @@ export default {
 
         async fetchComments() {
             try {
+                this.loadingComments = true;
+
                 const url = `${this.apiUrl}/lessons/${this.currentLesson.id}/comments`;
                 const response = await window.axios.get(url);
-
                 this.comments = response.data.comments;
+
+                this.loadingComments = false;
             } catch (error) {
-                console.log(error);
+                console.log([error]);
+                this.loadingComments = false;
             }
         },
 
@@ -396,6 +403,11 @@ export default {
 .no-lesson {
     text-align: center;
     margin-top: 10%;
+}
+
+.loading-comments {
+    padding: 2rem;
+    text-align: center;
 }
 
 </style>
