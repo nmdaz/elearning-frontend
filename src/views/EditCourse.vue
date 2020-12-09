@@ -74,17 +74,17 @@
                 <BaseButton class="edit-course__button"  @click="deleteSectionConfirmation(section.id)"> Delete Section</BaseButton>
                 <BaseButton class="edit-course__button"  @click="addLesson(section.id)"> Add Lesson</BaseButton>
 
-                <div class="lessons" v-if="section.lessons && section.lessons.length !== 0">
-                    <div v-for="(lesson, index) in section.lessons" :key="lesson.id">
+                <template v-if="section.lessons && section.lessons.length !== 0">
+                    <div class="lessons" v-for="(lesson, index) in section.lessons" :key="lesson.id">
                         <hr v-if="index > 0"/>
-                        <div>
-                            Name: {{ lesson.name }}
+                        <div class="lessons__item">
+                            Name: <span class="lessons__value"> {{ lesson.name }} </span>
                         </div>
-                        <div>
-                            Video URL: {{ lesson.video_url }}
+                        <div class="lessons__item">
+                            Video URL: <span class="lessons__value"> {{ lesson.video_url }} </span>
                         </div>
                     </div>
-                </div>
+                </template>
             </div>
         </div>
     </div>
@@ -357,6 +357,13 @@ export default {
     border: 1px solid #DDD;
     padding: 1rem;
     margin: .5rem;
+    font-size: .8rem;
+
+    &__item {
+        overflow: scroll;
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
 }
 
 .section {
