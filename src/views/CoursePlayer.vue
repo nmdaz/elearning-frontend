@@ -44,7 +44,13 @@
             <iframe width="100%" height="100%" :src="'//www.youtube.com/embed/' + currentLesson.video_id" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
 
-        <LessonControls :name="currentLesson.name"/>
+        <LessonControls
+             @next="nextLesson" 
+             @previous="previousLesson" 
+             :name="currentLesson.name"
+             :current="currentLesson.counter"
+             :max="lessonCount"
+        />
 
         <div class="loading-comments" v-if="loadingComments">Loading Comments</div>
 
@@ -196,6 +202,34 @@ export default {
             this.currentLesson = lesson;
         },
 
+        nextLesson() {
+            if (!this.currentLesson) return;
+            if (this.currentLesson.counter >= this.lessonCount) return;
+
+            this.course.sections.forEach( (section) => {
+                section.lessons.forEach( (lesson) => {
+                    if (this.currentLesson.counter + 1 == lesson.counter) {
+                        this.currentLesson = lesson;
+                        return;
+                    }
+                })
+            })
+        },
+
+        previousLesson() {
+            if (!this.currentLesson) return;
+            if (this.currentLesson.counter <= 1) return;
+
+            this.course.sections.forEach( (section) => {
+                section.lessons.forEach( (lesson) => {
+                    if (this.currentLesson.counter - 1 == lesson.counter) {
+                        this.currentLesson = lesson;
+                        return;
+                    }
+                })
+            })
+        },
+
        async addComment(newComment) {
             try {
                 const url = `${this.apiUrl}/lessons/${this.currentLesson.id}/comments`;
@@ -245,7 +279,6 @@ export default {
                 }
                 else {
                     this.currentLesson = firstLesson;
-                    console.log(this.currentLesson);
                     this.addCounterToLessons(this.course);
                 }
             }
@@ -263,6 +296,8 @@ export default {
                     lesson.counter = lessonCounter += 1;
                 })
             })
+
+            this.lessonCount = lessonCounter;
         },
 
         async likeComment(comment) {
