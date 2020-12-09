@@ -171,7 +171,7 @@ export default {
         await this.fetchCourses();
 
         if (this.currentLesson) {            
-            this.$store.state.navbar.showLeftToggler = false;
+            this.$store.state.navbar.showLeftToggler = true;
 
             this.$store.state.navbar.$on('toggleMenu', () => {
                 this.showSidebar = !this.showSidebar;

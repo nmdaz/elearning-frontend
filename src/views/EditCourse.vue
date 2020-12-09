@@ -39,12 +39,21 @@
         <div class="loading-course" v-if="loadingCourse">Loading Courses</div>
 
         <template v-else-if="course">
-            <BaseButton 
-                class="edit-course__button edit-course__button--center" 
-                @click="$router.push('/course-player/' + course.id)"
-            >
-                Watch Course
-            </BaseButton> 
+            <div class="mx-auto">
+                <BaseButton 
+                    class="edit-course__button edit-course__button--inline" 
+                    @click="$router.push('/course-player/' + course.id)"
+                >
+                    Watch Course
+                </BaseButton> 
+
+                <BaseButton 
+                    class="edit-course__button edit-course__button--inline" 
+                    @click="publishCourse(course)"
+                >
+                    {{ course.published ? 'Unpublish' : 'Publish' }}
+                </BaseButton> 
+            </div>
 
             <EditCourseInfo 
                 :course="course"
@@ -75,14 +84,14 @@
                 <BaseButton class="edit-course__button"  @click="addLesson(section.id)"> Add Lesson</BaseButton>
 
                 <template v-if="section.lessons && section.lessons.length !== 0">
-                    <div class="lessons" v-for="(lesson, index) in section.lessons" :key="lesson.id">
-                        <hr v-if="index > 0"/>
+                    <div class="lessons" v-for="lesson in section.lessons" :key="lesson.id">
                         <div class="lessons__item">
                             Name: <span class="lessons__value"> {{ lesson.name }} </span>
                         </div>
                         <div class="lessons__item">
                             Video URL: <span class="lessons__value"> {{ lesson.video_url }} </span>
                         </div>
+                        <font-awesome-icon class="lesson__icon" @click="deleteLesson(section, lesson)" :icon="['fas', 'trash-alt']" />
                     </div>
                 </template>
             </div>
@@ -164,6 +173,21 @@ export default {
             catch (error) {
                 console.log([error.response.data]);
                 this.loadingSections = false;
+            }
+        },
+
+        async publishCourse(course) {
+            try {
+                if (course.published) {
+                    await window.axios.post(`${this.apiUrl}/courses/${this.courseId}/unpublish`);
+                    course.published = false;
+                } else {
+                    await window.axios.post(`${this.apiUrl}/courses/${this.courseId}/publish`);
+                    course.published = true;
+                }
+            }
+            catch (error) {
+                console.log(error);
             }
         },
 
@@ -296,6 +320,23 @@ export default {
             this.newLesson = null;
         },
 
+        async deleteLesson(section, lesson) {
+            this.loadingSections = true;
+
+            try {
+                let $url = `${this.apiUrl}/courses/${this.courseId}/sections/${section.id}/lessons/${lesson.id}`;
+                await window.axios.delete($url);
+                
+                this.loadingSections = false;
+                this.newLesson = null;
+                this.fetchSections();
+            }
+            catch (error) {
+                this.loadingSections = false;
+                console.log([error]);
+            }
+        },
+
         async selectEditCourseAttachment(file) {
             this.editCourseAttachmentValue = file;
         },
@@ -386,6 +427,12 @@ export default {
         margin-left: auto;
         margin-right: auto;
         display: block;
+    }
+
+    &--inline {
+        display: inline;
+        margin-right: 1rem;
+        border-radius: 2px;
     }
 }
 
