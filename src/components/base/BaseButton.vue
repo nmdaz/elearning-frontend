@@ -22,5 +22,6 @@ export default {
     color: white;
     font-family: Roboto;
     text-transform: uppercase;
+    border-radius: 2px;
 }
 </style>
