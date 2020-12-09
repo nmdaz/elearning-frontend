@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import BaseButton from '@/components/base/BaseButton';
+import BaseButton from '@/components/controls/BaseButton';
 
 export default {
     name: 'AddComment',

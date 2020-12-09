@@ -2,7 +2,8 @@
 
 <PageLoader v-if="!course" text="Please wait white page is loading" />
 
-<div v-else-if="!currentLesson" class="no-lesson"> This course has no lesson</div>
+<FullHeight v-else-if="!currentLesson" class="no-lesson" text="This course has no lesson" />
+
 
 <div v-else class="l-flex">
     <SlideFade>
@@ -45,7 +46,9 @@
 
         <LessonControls :name="currentLesson.name"/>
 
-        <div class="pd-1rem">
+        <div class="loading-comments" v-if="loadingComments">Loading Comments</div>
+
+        <div v-else class="pd-1rem">
             <AddComment class="mb-1rem" v-if="authenticated" @submit="addComment" />
 
             <TextLink 
@@ -59,7 +62,7 @@
             />
 
             <CommentItem 
-                v-for="comment in currentLesson.comments" 
+                v-for="comment in comments" 
                 :key="comment.id"
                 :ref="'commentItem' + comment.id"
                 :author="comment.user_name"
@@ -94,7 +97,7 @@
                     v-for="reply in comment.replies" 
                     class="course-player__reply-item" 
                     :key="reply.id"
-                    :avatar="require('@/assets/img/cover-placeholder.jpg')"
+                    :avatar="require('@/assets/img/avatar-placeholder.png')"
                     :author="reply.user.name"
                     :date="reply.created_at"
                     :content="reply.body"
@@ -119,6 +122,7 @@ import LessonControls from '@/components/player/LessonControls';
 import NewReply from '@/components/player/NewReply';
 import ReplyItem from '@/components/player/ReplyItem';
 import LikeDislike from '@/components/player/LikeDislike';
+import FullHeight from '@/components/FullHeight';
 
 import { mapState, mapGetters } from 'vuex';
 
@@ -136,7 +140,8 @@ export default {
         LessonControls,
         NewReply,
         ReplyItem,
-        LikeDislike
+        LikeDislike,
+        FullHeight
     },
     data() {
         return {
@@ -144,9 +149,11 @@ export default {
             course: null,
             currentLesson: null,
             currentSection: null,
-            showSidebar: true,
+            showSidebar: false,
             showNewReply: false,
-            newReplyComment: null
+            newReplyComment: null,
+            comments: null,
+            loadingComments: false
         }
     },
     computed: {
@@ -164,11 +171,13 @@ export default {
         await this.fetchCourses();
 
         if (this.currentLesson) {            
-            this.$store.state.navbar.showLeftToggler = true;
+            this.$store.state.navbar.showLeftToggler = false;
 
             this.$store.state.navbar.$on('toggleMenu', () => {
                 this.showSidebar = !this.showSidebar;
-            })   
+            })
+
+            await this.fetchComments();
         }         
     },
     updated() {
@@ -192,11 +201,26 @@ export default {
                 const url = `${this.apiUrl}/lessons/${this.currentLesson.id}/comments`;
                 await window.axios.post(url, { body: newComment });
 
-                this.fetchCourses();
+                this.fetchComments();
             }
             catch (error) {
                 console.log(error);
             }    
+        },
+
+        async fetchComments() {
+            try {
+                this.loadingComments = true;
+
+                const url = `${this.apiUrl}/lessons/${this.currentLesson.id}/comments`;
+                const response = await window.axios.get(url);
+                this.comments = response.data.comments;
+
+                this.loadingComments = false;
+            } catch (error) {
+                console.log([error]);
+                this.loadingComments = false;
+            }
         },
 
         async fetchCourses() {
@@ -244,7 +268,7 @@ export default {
         async likeComment(comment) {
             try {
                 await window.axios.post(`${this.apiUrl}/comments/${comment.id}/like`);
-                this.fetchCourses();
+                this.fetchComments();
             }
             catch (error) {
                 console.log(error);
@@ -254,7 +278,7 @@ export default {
         async dislikeComment(comment) {
             try {
                 await window.axios.post(`${this.apiUrl}/comments/${comment.id}/dislike`);
-                this.fetchCourses();
+                this.fetchComments();
             }
             catch (error) {
                 console.log(error);
@@ -301,7 +325,7 @@ export default {
             try {
                 await window.axios.post(url, { body: reply });
                 this.newReplyComment = null;
-                this.fetchCourses();
+                this.fetchComments();
             }
             catch (errors) {
                 console.log([errors]);
@@ -379,6 +403,11 @@ export default {
 .no-lesson {
     text-align: center;
     margin-top: 10%;
+}
+
+.loading-comments {
+    padding: 2rem;
+    text-align: center;
 }
 
 </style>

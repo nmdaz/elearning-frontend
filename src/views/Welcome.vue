@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import BaseButton from '@/components/base/BaseButton';
+import BaseButton from '@/components/controls/BaseButton';
 
 export default {
     name: 'WelcomeView',
@@ -81,6 +81,10 @@ export default {
         &__quote {
             font-size: 1.1rem;
             line-height: 1.6rem;
+        }
+        
+        &__text {
+            font-size: .9rem;
         }
     }
 }

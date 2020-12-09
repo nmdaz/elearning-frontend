@@ -59,13 +59,13 @@ const routes = [
     },
     {
         path: '/home',
-        name: 'Home',
         component: Home,
         meta: { requiresAuth: true },
         children: [
             {
                 path: '',
-                component: EnrolledCourses
+                component: EnrolledCourses,
+                name: 'Home',
             },
             {
                 path: 'enrolled-courses',

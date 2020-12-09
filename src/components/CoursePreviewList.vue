@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import BaseButton from '@/components/base/BaseButton';
+import BaseButton from '@/components/controls/BaseButton';
 import CoursePreview from '@/components/CoursePreview';
 
 export default {

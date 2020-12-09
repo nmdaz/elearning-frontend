@@ -1,6 +1,6 @@
 <template>
     <div class="register-view">
-        <BasicForm class="register-view__form" legend="Register an Account" @submit="register">
+        <BasicForm class="register-view__form" @submit="register">
             <InputGroup
                 class="register-view__input-group"
                 label="Name"
@@ -39,9 +39,9 @@
 </template>
 
 <script>
-import BaseButton from '@/components/base/BaseButton';
+import BaseButton from '@/components/controls/BaseButton';
 import InputGroup from '@/components/InputGroup';
-import BasicForm from '@/components/BasicForm';
+import BasicForm from '@/components/controls/BaseForm';
 
 export default {
     name: 'register',

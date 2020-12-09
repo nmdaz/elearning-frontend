@@ -92,6 +92,7 @@ export default {
     margin: auto;
     margin-top: 20%;
     letter-spacing: .15rem;
+    min-height: 90vh;
     
 
     &__text {

@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import BaseButton from '@/components/base/BaseButton';
+import BaseButton from '@/components/controls/BaseButton';
 import InputGroup from '@/components/InputGroup';   
 import { mapState } from 'vuex';
 

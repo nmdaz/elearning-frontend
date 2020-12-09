@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-	<NavigationBar class="header-block" />
-	<router-view/>
-	<BottomFooter />
+    <NavigationBar class="header-block" />
+    <router-view/>
+    <BottomFooter />
   </div>
 </template>
 
@@ -11,8 +11,10 @@ import NavigationBar from '@/components/NavigationBar.vue';
 import BottomFooter from '@/components/BottomFooter.vue';
 
 export default {
-	name: 'App',
-	components: { NavigationBar, BottomFooter }
+    name: 'App',
+    components: {
+        NavigationBar, BottomFooter
+    }
 }
 </script>
 

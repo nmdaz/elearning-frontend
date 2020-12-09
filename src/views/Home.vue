@@ -25,6 +25,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/css/_mixin.scss';
 .home {
     font-size: .7rem;
 
@@ -46,6 +47,9 @@ export default {
         white-space: nowrap;
         margin-right: 1rem;
         margin-left: .25rem;
+    }
+    @include for-phone-only {
+        font-size: .6rem;
     }
 }
 </style>
