@@ -52,12 +52,6 @@ const routes = [
         component: Courses
     },
     {
-        path: '/enrolled-courses',
-        name: 'EnrolledCourses',
-        component: EnrolledCourses,
-        meta: { requiresAuth: true }
-    },
-    {
         path: '/home',
         component: Home,
         meta: { requiresAuth: true },
@@ -73,15 +67,10 @@ const routes = [
             },
             {
                 path: 'authored-courses',
-                component: AuthoredCourses
+                component: AuthoredCourses,
+                name: 'AuthoredCourses'
             }
         ]
-    },
-    {
-        path: '/authored-courses',
-        name: 'AuthoredCourses',
-        component: AuthoredCourses,
-        meta: { requiresAuth: true }
     },
     {
         path: '/course-player/:courseId',

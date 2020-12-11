@@ -12,7 +12,7 @@ import { faPhp, faLaravel, faJs, faHtml5, faCss3, faVuejs, faSass, faFacebookSqu
 import { 
 	faBars, faPlay, faBookReader, faArrowCircleRight, faChevronDown, faChevronUp, faChevronLeft, 
 	faChevronRight, faList, faCircle, faHeart, faAngry, faQuoteLeft, faQuoteRight, faEdit, faSave, 
-	faTrash, faDownload, faTrashAlt, faAngleRight, faDatabase, faEnvelope
+	faTrash, faDownload, faTrashAlt, faAngleRight, faDatabase, faEnvelope, faUser
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add (
@@ -47,7 +47,8 @@ library.add (
 	faJs,
 	faEnvelope,
 	faFacebookSquare,
-	faGithub
+	faGithub,
+	faUser
 )
  
 Vue.component('font-awesome-icon', FontAwesomeIcon)
