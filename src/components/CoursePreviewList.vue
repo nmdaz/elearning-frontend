@@ -14,7 +14,7 @@
             </CoursePreview>
             <div>
                 <BaseButton v-if="$store.getters['auth/authenticated']" class="button" @click="$emit('enroll', course.id)">Enroll</BaseButton>
-                <BaseButton v-else @click="redirectToLogin" class="button">Login to view course</BaseButton>
+                <BaseButton v-else @click="redirectToLogin" class="button">Login to Enroll</BaseButton>
                 <BaseButton @click="watchCourse(course.id)" class="button">Watch Course</BaseButton>
             </div>
         </div>  
